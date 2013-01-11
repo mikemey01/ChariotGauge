@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pressureUnit">
+        <item name="PSI">PSI</item>
+        <item name="KPA">KPA</item>
+    </string-array>
+    
+    <string-array name="pressureUnitValues">
+        <item name="PSI">PSI</item>
+        <item name="KPA">KPA</item>
+    </string-array>
+    
+        
+        
+    <string-array name="tempUnit">
+        <item name="celsius">Celsius</item>
+        <item name="fahrenheit">Fahrenheit</item>
+    </string-array>
+    
+    <string-array name="tempUnitValues">
+        <item name="celsius">Celsius</item>
+        <item name="fahrenheit">Fahrenheit</item>
+    </string-array>
+    
+        
+        
+    <string-array name="widebandUnit">
+        <item name="afr">AFR</item>
+        <item name="lambda">Lambda</item>
+    </string-array>
+    
+    <string-array name="widebandUnitValues">
+        <item name="afr">AFR</item>
+        <item name="lambda">Lambda</item>
+    </string-array>
+    
+        
+        
+    <string-array name="widebandFuelType">
+        <item name="gasoline">Gasoline</item>
+        <item name="propane">Propane</item>
+        <item name="methanol">Methanol</item>
+        <item name="diesel">Diesel</item>
+        <item name="ethanol">Ethanol</item>
+        <item name="e85">E85</item>
+    </string-array>
+    
+    <string-array name="widebandFuelTypeValues">
+        <item name="gasoline">Gasoline</item>
+        <item name="propane">Propane</item>
+        <item name="methanol">Methanol</item>
+        <item name="diesel">Diesel</item>
+        <item name="ethanol">Ethanol</item>
+        <item name="e85">E85</item>
+    </string-array>
+    
+</resources>
