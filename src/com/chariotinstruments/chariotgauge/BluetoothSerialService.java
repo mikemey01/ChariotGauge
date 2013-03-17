@@ -41,7 +41,7 @@ import android.util.Log;
 public class BluetoothSerialService {
     // Debugging
     private static final String TAG = "BluetoothReadService";
-    private static final boolean D = true;
+    private static final boolean D = false;
 
 
 	private static final UUID SerialPortServiceClass_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");

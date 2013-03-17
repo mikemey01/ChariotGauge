@@ -103,7 +103,7 @@ public class WidebandActivity extends Activity {
 	    }
 	    if(showNightMode){
 	    	root = btnOne.getRootView(); //Get root layer view.
-	        root.setBackgroundColor(android.R.color.black); //Set background color to black.
+	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	        ((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital); //Remove digital gauge due to fading for now.
 	    }
 	    
@@ -114,7 +114,7 @@ public class WidebandActivity extends Activity {
     		//Set up the gauge values and the values that are handled from the sensor.
 		    minValue = 0;
 		    maxValue = 2;
-		    sensorMinValue = 0;
+		    sensorMinValue = minValue;
 		    sensorMaxValue = minValue;
 		    //Set up the Boost GaugeBuilder
 		    analogGauge.setTotalNotches(7);
@@ -125,12 +125,13 @@ public class WidebandActivity extends Activity {
 		    analogGauge.setScaleMaxValue(maxValue);
 		    analogGauge.setUnitTitle(fuelType + " Wideband Lambda");
 		    analogGauge.setValue(minValue);
+		    txtViewDigital.setText(Float.toString((float)round(minValue)));
     	}else{
     		if(fuelType.equals("Gasoline") || fuelType.equals("Propane") || fuelType.equals("Diesel")){
     			//Set up the gauge values and the values that are handled from the sensor.
     		    minValue = 5;
     		    maxValue = 25;
-    		    sensorMinValue = 0;
+    		    sensorMinValue = minValue;
     		    sensorMaxValue = minValue;
     		    //Set up the Boost GaugeBuilder
     		    analogGauge.setTotalNotches(40);
@@ -141,11 +142,12 @@ public class WidebandActivity extends Activity {
     		    analogGauge.setScaleMaxValue(maxValue);
     		    analogGauge.setUnitTitle(fuelType + " Wideband AFR");
     		    analogGauge.setValue(minValue);
+    		    txtViewDigital.setText(Float.toString((float)round(minValue)));
     		}else if(fuelType.equals("Methanol")){
     			//Set up the gauge values and the values that are handled from the sensor.
     		    minValue = 3;
     		    maxValue = 8;
-    		    sensorMinValue = 0;
+    		    sensorMinValue = minValue;
     		    sensorMaxValue = minValue;
     		    //Set up the Boost GaugeBuilder
     		    analogGauge.setTotalNotches(10);
@@ -156,11 +158,12 @@ public class WidebandActivity extends Activity {
     		    analogGauge.setScaleMaxValue(maxValue);
     		    analogGauge.setUnitTitle(fuelType + " Wideband AFR");
     		    analogGauge.setValue(minValue);
+    		    txtViewDigital.setText(Float.toString((float)round(minValue)));
     		}else if(fuelType.equals("Ethanol") || fuelType.equals("E85")){
     			//Set up the gauge values and the values that are handled from the sensor.
     		    minValue = 5;
     		    maxValue = 12;
-    		    sensorMinValue = 0;
+    		    sensorMinValue = minValue;
     		    sensorMaxValue = minValue;
     		    //Set up the Boost GaugeBuilder
     		    analogGauge.setTotalNotches(10);
@@ -171,11 +174,12 @@ public class WidebandActivity extends Activity {
     		    analogGauge.setScaleMaxValue(maxValue);
     		    analogGauge.setUnitTitle(fuelType + " Wideband AFR");
     		    analogGauge.setValue(minValue);
+    		    txtViewDigital.setText(Float.toString((float)round(minValue)));
     		}else{
     			//Set up the gauge values and the values that are handled from the sensor.
     		    minValue = 5;
     		    maxValue = 25;
-    		    sensorMinValue = 0;
+    		    sensorMinValue = minValue;
     		    sensorMaxValue = minValue;
     		    //Set up the Boost GaugeBuilder
     		    analogGauge.setTotalNotches(40);
@@ -186,6 +190,7 @@ public class WidebandActivity extends Activity {
     		    analogGauge.setScaleMaxValue(maxValue);
     		    analogGauge.setUnitTitle("Wideband AFR");
     		    analogGauge.setValue(minValue);
+    		    txtViewDigital.setText(Float.toString((float)round(minValue)));
     		}
     	}
     	initStoich(fuelType); //Set up the stoich variable.

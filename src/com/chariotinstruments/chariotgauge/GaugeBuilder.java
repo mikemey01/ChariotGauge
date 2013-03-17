@@ -325,7 +325,8 @@ package com.chariotinstruments.chariotgauge;
 	                scalePaint.setTextSize(0.078f);
 	                scalePaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
 	                scalePaint.setTextScaleX(0.6f);
-	                scalePaint.setTextAlign(Paint.Align.CENTER);            
+	                scalePaint.setTextAlign(Paint.Align.CENTER); 
+	                scalePaint.setLinearText(true);
 
 	                
 	                rangeAllPaint = new Paint();
@@ -334,6 +335,7 @@ package com.chariotinstruments.chariotgauge;
 	                rangeAllPaint.setStrokeWidth(0.012f);
 	                rangeAllPaint.setAntiAlias(true);
 	                rangeAllPaint.setShadowLayer(0.005f, -0.002f, -0.002f, 0x7f000000);
+	                
 
 
 	                //This is the inner "warning" gauge.

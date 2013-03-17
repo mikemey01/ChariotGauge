@@ -126,7 +126,7 @@ public class BoostActivity extends Activity {
 	    }
 	    if(showNightMode){
 	    	root = btnOne.getRootView(); //Get root layer view.
-	        root.setBackgroundColor(android.R.color.black); //Set background color to black.
+	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	        ((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital); //Remove digital gauge due to fading for now.
 	    }
 
