@@ -31,10 +31,6 @@
                   android:noHistory="true"
                   android:configChanges="orientation|keyboardHidden" />
         
-        <activity android:name=".TPSActivity"
-            android:theme="@style/Theme.D1"
-            android:screenOrientation="portrait"
-            android:noHistory="true"/>
         <activity android:name=".BoostActivity"
             android:theme="@style/Theme.D1"
             android:screenOrientation="portrait"
@@ -54,7 +50,11 @@
             android:theme="@style/Theme.D1"
             android:screenOrientation="portrait"
             android:noHistory="true"/>
-        <activity android:name=".CustomActivity"
+        <activity android:name=".TwoGaugeActivity"
+            android:theme="@style/Theme.D1"
+            android:screenOrientation="portrait"
+            android:noHistory="true"/>
+        <activity android:name=".FourGaugeActivity"
             android:theme="@style/Theme.D1"
             android:screenOrientation="portrait"
             android:noHistory="true"/>

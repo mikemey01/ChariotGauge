@@ -167,7 +167,6 @@ public class TemperatureActivity extends Activity {
     	try {
 			ret = ((1/(a+(b*Math.log(resistance))+(c*(Math.pow((Math.log(resistance)), 3)))))-273.15);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println("Error in TemperatureActivity.getTemperature"+e);
 			Toast.makeText(getApplicationContext(), "Something happened when calculating the temperature. I'm so sorry.", Toast.LENGTH_SHORT).show();
 		}
@@ -315,7 +314,7 @@ public class TemperatureActivity extends Activity {
         return rounded.doubleValue();
     }
     
-    public void prefsInit(){/**TODO:**/
+    public void prefsInit(){
     	SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);
     	showAnalog = sp.getBoolean("showAnalog", true);
     	showDigital = sp.getBoolean("showDigital", true);

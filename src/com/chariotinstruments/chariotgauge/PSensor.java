@@ -52,6 +52,8 @@ public class PSensor extends Activity {
     Button 	  btnBoost;
     Button 	  btnOil;
     Button    btnCustom;
+    Button    btnMulti1;
+    Button    btnMulti2;
     
     BluetoothAdapter 			   mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private BluetoothSerialService mSerialService = null;
@@ -77,6 +79,8 @@ public class PSensor extends Activity {
         btnBoost 		 = (Button)   findViewById(R.id.boostBtn);
         btnOil 		 	 = (Button)   findViewById(R.id.oilBtn);
         btnCustom 		 = (Button)   findViewById(R.id.customBtn);
+        btnMulti1 		 = (Button)   findViewById(R.id.multiBtn1);
+        btnMulti2 		 = (Button)   findViewById(R.id.multiBtn2);
         typeFaceBtn		 = Typeface.createFromAsset(getAssets(), "fonts/CaviarDreams_Bold.ttf");
         typeFaceTitle	 = Typeface.createFromAsset(getAssets(), "fonts/Parisian.ttf");     
         
@@ -89,6 +93,8 @@ public class PSensor extends Activity {
         btnBoost.setTypeface(typeFaceBtn);
         btnOil.setTypeface(typeFaceBtn);
         btnCustom.setTypeface(typeFaceBtn);
+        btnMulti1.setTypeface(typeFaceBtn);
+        btnMulti2.setTypeface(typeFaceBtn);
         
         
         //Check if there is a BluetoothSerialService object being passed back. If true then don't run through initial setup.
@@ -272,6 +278,10 @@ public class PSensor extends Activity {
 	    	   PassObject.setObject(mSerialService);
 	           startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
 	           break;
+	      case R.id.widebandBtn:
+	    	   PassObject.setObject(mSerialService);
+	           startActivity(new Intent(getApplicationContext(), WidebandActivity.class));
+	           break;
 	      case R.id.customBtn:
 	    	   PassObject.setObject(mSerialService);
 	           startActivity(new Intent(getApplicationContext(), TemperatureActivity.class));
@@ -284,9 +294,13 @@ public class PSensor extends Activity {
 	    	   PassObject.setObject(mSerialService);
 	           startActivity(new Intent(getApplicationContext(), OilActivity.class));
 	           break;
-	      case R.id.widebandBtn:
+	      case R.id.multiBtn1:
 	    	   PassObject.setObject(mSerialService);
-	           startActivity(new Intent(getApplicationContext(), WidebandActivity.class));
+	           startActivity(new Intent(getApplicationContext(), TwoGaugeActivity.class));
+	           break;
+	      case R.id.multiBtn2:
+	    	   PassObject.setObject(mSerialService);
+	           startActivity(new Intent(getApplicationContext(), FourGaugeActivity.class));
 	           break;
 	      default: 
 	    	   break;

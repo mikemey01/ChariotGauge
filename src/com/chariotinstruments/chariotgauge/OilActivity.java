@@ -138,7 +138,7 @@ public class OilActivity extends Activity {
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-test = readMessage;
+                    
 					//Redraw the needle to the correct value.
 					handleSensor(parseInput(readMessage));
                     

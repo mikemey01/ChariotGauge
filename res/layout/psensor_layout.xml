@@ -96,6 +96,26 @@
             android:drawableTop="@drawable/custom_logo"/>
         
     </LinearLayout>
+    
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        
+        <Button android:id="@+id/multiBtn1"
+            style="@style/DashboardButton"
+            android:onClick="onClickActivity"
+            android:text="@string/custom_multi_1"
+            android:drawableTop="@drawable/custom_multi_logo"/>
+        
+        <Button android:id="@+id/multiBtn2"
+            style="@style/DashboardButton"
+            android:onClick="onClickActivity"
+            android:text="@string/custom_multi_2"
+            android:drawableTop="@drawable/custom_multi_logo"/>
+        
+    </LinearLayout>
 
 </LinearLayout>
 

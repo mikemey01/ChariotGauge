@@ -55,4 +55,36 @@
         <item name="e85">E85</item>
     </string-array>
     
+    
+    
+    <string-array name="multiGaugeOne">
+        <item name="boost">Boost</item>
+        <item name="wb">Wideband O2</item>
+        <item name="temp">Temperature</item>
+        <item name="oil">Oil Pressure</item>
+    </string-array>
+    
+    <string-array name="multiGaugeOneValues">
+        <item name="boost">Boost</item>
+        <item name="wb">Wideband O2</item>
+        <item name="temp">Temperature</item>
+        <item name="oil">Oil Pressure</item>
+    </string-array>
+    
+    
+    
+    <string-array name="multiGaugeTwo">
+        <item name="boost">Boost</item>
+        <item name="wb">Wideband O2</item>
+        <item name="temp">Temperature</item>
+        <item name="oil">Oil Pressure</item>
+    </string-array>
+    
+    <string-array name="multiGaugeTwoValues">
+        <item name="boost">Boost</item>
+        <item name="wb">Wideband O2</item>
+        <item name="temp">Temperature</item>
+        <item name="oil">Oil Pressure</item>
+    </string-array>
+    
 </resources>

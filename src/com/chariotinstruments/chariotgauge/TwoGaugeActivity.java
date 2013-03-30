@@ -13,10 +13,9 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.view.ViewManager;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class CustomActivity extends Activity{
+public class TwoGaugeActivity extends Activity{
 	GaugeBuilder analogGauge1;
 	GaugeBuilder analogGauge2;
 	MultiGauges  multiGauge1;
@@ -150,8 +149,23 @@ public class CustomActivity extends Activity{
 	    	default:
 	    		break;	
 	    	}
-			
-			multiGauge2.handleSensor(wbSValue);
+	    	
+	    	switch(currentTokenTwo){
+	    	case 1:
+	    		multiGauge2.handleSensor(boostSValue);
+	    		break;
+	    	case 2:
+	    		multiGauge2.handleSensor(wbSValue);
+	    		break;
+	    	case 3:
+	    		multiGauge2.handleSensor(tempSValue);
+	    		break;
+	    	case 4:
+	    		multiGauge2.handleSensor(oilSValue);
+	    		break;
+	    	default:
+	    		break;	
+	    	}
 			analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 			analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
     	}

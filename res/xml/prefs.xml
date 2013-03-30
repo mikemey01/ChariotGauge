@@ -257,6 +257,28 @@
             android:defaultValue="2000" />
             
     </PreferenceScreen>
+    
+    <PreferenceScreen
+            android:key="multi_gauge_setup"
+            android:title="Multi Gauge Setup">
+         
+        <ListPreference
+            android:key="multiGaugeOne"
+            android:title="Select Gauge One"
+            android:summary="Select which gauge to display on top"
+            android:defaultValue="boost"
+            android:entries="@array/multiGaugeOne"
+            android:entryValues="@array/multiGaugeOneValues" /> 
+            
+        <ListPreference
+            android:key="multiGaugeTwo"
+            android:title="Select Gauge Two"
+            android:summary="Select which gauge to display on bottom"
+            android:defaultValue="wb"
+            android:entries="@array/multiGaugeTwo"
+            android:entryValues="@array/multiGaugeTwoValues" /> 
+        
+    </PreferenceScreen>
 
         
 </PreferenceScreen>

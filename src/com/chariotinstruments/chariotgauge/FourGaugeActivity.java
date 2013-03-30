@@ -16,14 +16,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CustomActivity extends Activity{
+public class FourGaugeActivity extends Activity{
 	GaugeBuilder analogGauge1;
 	GaugeBuilder analogGauge2;
+	GaugeBuilder analogGauge3;
+	GaugeBuilder analogGauge4;
 	MultiGauges  multiGauge1;
 	MultiGauges  multiGauge2;
+	MultiGauges  multiGauge3;
+	MultiGauges  multiGauge4;
     ImageButton  btnOne;
     ImageButton	 btnTwo;
     Typeface	 typeFaceDigital;
+    TextView 	 txtViewDigital;
+    int		     digitalToken;
 	
     float 	     flt;
     int			 minValue; //gauge min.
@@ -72,7 +78,7 @@ public class CustomActivity extends Activity{
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.gauge_layout_2);
+	    setContentView(R.layout.gauge_layout_4);
 	    getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 	    prefsInit(); //Load up the preferences.
 	    context = this;
@@ -80,18 +86,37 @@ public class CustomActivity extends Activity{
 	    //Instantiate the GaugeBuilder.
 	    analogGauge1	= (GaugeBuilder) findViewById(R.id.analogGauge);
 	    analogGauge2	= (GaugeBuilder) findViewById(R.id.analogGauge2);
+	    analogGauge3	= (GaugeBuilder) findViewById(R.id.analogGauge3);
+	    analogGauge4	= (GaugeBuilder) findViewById(R.id.analogGauge4);
 	    multiGauge1 	= new MultiGauges(context);
 	    multiGauge2 	= new MultiGauges(context);
+	    multiGauge3 	= new MultiGauges(context);
+	    multiGauge4 	= new MultiGauges(context);
+	    txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
-        btnTwo			= (ImageButton) findViewById(R.id.btnTwo);     
+        btnTwo			= (ImageButton) findViewById(R.id.btnTwo);  
+        typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
+        digitalToken	= 1;
+        
+        //Set the font of the digital.
+        txtViewDigital.setTypeface(typeFaceDigital);
+        txtViewDigital.setText("0.00");
    	    
         //Setup gauge 1
         multiGauge1.setAnalogGauge(analogGauge1);
-        multiGauge1.buildGauge(currentTokenOne);
+        multiGauge1.buildGauge(1);
         
         //Setup gauge 2
         multiGauge2.setAnalogGauge(analogGauge2);
-        multiGauge2.buildGauge(currentTokenTwo);
+        multiGauge2.buildGauge(2);
+        
+        //Setup gauge 3
+        multiGauge3.setAnalogGauge(analogGauge3);
+        multiGauge3.buildGauge(3);
+        
+        //Setup gague 4
+        multiGauge4.setAnalogGauge(analogGauge4);
+        multiGauge4.buildGauge(4);
 	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();
@@ -107,6 +132,8 @@ public class CustomActivity extends Activity{
 	    	root = btnOne.getRootView(); //Get root layer view.
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	    }
+	    
+	    Toast.makeText(getApplicationContext(), "Digital set to boost, tap a gauge to change", Toast.LENGTH_LONG).show();
 
 	}
     
@@ -134,26 +161,33 @@ public class CustomActivity extends Activity{
     public void updateGauges(String msg){
     	if(!paused){
 	    	parseInput(msg);
-	    	switch(currentTokenOne){
-	    	case 1:
-	    		multiGauge1.handleSensor(boostSValue);
-	    		break;
-	    	case 2:
-	    		multiGauge1.handleSensor(wbSValue);
-	    		break;
-	    	case 3:
-	    		multiGauge1.handleSensor(tempSValue);
-	    		break;
-	    	case 4:
-	    		multiGauge1.handleSensor(oilSValue);
-	    		break;
-	    	default:
-	    		break;	
-	    	}
-			
-			multiGauge2.handleSensor(wbSValue);
+    		multiGauge1.handleSensor(boostSValue);
+    		multiGauge2.handleSensor(wbSValue);
+    		multiGauge3.handleSensor(tempSValue);
+    		multiGauge4.handleSensor(oilSValue);
+
 			analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 			analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
+			analogGauge3.setValue(multiGauge3.getCurrentGaugeValue());
+			analogGauge4.setValue(multiGauge4.getCurrentGaugeValue());
+			
+			switch(digitalToken){
+			case 1:
+				txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
+				break;
+			case 2:
+				txtViewDigital.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
+				break;
+			case 3:
+				txtViewDigital.setText(Float.toString(multiGauge3.getCurrentGaugeValue()));
+				break;
+			case 4:
+				txtViewDigital.setText(Float.toString(multiGauge4.getCurrentGaugeValue()));
+				break;
+			default:
+				txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
+				break;
+			}
     	}
     }
     
@@ -191,6 +225,8 @@ public class CustomActivity extends Activity{
     	//Reset the max value.
     	multiGauge1.setSensorMaxValue(multiGauge1.getMinValue());
     	multiGauge2.setSensorMaxValue(multiGauge2.getMinValue());
+    	multiGauge3.setSensorMaxValue(multiGauge3.getMinValue());
+    	multiGauge4.setSensorMaxValue(multiGauge4.getMinValue());
     	Toast.makeText(getApplicationContext(), "Max value reset", Toast.LENGTH_SHORT).show();
 	}
     
@@ -198,15 +234,51 @@ public class CustomActivity extends Activity{
     public void buttonTwoClick(View v){
     	if(!paused){
     		paused = true;
-    		//set the gauge/digital to the max value captured so far for two seconds.
+    		//set the gauge/digital to the max value captured so far.
+    		switch(digitalToken){
+			case 1:
+				txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+				break;
+			case 2:
+				txtViewDigital.setText(Double.toString(multiGauge2.getSensorMaxValue()));
+				break;
+			case 3:
+				txtViewDigital.setText(Double.toString(multiGauge3.getSensorMaxValue()));
+				break;
+			case 4:
+				txtViewDigital.setText(Double.toString(multiGauge4.getSensorMaxValue()));
+				break;
+			default:
+				txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+				break;
+			}
     		analogGauge1.setValue((float)multiGauge1.getSensorMaxValue());
     		analogGauge2.setValue((float)multiGauge2.getSensorMaxValue());
+    		analogGauge3.setValue((float)multiGauge3.getSensorMaxValue());
+    		analogGauge4.setValue((float)multiGauge4.getSensorMaxValue());
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
     	}else{
     		paused = false;
     		btnTwo.setBackgroundResource(Color.TRANSPARENT);
     	}
 	}
+    
+    //Analog gauge one click
+    public void gaugeOneClick(View v){
+    	digitalToken = BOOST_TOKEN;
+    }
+    
+    public void gaugeTwoClick(View v){
+    	digitalToken = WIDEBAND_TOKEN;
+    }
+    
+    public void gaugeThreeClick(View v){
+    	digitalToken = TEMP_TOKEN;
+    }
+    
+    public void gaugeFourClick(View v){
+    	digitalToken = OIL_TOKEN;
+    }
     
     protected void onPause(){
     	super.onPause();
