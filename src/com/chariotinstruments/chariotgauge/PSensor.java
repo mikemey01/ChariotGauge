@@ -1,16 +1,22 @@
 package com.chariotinstruments.chariotgauge;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
@@ -35,6 +41,10 @@ public class PSensor extends Activity {
     public static final int MESSAGE_WRITE        = 3;
     public static final int MESSAGE_DEVICE_NAME  = 4;
     public static final int MESSAGE_TOAST        = 5;
+    
+    //Used to show whats new dialog.
+    private static final String PRIVATE_PREF 	 = "myapp";
+    private static final String VERSION_KEY 	 = "version_number";
 
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
@@ -64,10 +74,12 @@ public class PSensor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
-        prefsInit(); //Load up the prefs vars.
         
         //Set the screen to the main.xml layout.
         setContentView(R.layout.psensor_layout);
+        
+        //Show the whats new dialog if this is the first time run
+        showWhatsNew();
         
         //Get the instances of the layout objects.
         connectionImage  = (ImageView) findViewById(R.id.connection_status_image);
@@ -120,13 +132,7 @@ public class PSensor extends Activity {
         		setupBT();
         	}
     }
-    
-    public void prefsInit(){
-    	SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);
-    	String getMessage=sp.getString("message", "Address:");
-    	preMSG = getMessage + "\n";
-    }
-    
+     
     
     public void onDestroy() {
 		super.onDestroy();
@@ -267,6 +273,40 @@ public class PSensor extends Activity {
             }
         }
     };
+    
+    private void showWhatsNew() {
+        SharedPreferences sharedPref    = getSharedPreferences(PRIVATE_PREF, this.MODE_PRIVATE);
+        int currentVersionNumber        = 0;
+        int savedVersionNumber          = sharedPref.getInt(VERSION_KEY, 0);
+ 
+        try {
+            PackageInfo pi          = getPackageManager().getPackageInfo(getPackageName(), 0);
+            currentVersionNumber    = pi.versionCode;
+        } catch (Exception e) {}
+ 
+        if (currentVersionNumber > savedVersionNumber) {
+            showWhatsNewDialog();
+ 
+            Editor editor   = sharedPref.edit();
+ 
+            editor.putInt(VERSION_KEY, currentVersionNumber);
+            editor.commit();
+        }
+    }
+    
+    private void showWhatsNewDialog() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view               = inflater.inflate(R.layout.dialog_whatsnew, null);
+        Builder builder         = new AlertDialog.Builder(this);
+        builder.setView(view).setTitle("Whats New").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+ 
+        builder.create().show();
+    }
     
     public void onClickActivity (View v){
 	    int id = v.getId();

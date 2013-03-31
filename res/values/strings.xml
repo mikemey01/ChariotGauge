@@ -33,5 +33,24 @@
     <string name="temperature_title">Temperature</string>
     <string name="custom_multi_1">Two Gauges</string>
     <string name="custom_multi_2">Four Gauges</string>
+    
+    <!--  Whats New String -->
+    <string name="whats_new">
+        Mar-30-2013: \n
+   		   - Added two gauge support. \n
+   		   - Added four gauge support. \n\n
+   		   
+   		Mar-17-2013: \n
+   		   - Fixed Nexus 7 layout bug \n\n
+   		   
+   		Dec-5-2012: \n
+   		   - Moved firmware to 10 bit support \n\n
+   		   
+   		Nov-11-2012: \n
+   		   - Fixed force close when passing BT object between views while connecting \n\n
+   		   
+   		Oct-5-2012: \n
+   		   - Initial release
+    </string>
 
 </resources>
