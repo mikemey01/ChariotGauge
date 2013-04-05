@@ -3,6 +3,7 @@ package com.chariotinstruments.chariotgauge;
 import java.math.BigDecimal;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -20,37 +21,22 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class OilActivity extends Activity {
+public class OilActivity extends Activity implements Runnable {
 	
 	GaugeBuilder analogGauge;
     ImageButton  btnOne;
     ImageButton	 btnTwo;
     Typeface	 typeFaceDigital;
-	
-    float 	     flt;
+    MultiGauges  multiGauge;
+    Context		 context;
+    String	 	 currentMsg;
     TextView 	 txtViewDigital;
-    int			 minValue; //gauge min.
-    int			 maxValue; //gauge max.
-    double		 sensorMinValue; //the lowest value that has been sent from the arduino.
-    double		 sensorMaxValue; //the highest value that has been sent from the arduino.
     boolean		 paused;
     
     View		 root;
     boolean		 showAnalog; //Display the analog gauge or not.
     boolean		 showDigital; //Display the digital gauge or not.
     boolean		 showNightMode; //Change background to black.
-    
-    double		 lowPSI;
-    double		 lowOhms;
-    double		 highPSI;
-    double		 highOhms;
-    double		 lowVolts;
-    double		 highVolts;
-    double		 rangeVolts;
-    double		 rangePSI;
-    double		 biasResistor;
-    
-    String test;
         
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -71,34 +57,23 @@ public class OilActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.gauge_layout);
 	    getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+	    context = this;
 	    prefsInit(); //Load up the preferences.
-	    initSensor();
 	    
 	    //Instantiate the gaugeBuilder.
 	    analogGauge = (GaugeBuilder) findViewById(R.id.analogGauge);
 	    txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital); 
+	    multiGauge	 	= new MultiGauges(context);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
         btnTwo			= (ImageButton) findViewById(R.id.btnTwo);
         typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
         
         //Set the font of the title text
         txtViewDigital.setTypeface(typeFaceDigital);
-	    
-	    //Set up the gauge values and the values that are handled from the sensor.
-	    minValue = 0;
-	    maxValue = 100;
-	    sensorMinValue = 0;
-	    sensorMaxValue = minValue;
-	    
-	    //Set up the Boost GaugeBuilder
-	    analogGauge.setTotalNotches(80);
-	    analogGauge.setIncrementPerLargeNotch(10);
-	    analogGauge.setIncrementPerSmallNotch(2);
-	    analogGauge.setScaleCenterValue(50);
-	    analogGauge.setScaleMinValue(minValue);
-	    analogGauge.setScaleMaxValue(maxValue);
-	    analogGauge.setUnitTitle("Oil Pressure(PSI)");
-	    analogGauge.setValue(minValue);
+        
+        //Setup gauge
+        multiGauge.setAnalogGauge(analogGauge);
+        multiGauge.buildGauge(CURRENT_TOKEN);
 	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();
@@ -121,12 +96,6 @@ public class OilActivity extends Activity {
 	    
 	}
     
-    private void initSensor(){
-    	lowVolts = (lowOhms/(biasResistor+lowOhms))*5;
-    	highVolts = (highOhms/(biasResistor+highOhms))*5;
-    	rangeVolts = highVolts - lowVolts;
-    	rangePSI = highPSI - lowPSI;
-    }
     
   //Handles the data being sent back from the BluetoothSerialService class.
     private final Handler mHandler = new Handler() {
@@ -140,7 +109,12 @@ public class OilActivity extends Activity {
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     
 					//Redraw the needle to the correct value.
-					handleSensor(parseInput(readMessage));
+                    currentMsg = readMessage;
+					if(!paused){
+						Thread thread = new Thread(OilActivity.this);
+						thread.start();
+						updateGauges();
+					}
                     
             		break;
             	case MESSAGE_TOAST:
@@ -151,35 +125,14 @@ public class OilActivity extends Activity {
         }
     };
     
-    private void handleSensor(float sValue){
-    	double oil = 0;
-    	double vOut = 0;
-    	double vPercentage;
-    	   	
+    public void run(){
+    	multiGauge.handleSensor(parseInput(currentMsg));
+    }
+    
+    public void updateGauges(){
     	if(!paused){
-    		vOut = (sValue*5.00)/1024; //get voltage
-    		
-    		vOut = vOut - lowVolts; //get on the same level as the oil pressure sensor
-    		if(vOut == 0){ //Remove divide by 0 errors.
-    			vOut = .01;
-    		}
-    		vPercentage = vOut / rangeVolts; //find the percentage of the range we're at
-    		oil = vPercentage * rangePSI; //apply same percentage to range of oil.
-    		
-    		if(oil < minValue){ //set the lower bounds on the data.
-    			txtViewDigital.setText(Float.toString((float)round(minValue)));
-    			analogGauge.setValue((float)round(minValue));
-    		}else if (oil > maxValue){ //set the upper bounds on the data.
-    			txtViewDigital.setText(Float.toString((float)round(maxValue)));
-    			analogGauge.setValue((float)round(maxValue));
-    		}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-    			txtViewDigital.setText(Float.toString((float)round(oil)));
-    			analogGauge.setValue((float)round(oil));
-    			
-    			if(round(oil) > sensorMaxValue && round(oil) <= maxValue){ //Check to see if we've hit a new high, record it.
-            		sensorMaxValue = round(oil);
-            	}
-    		}
+    		analogGauge.setValue(multiGauge.getCurrentGaugeValue());
+    		txtViewDigital.setText(Float.toString(multiGauge.getCurrentGaugeValue()));
     	}
     }
     
@@ -208,7 +161,7 @@ public class OilActivity extends Activity {
     //Button one handling.
     public void buttonOneClick(View v){   
     	//Reset the max value.
-    	sensorMaxValue = minValue;
+    	multiGauge.setSensorMaxValue(multiGauge.getMinValue());
     	Toast.makeText(getApplicationContext(), "Max value reset.", Toast.LENGTH_SHORT).show();
 	}
     
@@ -217,8 +170,8 @@ public class OilActivity extends Activity {
     	if(!paused){
     		paused = true;
     		//set the gauge/digital to the max value captured so far for two seconds.
-        	txtViewDigital.setText(Float.toString((float)round(sensorMaxValue)));
-        	analogGauge.setValue((float)round(sensorMaxValue));
+    		txtViewDigital.setText(Double.toString(multiGauge.getSensorMaxValue()));
+    		analogGauge.setValue((float)multiGauge.getSensorMaxValue());
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
     	}else{
     		paused = false;
@@ -235,38 +188,12 @@ public class OilActivity extends Activity {
     	analogGauge.invalidate();
     }
     
-    public static double round(double unrounded){
-        BigDecimal bd = new BigDecimal(unrounded);
-        BigDecimal rounded = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
-        return rounded.doubleValue();
-    }
     
     public void prefsInit(){
     	SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);
     	showAnalog = sp.getBoolean("showAnalog", true);
     	showDigital = sp.getBoolean("showDigital", true);
     	showNightMode = sp.getBoolean("showNightMode", false);
-    	
-    	String slowPSI   = sp.getString("oil_psi_low", "0"); //Assign the prefs to strings since they are stored as such.
-    	String slowOhms   = sp.getString("oil_ohm_low", "10");
-    	String shighPSI   = sp.getString("oil_psi_high", "80");
-    	String shighOhms   = sp.getString("oil_ohm_high", "180");
-    	String sbiasResistor   = sp.getString("bias_resistor_oil", "100");
-    	
-    	try {
-			lowPSI   = Float.parseFloat(slowPSI); //attempt to parse the strings to floats.
-			lowOhms   = Float.parseFloat(slowOhms);
-			highPSI   = Float.parseFloat(shighPSI);
-			highOhms   = Float.parseFloat(shighOhms);
-			biasResistor = Float.parseFloat(sbiasResistor);
-		} catch (NumberFormatException e) { //If the parsing fails, assign default values to continue operation.
-			System.out.println("Error in OilActivity.prefsInit "+e);
-			lowPSI = 0;
-			lowOhms = 10;
-			highPSI = 80;
-			highOhms = 180;
-			biasResistor = 100;
-		}
     }
     
 }

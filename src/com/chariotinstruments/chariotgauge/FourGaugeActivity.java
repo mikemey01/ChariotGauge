@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FourGaugeActivity extends Activity{
+public class FourGaugeActivity extends Activity implements Runnable{
 	GaugeBuilder analogGauge1;
 	GaugeBuilder analogGauge2;
 	GaugeBuilder analogGauge3;
@@ -29,7 +29,12 @@ public class FourGaugeActivity extends Activity{
     ImageButton	 btnTwo;
     Typeface	 typeFaceDigital;
     TextView 	 txtViewDigital;
+    TextView 	 txtViewDigital2;
+    TextView 	 txtViewDigital3;
+    TextView 	 txtViewDigital4;
     int		     digitalToken;
+    String	 	 currentMsg;
+    Thread		 thread;
 	
     float 	     flt;
     int			 minValue; //gauge min.
@@ -63,15 +68,11 @@ public class FourGaugeActivity extends Activity{
     //Test
     
     // Key names received from the BluetoothChatService Handler
-    public static final String DEVICE_NAME = "device_name";
-    public static final String TOAST       = "toast";
-    public static final double KPA_TO_PSI  = 0.14503773773020923;
-    public static final double ATMOSPHERIC = 101.325;
-    public static final double KPA_TO_INHG = 0.295299830714;
-    private static final int BOOST_TOKEN = 1;
+    public static final String TOAST        = "toast";
+    private static final int BOOST_TOKEN 	= 1;
     private static final int WIDEBAND_TOKEN = 2;
-    private static final int TEMP_TOKEN = 3;
-    private static final int OIL_TOKEN = 4;
+    private static final int TEMP_TOKEN 	= 3;
+    private static final int OIL_TOKEN 		= 4;
     
     BluetoothSerialService mSerialService;
      
@@ -93,6 +94,9 @@ public class FourGaugeActivity extends Activity{
 	    multiGauge3 	= new MultiGauges(context);
 	    multiGauge4 	= new MultiGauges(context);
 	    txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital);
+	    txtViewDigital2 = (TextView) findViewById(R.id.txtViewDigital2);
+	    txtViewDigital3 = (TextView) findViewById(R.id.txtViewDigital3);
+	    txtViewDigital4 = (TextView) findViewById(R.id.txtViewDigital4);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
         btnTwo			= (ImageButton) findViewById(R.id.btnTwo);  
         typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
@@ -100,23 +104,34 @@ public class FourGaugeActivity extends Activity{
         
         //Set the font of the digital.
         txtViewDigital.setTypeface(typeFaceDigital);
+        txtViewDigital2.setTypeface(typeFaceDigital);
+        txtViewDigital3.setTypeface(typeFaceDigital);
+        txtViewDigital4.setTypeface(typeFaceDigital);
         txtViewDigital.setText("0.00");
+        txtViewDigital2.setText("0.00");
+        txtViewDigital3.setText("0.00");
+        txtViewDigital4.setText("0.00");
    	    
         //Setup gauge 1
         multiGauge1.setAnalogGauge(analogGauge1);
-        multiGauge1.buildGauge(1);
-        
+        multiGauge1.buildGauge(BOOST_TOKEN);
+        txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+		
         //Setup gauge 2
         multiGauge2.setAnalogGauge(analogGauge2);
-        multiGauge2.buildGauge(2);
-        
+        multiGauge2.buildGauge(WIDEBAND_TOKEN);
+        txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
+		
         //Setup gauge 3
         multiGauge3.setAnalogGauge(analogGauge3);
-        multiGauge3.buildGauge(3);
-        
-        //Setup gague 4
+        multiGauge3.buildGauge(TEMP_TOKEN);
+        txtViewDigital3.setText(Double.toString(multiGauge3.getSensorMaxValue()));
+		
+        //Setup gauge 4
         multiGauge4.setAnalogGauge(analogGauge4);
-        multiGauge4.buildGauge(4);
+        multiGauge4.buildGauge(OIL_TOKEN);
+        txtViewDigital4.setText(Double.toString(multiGauge4.getSensorMaxValue()));
+
 	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();
@@ -133,7 +148,7 @@ public class FourGaugeActivity extends Activity{
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	    }
 	    
-	    Toast.makeText(getApplicationContext(), "Digital set to boost, tap a gauge to change", Toast.LENGTH_LONG).show();
+	    //Toast.makeText(getApplicationContext(), "Digital set to boost, tap a gauge to change", Toast.LENGTH_LONG).show();
 
 	}
     
@@ -148,46 +163,41 @@ public class FourGaugeActivity extends Activity{
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
 					//update/process the inbound data.
-					updateGauges(readMessage);
+                    currentMsg = readMessage;
+                    if(!paused){
+                    	//Fire off worker thread to calculate/set gauge values
+                    	thread = new Thread(FourGaugeActivity.this);
+                        thread.start();
+                    	updateGauges();     
+                    }
             		break;
             	case MESSAGE_TOAST:
-                    Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
-                                   Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),Toast.LENGTH_SHORT).show();
                     break;
             }
         }
     };
     
-    public void updateGauges(String msg){
+    //update gauge values in worker thread.
+    public void run(){
+    	parseInput(currentMsg);
+    	multiGauge1.handleSensor(boostSValue);
+		multiGauge2.handleSensor(wbSValue);
+		multiGauge3.handleSensor(tempSValue);
+		multiGauge4.handleSensor(oilSValue);
+    }
+    
+    public void updateGauges(){
     	if(!paused){
-	    	parseInput(msg);
-    		multiGauge1.handleSensor(boostSValue);
-    		multiGauge2.handleSensor(wbSValue);
-    		multiGauge3.handleSensor(tempSValue);
-    		multiGauge4.handleSensor(oilSValue);
-
-			analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
+    		analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 			analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
 			analogGauge3.setValue(multiGauge3.getCurrentGaugeValue());
 			analogGauge4.setValue(multiGauge4.getCurrentGaugeValue());
 			
-			switch(digitalToken){
-			case 1:
-				txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
-				break;
-			case 2:
-				txtViewDigital.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
-				break;
-			case 3:
-				txtViewDigital.setText(Float.toString(multiGauge3.getCurrentGaugeValue()));
-				break;
-			case 4:
-				txtViewDigital.setText(Float.toString(multiGauge4.getCurrentGaugeValue()));
-				break;
-			default:
-				txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
-				break;
-			}
+			txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
+			txtViewDigital2.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
+			txtViewDigital3.setText(Float.toString(multiGauge3.getCurrentGaugeValue()));
+			txtViewDigital4.setText(Float.toString(multiGauge4.getCurrentGaugeValue()));
     	}
     }
     
@@ -234,24 +244,13 @@ public class FourGaugeActivity extends Activity{
     public void buttonTwoClick(View v){
     	if(!paused){
     		paused = true;
+    		
     		//set the gauge/digital to the max value captured so far.
-    		switch(digitalToken){
-			case 1:
-				txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
-				break;
-			case 2:
-				txtViewDigital.setText(Double.toString(multiGauge2.getSensorMaxValue()));
-				break;
-			case 3:
-				txtViewDigital.setText(Double.toString(multiGauge3.getSensorMaxValue()));
-				break;
-			case 4:
-				txtViewDigital.setText(Double.toString(multiGauge4.getSensorMaxValue()));
-				break;
-			default:
-				txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
-				break;
-			}
+			txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+			txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
+			txtViewDigital3.setText(Double.toString(multiGauge3.getSensorMaxValue()));
+			txtViewDigital4.setText(Double.toString(multiGauge4.getSensorMaxValue()));
+
     		analogGauge1.setValue((float)multiGauge1.getSensorMaxValue());
     		analogGauge2.setValue((float)multiGauge2.getSensorMaxValue());
     		analogGauge3.setValue((float)multiGauge3.getSensorMaxValue());
@@ -265,19 +264,19 @@ public class FourGaugeActivity extends Activity{
     
     //Analog gauge one click
     public void gaugeOneClick(View v){
-    	digitalToken = BOOST_TOKEN;
+    	//((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital);
     }
     
     public void gaugeTwoClick(View v){
-    	digitalToken = WIDEBAND_TOKEN;
+    	//((ViewManager)txtViewDigital2.getParent()).removeView(txtViewDigital2);
     }
     
     public void gaugeThreeClick(View v){
-    	digitalToken = TEMP_TOKEN;
+    	//((ViewManager)txtViewDigital3.getParent()).removeView(txtViewDigital3);
     }
     
     public void gaugeFourClick(View v){
-    	digitalToken = OIL_TOKEN;
+    	//((ViewManager)txtViewDigital4.getParent()).removeView(txtViewDigital4);
     }
     
     protected void onPause(){
@@ -288,6 +287,8 @@ public class FourGaugeActivity extends Activity{
     	super.onResume();
     	analogGauge1.invalidate();
     	analogGauge2.invalidate();
+    	analogGauge3.invalidate();
+    	analogGauge4.invalidate();
     }
        
     public void prefsInit(){

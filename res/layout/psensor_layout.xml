@@ -113,7 +113,7 @@
             style="@style/DashboardButton"
             android:onClick="onClickActivity"
             android:text="@string/custom_multi_2"
-            android:drawableTop="@drawable/custom_multi_logo"/>
+            android:drawableTop="@drawable/four_gauges"/>
         
     </LinearLayout>
 

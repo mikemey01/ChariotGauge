@@ -70,6 +70,39 @@
 	            android:onClick="gaugeTwoClick" />
 	</LinearLayout>
 	
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="1.0dip"
+        android:paddingTop="1.0dip"
+        android:paddingRight="1.0dip"
+        android:paddingBottom="1.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/analogGauge2">
+       
+        <TextView
+   		    android:id="@+id/txtViewDigital"
+   		    android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    		android:layout_gravity="center" 
+    		android:gravity="center"
+    		android:layout_weight="1"
+    		android:textSize="45dip"
+    	    android:text="@string/test_text" />
+        
+        <TextView
+   		    android:id="@+id/txtViewDigital2"
+   		    android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    		android:layout_gravity="center" 
+    		android:gravity="center"
+    		android:layout_weight="1"
+    		android:textSize="45dip"
+    	    android:text="@string/test_text" />
+        
+    </LinearLayout>
+	
 	<LinearLayout
         android:orientation="horizontal"
         android:paddingLeft="1.0dip"
@@ -78,25 +111,25 @@
         android:paddingBottom="6.0dip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/analogGauge2">
+        android:layout_below="@+id/txtViewDigital">
 
 	    <com.chariotinstruments.chariotgauge.GaugeBuilder
-	            android:id="@+id/analogGauge3" 
-	            android:layout_gravity="center" 
-	            android:layout_weight="1" 
-          		android:layout_width="fill_parent"
-           	    android:layout_height="wrap_content" 
-	            android:layout_margin="2dp"
-	            android:onClick="gaugeThreeClick" />
+            android:id="@+id/analogGauge3" 
+            android:layout_gravity="center" 
+            android:layout_weight="1" 
+         	android:layout_width="fill_parent"
+          	android:layout_height="wrap_content" 
+            android:layout_margin="2dp"
+            android:onClick="gaugeThreeClick" />
 	    
 	    <com.chariotinstruments.chariotgauge.GaugeBuilder
-	            android:id="@+id/analogGauge4" 
-	            android:layout_gravity="center" 
-	            android:layout_weight="1" 
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" 
-	            android:layout_margin="2dp"
-	            android:onClick="gaugeFourClick" />
+            android:id="@+id/analogGauge4" 
+            android:layout_gravity="center" 
+            android:layout_weight="1" 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_margin="2dp"
+            android:onClick="gaugeFourClick" />
 	</LinearLayout>
 	
 	<LinearLayout
@@ -108,15 +141,27 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/analogGauge4">
-	
-	<TextView
-   		    android:id="@+id/txtViewDigital"
+       
+        <TextView
+   		    android:id="@+id/txtViewDigital3"
    		    android:layout_width="fill_parent"
     		android:layout_height="fill_parent"
-    		android:gravity="center_horizontal"
-    		android:layout_alignParentBottom="true"
-    		android:textSize="80dip"
+    		android:layout_gravity="center" 
+    		android:gravity="center"
+    		android:layout_weight="1"
+    		android:textSize="45dip"
     	    android:text="@string/test_text" />
-	</LinearLayout>
-
+        
+        <TextView
+   		    android:id="@+id/txtViewDigital4"
+   		    android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    		android:layout_gravity="center" 
+    		android:gravity="center"
+    		android:layout_weight="1"
+    		android:textSize="45dip"
+    	    android:text="@string/test_text" />
+        
+    </LinearLayout>
+	
 </LinearLayout>

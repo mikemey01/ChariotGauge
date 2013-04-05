@@ -15,7 +15,7 @@ import android.view.ViewManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class TwoGaugeActivity extends Activity{
+public class TwoGaugeActivity extends Activity implements Runnable{
 	GaugeBuilder analogGauge1;
 	GaugeBuilder analogGauge2;
 	MultiGauges  multiGauge1;
@@ -23,6 +23,7 @@ public class TwoGaugeActivity extends Activity{
     ImageButton  btnOne;
     ImageButton	 btnTwo;
     Typeface	 typeFaceDigital;
+    String		 currentMsg;
 	
     float 	     flt;
     int			 minValue; //gauge min.
@@ -120,7 +121,12 @@ public class TwoGaugeActivity extends Activity{
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
 					//update/process the inbound data.
-					updateGauges(readMessage);
+					currentMsg = readMessage;
+					if(!paused){
+						Thread thread = new Thread(TwoGaugeActivity.this);
+						thread.start();
+						updateGauges();
+					}
             		break;
             	case MESSAGE_TOAST:
                     Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
@@ -130,45 +136,46 @@ public class TwoGaugeActivity extends Activity{
         }
     };
     
-    public void updateGauges(String msg){
-    	if(!paused){
-	    	parseInput(msg);
-	    	switch(currentTokenOne){
-	    	case 1:
-	    		multiGauge1.handleSensor(boostSValue);
-	    		break;
-	    	case 2:
-	    		multiGauge1.handleSensor(wbSValue);
-	    		break;
-	    	case 3:
-	    		multiGauge1.handleSensor(tempSValue);
-	    		break;
-	    	case 4:
-	    		multiGauge1.handleSensor(oilSValue);
-	    		break;
-	    	default:
-	    		break;	
-	    	}
-	    	
-	    	switch(currentTokenTwo){
-	    	case 1:
-	    		multiGauge2.handleSensor(boostSValue);
-	    		break;
-	    	case 2:
-	    		multiGauge2.handleSensor(wbSValue);
-	    		break;
-	    	case 3:
-	    		multiGauge2.handleSensor(tempSValue);
-	    		break;
-	    	case 4:
-	    		multiGauge2.handleSensor(oilSValue);
-	    		break;
-	    	default:
-	    		break;	
-	    	}
-			analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
-			analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
+    public void run(){
+    	parseInput(currentMsg);
+    	switch(currentTokenOne){
+    	case 1:
+    		multiGauge1.handleSensor(boostSValue);
+    		break;
+    	case 2:
+    		multiGauge1.handleSensor(wbSValue);
+    		break;
+    	case 3:
+    		multiGauge1.handleSensor(tempSValue);
+    		break;
+    	case 4:
+    		multiGauge1.handleSensor(oilSValue);
+    		break;
+    	default:
+    		break;	
     	}
+    	
+    	switch(currentTokenTwo){
+    	case 1:
+    		multiGauge2.handleSensor(boostSValue);
+    		break;
+    	case 2:
+    		multiGauge2.handleSensor(wbSValue);
+    		break;
+    	case 3:
+    		multiGauge2.handleSensor(tempSValue);
+    		break;
+    	case 4:
+    		multiGauge2.handleSensor(oilSValue);
+    		break;
+    	default:
+    		break;	
+    	}
+    }
+    
+    public void updateGauges(){
+    	analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
+		analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
     }
     
     private void parseInput(String sValue){

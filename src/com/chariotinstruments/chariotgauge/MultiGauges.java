@@ -1,6 +1,6 @@
 package com.chariotinstruments.chariotgauge;
 
-import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Locale;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -420,10 +420,8 @@ public class MultiGauges extends View{
 	}
 	
 	public static double round(double unrounded){
-        BigDecimal bd;
-		bd = new BigDecimal(unrounded);
-        BigDecimal rounded = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
-        return rounded.doubleValue();
+		DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.valueOf(twoDForm.format(unrounded));
     }
 	
 		/* Initialize Preferences */

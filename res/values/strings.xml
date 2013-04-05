@@ -37,8 +37,8 @@
     <!--  Whats New String -->
     <string name="whats_new">
         Mar-30-2013: \n
-   		   - Added two gauge support. \n
-   		   - Added four gauge support. \n\n
+   		   - Added two gauge display and config. \n
+   		   - Added four gauge display. \n\n
    		   
    		Mar-17-2013: \n
    		   - Fixed Nexus 7 layout bug \n\n
