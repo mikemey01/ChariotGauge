@@ -172,7 +172,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     		break;	
     	}
     }
-    
+    //test comment
     public void updateGauges(){
     	analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 		analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
