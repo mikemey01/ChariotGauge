@@ -251,7 +251,7 @@ public class MultiGauges extends View{
 				    analogGauge.setScaleMinValue(minValue);
 				    analogGauge.setScaleMaxValue(maxValue);
 				    analogGauge.setUnitTitle("Boost (KPA)");
-				    analogGauge.setValue(minValue);
+				    analogGauge.setValue((float)minValue);
 		        }else{
 		        	//Set up the gauge values and the values that are handled from the sensor for PSI
 		        	minValue = -10;
@@ -267,7 +267,7 @@ public class MultiGauges extends View{
 				    analogGauge.setScaleMinValue(minValue);
 				    analogGauge.setScaleMaxValue(maxValue);
 				    analogGauge.setUnitTitle("Boost (PSI)");
-				    analogGauge.setValue(minValue);
+				    analogGauge.setValue((float)minValue);
 		        }
 				break;
 			case 2: //Wideband

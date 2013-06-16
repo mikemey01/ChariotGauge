@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -75,6 +76,7 @@ public class FourGaugeActivity extends Activity implements Runnable{
     private static final int OIL_TOKEN 		= 4;
     
     BluetoothSerialService mSerialService;
+    private Handler workerHandler;
      
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -139,6 +141,9 @@ public class FourGaugeActivity extends Activity implements Runnable{
 	    mSerialService = (BluetoothSerialService) obj;
 	    //Update the BluetoothSerialService instance's handler to this activities.
 	    mSerialService.setHandler(mHandler);
+	    
+	    Thread thread = new Thread(FourGaugeActivity.this);
+		thread.start();
 	   
 	    if(!showAnalog){
 	    	((ViewManager)analogGauge1.getParent()).removeView(analogGauge1); //Remove analog gauge
@@ -152,39 +157,39 @@ public class FourGaugeActivity extends Activity implements Runnable{
 
 	}
     
-    //Handles the data being sent back from the BluetoothSerialService class.
+    ///Handles the data being sent back from the BluetoothSerialService class.
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-            	case MESSAGE_READ:
-            		
-                    byte[] readBuf = (byte[]) msg.obj;
-                    // construct a string from the valid bytes in the buffer
-                    String readMessage = new String(readBuf, 0, msg.arg1);
-					//update/process the inbound data.
-                    currentMsg = readMessage;
-                    if(!paused){
-                    	//Fire off worker thread to calculate/set gauge values
-                    	thread = new Thread(FourGaugeActivity.this);
-                        thread.start();
-                    	updateGauges();     
-                    }
-            		break;
-            	case MESSAGE_TOAST:
-                    Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),Toast.LENGTH_SHORT).show();
-                    break;
-            }
+        	
+            byte[] readBuf = (byte[]) msg.obj;
+            // construct a string from the valid bytes in the buffer
+            String readMessage = new String(readBuf, 0, msg.arg1);
+			//Redraw the needle to the correct value.
+            currentMsg = readMessage;
+			if(!paused){
+				Message workerMsg = workerHandler.obtainMessage(1, currentMsg);
+				workerMsg.sendToTarget();
+				updateGauges();
+			}
+			
         }
     };
     
-    //update gauge values in worker thread.
+    //Worker thread handling
     public void run(){
-    	parseInput(currentMsg);
-    	multiGauge1.handleSensor(boostSValue);
-		multiGauge2.handleSensor(wbSValue);
-		multiGauge3.handleSensor(tempSValue);
-		multiGauge4.handleSensor(oilSValue);
+    	Looper.prepare();
+    	workerHandler = new Handler(){
+    		@Override
+    		public void handleMessage(Message msg){
+    			parseInput((String)msg.obj);
+    			multiGauge1.handleSensor(boostSValue);
+    			multiGauge2.handleSensor(wbSValue);
+    			multiGauge3.handleSensor(tempSValue);
+    			multiGauge4.handleSensor(oilSValue);
+    		}
+    	};
+    	Looper.loop();
     }
     
     public void updateGauges(){
@@ -223,7 +228,7 @@ public class FourGaugeActivity extends Activity implements Runnable{
 		}
     }
     
-    //Activity transfer
+    //Activity transfer handling
     public void goHome(View v){
     	PassObject.setObject(mSerialService);
     	onBackPressed();
@@ -282,10 +287,12 @@ public class FourGaugeActivity extends Activity implements Runnable{
     protected void onPause(){
     	super.onPause();
     }
-    
+       
     protected void onResume(){
     	super.onResume();
-    	analogGauge1.invalidate();
+    	Thread thread = new Thread(FourGaugeActivity.this);
+		thread.start();
+		analogGauge1.invalidate();
     	analogGauge2.invalidate();
     	analogGauge3.invalidate();
     	analogGauge4.invalidate();

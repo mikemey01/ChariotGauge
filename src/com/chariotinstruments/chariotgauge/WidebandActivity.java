@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -53,6 +54,7 @@ public class WidebandActivity extends Activity implements Runnable {
     private static final int CURRENT_TOKEN = 2;
         
     BluetoothSerialService mSerialService;
+    private Handler workerHandler;
      
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class WidebandActivity extends Activity implements Runnable {
         //Setup gauge
         multiGauge.setAnalogGauge(analogGauge);
         multiGauge.buildGauge(CURRENT_TOKEN);
-
+        txtViewDigital.setText(Float.toString(multiGauge.getMinValue()));
 	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();
@@ -84,6 +86,9 @@ public class WidebandActivity extends Activity implements Runnable {
 	    mSerialService = (BluetoothSerialService) obj;
 	    //Update the BluetoothSerialService instance's handler to this activities'.
 	    mSerialService.setHandler(mHandler);
+	    
+	    Thread thread = new Thread(WidebandActivity.this);
+		thread.start();
 	    
 	    if(!showAnalog){
 	    	((ViewManager)analogGauge.getParent()).removeView(analogGauge); //Remove analog gauge
@@ -105,31 +110,30 @@ public class WidebandActivity extends Activity implements Runnable {
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-            	case MESSAGE_READ:
-            		
-                    byte[] readBuf = (byte[]) msg.obj;
-                    // construct a string from the valid bytes in the buffer
-                    String readMessage = new String(readBuf, 0, msg.arg1);
-
-					//Redraw the needle to the correct value.
-                    currentMsg = readMessage;
-					if(!paused){
-						Thread thread = new Thread(WidebandActivity.this);
-						thread.start();
-						updateGauges();
-					}
-                    
-            		break;
-            	case MESSAGE_TOAST:
-                    Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST), Toast.LENGTH_SHORT).show();
-                    break;
-            }
+        	
+            byte[] readBuf = (byte[]) msg.obj;
+            // construct a string from the valid bytes in the buffer
+            String readMessage = new String(readBuf, 0, msg.arg1);
+			//Redraw the needle to the correct value.
+            currentMsg = readMessage;
+			if(!paused){
+				Message workerMsg = workerHandler.obtainMessage(1, currentMsg);
+				workerMsg.sendToTarget();
+				updateGauges();
+			}
+			
         }
     };
     
     public void run(){
-    	multiGauge.handleSensor(parseInput(currentMsg));
+    	Looper.prepare();
+    	workerHandler = new Handler(){
+    		@Override
+    		public void handleMessage(Message msg){
+    			multiGauge.handleSensor(parseInput((String)msg.obj));
+    		}
+    	};
+    	Looper.loop();
     }
     
     public void updateGauges(){
@@ -159,7 +163,14 @@ public class WidebandActivity extends Activity implements Runnable {
     public void goHome(View v){
     	PassObject.setObject(mSerialService);
     	onBackPressed();
+		finish();
 	}
+    
+    @Override
+    public void onBackPressed(){
+    	workerHandler.getLooper().quit();
+    	super.onBackPressed();
+    }
     
     //Button one handling.
     public void buttonOneClick(View v){   
@@ -188,7 +199,9 @@ public class WidebandActivity extends Activity implements Runnable {
     
     protected void onResume(){
     	super.onResume();
-    	analogGauge.invalidate();
+    	Thread thread = new Thread(WidebandActivity.this);
+		thread.start();
+		analogGauge.invalidate();
     }
        
     public void prefsInit(){

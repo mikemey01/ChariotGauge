@@ -8,8 +8,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Printer;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.view.ViewManager;
@@ -49,8 +51,9 @@ public class BoostActivity extends Activity implements Runnable {
     public static final String TOAST       = "toast";
     private static final int CURRENT_TOKEN = 1;
     
-    BluetoothSerialService mSerialService;
-     
+    BluetoothSerialService mSerialService; 
+    private Handler workerHandler;
+    
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -73,6 +76,7 @@ public class BoostActivity extends Activity implements Runnable {
         //Setup gauge
         multiGauge.setAnalogGauge(analogGauge);
         multiGauge.buildGauge(CURRENT_TOKEN);
+        txtViewDigital.setText(Float.toString(multiGauge.getMinValue()));
         	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();
@@ -80,6 +84,9 @@ public class BoostActivity extends Activity implements Runnable {
 	    mSerialService = (BluetoothSerialService) obj;
 	    //Update the BluetoothSerialService instance's handler to this activities.
 	    mSerialService.setHandler(mHandler);
+	    
+	    Thread thread = new Thread(BoostActivity.this);
+		thread.start();
 	   
 	    if(!showAnalog){
 	    	((ViewManager)analogGauge.getParent()).removeView(analogGauge); //Remove analog gauge
@@ -99,30 +106,30 @@ public class BoostActivity extends Activity implements Runnable {
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-            	case MESSAGE_READ:
-            		
-                    byte[] readBuf = (byte[]) msg.obj;
-                    // construct a string from the valid bytes in the buffer
-                    String readMessage = new String(readBuf, 0, msg.arg1);
-					//Redraw the needle to the correct value.
-                    currentMsg = readMessage;
-					if(!paused){
-						Thread thread = new Thread(BoostActivity.this);
-						thread.start();
-						updateGauges();
-					}
-                    
-            		break;
-            	case MESSAGE_TOAST:
-                    Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST), Toast.LENGTH_SHORT).show();
-                    break;
-            }
+        	
+            byte[] readBuf = (byte[]) msg.obj;
+            // construct a string from the valid bytes in the buffer
+            String readMessage = new String(readBuf, 0, msg.arg1);
+			//Redraw the needle to the correct value.
+            currentMsg = readMessage;
+			if(!paused){
+				Message workerMsg = workerHandler.obtainMessage(1, currentMsg);
+				workerMsg.sendToTarget();
+				updateGauges();
+			}
+			
         }
     };
     
     public void run(){
-    	multiGauge.handleSensor(parseInput(currentMsg));
+    	Looper.prepare();
+    	workerHandler = new Handler(){
+    		@Override
+    		public void handleMessage(Message msg){
+    			multiGauge.handleSensor(parseInput((String)msg.obj));
+    		}
+    	};
+    	Looper.loop();
     }
     
     public void updateGauges(){
@@ -154,6 +161,12 @@ public class BoostActivity extends Activity implements Runnable {
 		finish();
 	}
     
+    @Override
+    public void onBackPressed(){
+    	workerHandler.getLooper().quit();
+    	super.onBackPressed();
+    }
+    
     //Button one handling.
     public void buttonOneClick(View v){   
     	//Reset the max value.
@@ -181,7 +194,9 @@ public class BoostActivity extends Activity implements Runnable {
     
     protected void onResume(){
     	super.onResume();
-    	analogGauge.invalidate();
+    	Thread thread = new Thread(BoostActivity.this);
+		thread.start();
+		analogGauge.invalidate();
     }
     
     

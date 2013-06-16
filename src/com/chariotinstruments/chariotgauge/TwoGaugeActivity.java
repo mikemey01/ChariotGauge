@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -68,6 +69,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     private static final int OIL_TOKEN = 4;
     
     BluetoothSerialService mSerialService;
+    private Handler workerHandler;
      
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -99,7 +101,10 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 	    mSerialService = (BluetoothSerialService) obj;
 	    //Update the BluetoothSerialService instance's handler to this activities.
 	    mSerialService.setHandler(mHandler);
-	   
+	    
+	    Thread thread = new Thread(TwoGaugeActivity.this);
+		thread.start();
+	    
 	    if(!showAnalog){
 	    	((ViewManager)analogGauge1.getParent()).removeView(analogGauge1); //Remove analog gauge
 	    }
@@ -114,65 +119,65 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-            	case MESSAGE_READ:
-            		
-                    byte[] readBuf = (byte[]) msg.obj;
-                    // construct a string from the valid bytes in the buffer
-                    String readMessage = new String(readBuf, 0, msg.arg1);
-					//update/process the inbound data.
-					currentMsg = readMessage;
-					if(!paused){
-						Thread thread = new Thread(TwoGaugeActivity.this);
-						thread.start();
-						updateGauges();
-					}
-            		break;
-            	case MESSAGE_TOAST:
-                    Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
-                                   Toast.LENGTH_SHORT).show();
-                    break;
-            }
+        	
+            byte[] readBuf = (byte[]) msg.obj;
+            // construct a string from the valid bytes in the buffer
+            String readMessage = new String(readBuf, 0, msg.arg1);
+			//Redraw the needle to the correct value.
+            currentMsg = readMessage;
+			if(!paused){
+				Message workerMsg = workerHandler.obtainMessage(1, currentMsg);
+				workerMsg.sendToTarget();
+				updateGauges();
+			}
+			
         }
     };
     
     public void run(){
-    	parseInput(currentMsg);
-    	switch(currentTokenOne){
-    	case 1:
-    		multiGauge1.handleSensor(boostSValue);
-    		break;
-    	case 2:
-    		multiGauge1.handleSensor(wbSValue);
-    		break;
-    	case 3:
-    		multiGauge1.handleSensor(tempSValue);
-    		break;
-    	case 4:
-    		multiGauge1.handleSensor(oilSValue);
-    		break;
-    	default:
-    		break;	
-    	}
-    	
-    	switch(currentTokenTwo){
-    	case 1:
-    		multiGauge2.handleSensor(boostSValue);
-    		break;
-    	case 2:
-    		multiGauge2.handleSensor(wbSValue);
-    		break;
-    	case 3:
-    		multiGauge2.handleSensor(tempSValue);
-    		break;
-    	case 4:
-    		multiGauge2.handleSensor(oilSValue);
-    		break;
-    	default:
-    		break;	
-    	}
+    	Looper.prepare();
+    	workerHandler = new Handler(){
+    		@Override
+    		public void handleMessage(Message msg){
+    			parseInput((String)msg.obj);
+    			switch(currentTokenOne){
+    	    	case 1:
+    	    		multiGauge1.handleSensor(boostSValue);
+    	    		break;
+    	    	case 2:
+    	    		multiGauge1.handleSensor(wbSValue);
+    	    		break;
+    	    	case 3:
+    	    		multiGauge1.handleSensor(tempSValue);
+    	    		break;
+    	    	case 4:
+    	    		multiGauge1.handleSensor(oilSValue);
+    	    		break;
+    	    	default:
+    	    		break;	
+    	    	}
+    	    	
+    	    	switch(currentTokenTwo){
+    	    	case 1:
+    	    		multiGauge2.handleSensor(boostSValue);
+    	    		break;
+    	    	case 2:
+    	    		multiGauge2.handleSensor(wbSValue);
+    	    		break;
+    	    	case 3:
+    	    		multiGauge2.handleSensor(tempSValue);
+    	    		break;
+    	    	case 4:
+    	    		multiGauge2.handleSensor(oilSValue);
+    	    		break;
+    	    	default:
+    	    		break;	
+    	    	}
+    		}
+    	};
+    	Looper.loop();
     }
-    //test comment
+
     public void updateGauges(){
     	analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 		analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
@@ -200,7 +205,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 		}
     }
     
-    //Activity transfer
+    //Activity transfer handling
     public void goHome(View v){
     	PassObject.setObject(mSerialService);
     	onBackPressed();
@@ -235,8 +240,10 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     
     protected void onResume(){
     	super.onResume();
-    	analogGauge1.invalidate();
-    	analogGauge2.invalidate();
+    	Thread thread = new Thread(TwoGaugeActivity.this);
+		thread.start();
+		analogGauge1.invalidate();
+		analogGauge2.invalidate();
     }
        
     public void prefsInit(){
