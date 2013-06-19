@@ -36,6 +36,9 @@
     
     <!--  Whats New String -->
     <string name="whats_new">
+        Jun-16-2013: \n
+   		   - Better background data processing. \n\n
+   		   
         Mar-30-2013: \n
    		   - Added two gauge display and config. \n
    		   - Added four gauge display. \n\n
