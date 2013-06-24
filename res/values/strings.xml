@@ -36,6 +36,9 @@
     
     <!--  Whats New String -->
     <string name="whats_new">
+        Jun-23-2013: \n
+   		   - Fixed multi-threading issue. \n\n
+   		   
         Jun-16-2013: \n
    		   - Better background data processing. \n\n
    		   

@@ -183,7 +183,7 @@ public class MultiGauges extends View{
 			}else if (temp > maxValue){ //set the upper bounds on the data.
 				currentGaugeValue = (float)round(maxValue);
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-    			analogGauge.setValue((float)round(temp));
+				currentGaugeValue = (float)round(temp);
     		
     			if(round(temp) > sensorMaxValue && round(temp) <= maxValue){
     				sensorMaxValue = round(temp);
