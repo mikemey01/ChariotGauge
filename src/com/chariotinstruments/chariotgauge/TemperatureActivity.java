@@ -106,7 +106,12 @@ public class TemperatureActivity extends Activity implements Runnable {
         	
             byte[] readBuf = (byte[]) msg.obj;
             // construct a string from the valid bytes in the buffer
-            String readMessage = new String(readBuf, 0, msg.arg1);
+            String readMessage;
+			try {
+				readMessage = new String(readBuf, 0, msg.arg1);
+			} catch (NullPointerException e) {
+				readMessage = "0";
+			}
 			//Redraw the needle to the correct value.
             currentMsg = readMessage;
 			if(!paused){
