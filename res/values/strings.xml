@@ -37,8 +37,8 @@
     <!--  Whats New String -->
     <string name="whats_new">
         Aug-26-2013: \n
-           - Added gauge resolution setting. \n\n
-           - Fixed small bugs
+           - Added gauge resolution setting. \n
+           - Fixed small bugs. \n\n
         
         Jun-23-2013: \n
    		   - Fixed multi-threading issue. \n\n
