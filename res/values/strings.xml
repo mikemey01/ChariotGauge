@@ -31,11 +31,15 @@
     <string name="oil_title">Oil Pressure</string>
     <string name="wideband_title">Wideband O2</string>
     <string name="temperature_title">Temperature</string>
-    <string name="custom_multi_1">Two Gauges</string>
-    <string name="custom_multi_2">Four Gauges</string>
+    <string name="custom_multi_1">Two Gauge</string>
+    <string name="custom_multi_2">Four Gauge</string>
     
     <!--  Whats New String -->
     <string name="whats_new">
+        Aug-26-2013: \n
+           - Added gauge resolution setting. \n\n
+           - Fixed small bugs
+        
         Jun-23-2013: \n
    		   - Fixed multi-threading issue. \n\n
    		   

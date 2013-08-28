@@ -23,6 +23,16 @@
         <item name="fahrenheit">Fahrenheit</item>
     </string-array>
     
+    
+    <string-array name="gaugeResolution">
+        <item name="tenths">Tenths</item>
+        <item name="hundredths">Hundredths</item>
+    </string-array>
+    
+    <string-array name="gaugeResolutionValues">
+        <item name="tenths">Tenths</item>
+        <item name="hundredths">Hundredths</item>
+    </string-array>
         
         
     <string-array name="widebandUnit">

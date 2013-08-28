@@ -44,6 +44,8 @@ public class MultiGauges extends View{
     double		 oilHighPSI;
     double		 oilHighOhms;
     double		 oilBiasResistor;
+    String 		 gaugeResolution;
+    static DecimalFormat twoDForm;
     
 	
 	//Boost gauge parameters
@@ -232,6 +234,7 @@ public class MultiGauges extends View{
 	}
 	
 	public void buildGauge(int gaugeType){
+		prefsGaugeResolutionInit();
 		switch(gaugeType){
 			case 1: //Boost
 				currentToken=1; //set the value to the boost token.
@@ -420,11 +423,20 @@ public class MultiGauges extends View{
 	}
 	
 	public static double round(double unrounded){
-		DecimalFormat twoDForm = new DecimalFormat("#.##");
         return Double.valueOf(twoDForm.format(unrounded));
     }
 	
 		/* Initialize Preferences */
+	
+	public void prefsGaugeResolutionInit(){
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		gaugeResolution = sp.getString("gaugeResolutions", "Tenths");
+		if(gaugeResolution.toLowerCase().equals("hundredths")){
+			twoDForm = new DecimalFormat("#.##");
+		}else{ //Default to tenths if things go south.
+			twoDForm = new DecimalFormat("#.#");
+		}
+	}
 	
 	public void prefsBoostInit(){
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);

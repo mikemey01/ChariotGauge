@@ -24,6 +24,14 @@
             android:summary="Toggle night mode" 
             android:key="showNightMode" 
             android:defaultValue="false" />
+        
+        <ListPreference
+            android:key="gaugeResolutions"
+            android:title="Gauge Resolution"
+            android:summary="Select the digital gauge resolution"
+            android:defaultValue="Tenths"
+            android:entries="@array/gaugeResolution"
+            android:entryValues="@array/gaugeResolutionValues" />
             
     </PreferenceScreen>
     
@@ -260,7 +268,7 @@
     
     <PreferenceScreen
             android:key="multi_gauge_setup"
-            android:title="Multi Gauge Setup">
+            android:title="Two Gauge Setup">
          
         <ListPreference
             android:key="multiGaugeOne"

@@ -227,7 +227,6 @@ public class PSensor extends Activity {
                 	btnConnect.setText("Disconnect");
                     break;
                 case BluetoothSerialService.STATE_CONNECTING:
-                	//btnConnect.setClickable(false);
                 	btnConnect.setText("Connecting...");
                     break;
                 case BluetoothSerialService.STATE_LISTEN:
