@@ -25,6 +25,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     ImageButton	 btnTwo;
     Typeface	 typeFaceDigital;
     String		 currentMsg;
+    int			 orientation;
 	
     float 	     flt;
     int			 minValue; //gauge min.
@@ -73,8 +74,8 @@ public class TwoGaugeActivity extends Activity implements Runnable{
      
     @Override
 	public void onCreate(Bundle savedInstanceState) {
+    	setContentView(R.layout.gauge_layout_2_landscape);
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.gauge_layout_2);
 	    getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 	    prefsInit(); //Load up the preferences.
 	    context = this;
@@ -85,7 +86,8 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 	    multiGauge1 	= new MultiGauges(context);
 	    multiGauge2 	= new MultiGauges(context);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
-        btnTwo			= (ImageButton) findViewById(R.id.btnTwo);     
+        btnTwo			= (ImageButton) findViewById(R.id.btnTwo);  
+        
    	    
         //Setup gauge 1
         multiGauge1.setAnalogGauge(analogGauge1);
@@ -112,7 +114,9 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 	    	root = btnOne.getRootView(); //Get root layer view.
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	    }
-
+	    
+	    Toast.makeText(getApplicationContext(), "Tap screen to go back", Toast.LENGTH_SHORT).show();
+	    
 	}
     
     //Handles the data being sent back from the BluetoothSerialService class.
@@ -238,6 +242,18 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     		btnTwo.setBackgroundResource(Color.TRANSPARENT);
     	}
 	}
+    
+    public void gaugeOneClick(View v){
+    	PassObject.setObject(mSerialService);
+    	onBackPressed();
+		finish();
+    }
+    
+    public void gaugeTwoClick(View v){
+    	PassObject.setObject(mSerialService);
+    	onBackPressed();
+		finish();
+    }
     
     protected void onPause(){
     	super.onPause();

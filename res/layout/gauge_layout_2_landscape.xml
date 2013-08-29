@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:atswidget="http://schemas.android.com/apk/res/com.chariotinstruments.chariotgauge"
+        android:orientation="vertical" 
+        android:layout_margin="1dp"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content">
+        
+
+    
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="1.0dip"
+        android:paddingTop="1.0dip"
+        android:paddingRight="1.0dip"
+        android:paddingBottom="1.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+	    <com.chariotinstruments.chariotgauge.GaugeBuilder
+	            android:id="@+id/analogGauge" 
+	            android:layout_gravity="center" 
+	            android:layout_weight="1" 
+          		android:layout_width="fill_parent"
+           	    android:layout_height="wrap_content" 
+	            android:layout_margin="2dp"
+	            android:onClick="gaugeOneClick" />
+	    
+	    <com.chariotinstruments.chariotgauge.GaugeBuilder
+	            android:id="@+id/analogGauge2" 
+	            android:layout_gravity="center" 
+	            android:layout_weight="1" 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" 
+	            android:layout_margin="2dp"
+	            android:onClick="gaugeTwoClick" />
+	</LinearLayout>
+</LinearLayout>

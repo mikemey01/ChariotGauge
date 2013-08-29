@@ -51,8 +51,8 @@
             android:screenOrientation="portrait"
             android:noHistory="true"/>
         <activity android:name=".TwoGaugeActivity"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.D1"
-            android:screenOrientation="portrait"
             android:noHistory="true"/>
         <activity android:name=".FourGaugeActivity"
             android:theme="@style/Theme.D1"
