@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:atswidget="http://schemas.android.com/apk/res/com.chariotinstruments.chariotgauge"
-        android:orientation="vertical" 
-        android:layout_margin="1dp"
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content">
+        android:orientation="horizontal" 
+        android:layout_width="wrap_content" 
+        android:layout_height="fill_parent">
+        
+	 <RelativeLayout style="@style/TitleBarVertical">
+       
+	    <ImageButton style="@style/TitleBarActionVertical"
+            android:id="@+id/btnTwo"
+            android:contentDescription="@string/max_button"
+            android:layout_alignParentTop="true"
+            android:padding="5dip"
+            android:src="@drawable/title_gauge_max"
+            android:onClick="buttonTwoClick" /> 
+
+        <ImageButton style="@style/TitleBarActionVertical"
+            android:id="@+id/btnOne"
+            android:paddingTop="2dp"
+            android:layout_below="@+id/btnTwo"
+            android:contentDescription="@string/reset_button"
+            android:padding="5dip"
+            android:src="@drawable/title_gauge_reset"
+            android:onClick="buttonOneClick" />
         
 
-    
+        <ImageView style="@style/TitleBarSeparatorVertical"
+            android:paddingBottom="2dp"
+            android:layout_above="@+id/homeButton"
+            android:contentDescription="@string/reset_button"
+            android:id="@+id/titleBarSeparator" />
+	     
+        <ImageButton style="@style/TitleBarActionVertical"
+            android:id="@+id/homeButton"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@string/home_string"
+            android:padding="5dip"
+            android:src="@drawable/title_home_default"
+            android:onClick="goHome" />
+        
+    </RelativeLayout>
+	
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+        
     <LinearLayout
         android:orientation="horizontal"
         android:paddingLeft="1.0dip"
@@ -35,4 +73,37 @@
 	            android:layout_margin="2dp"
 	            android:onClick="gaugeTwoClick" />
 	</LinearLayout>
+	
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="1.0dip"
+        android:paddingTop="1.0dip"
+        android:paddingRight="1.0dip"
+        android:paddingBottom="1.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/analogGauge2">
+       
+        <TextView
+   		    android:id="@+id/txtViewDigital"
+   		    android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    		android:layout_gravity="center" 
+    		android:gravity="center"
+    		android:layout_weight="1"
+    		android:textSize="45dip"
+    	    android:text="@string/test_text" />
+        
+        <TextView
+   		    android:id="@+id/txtViewDigital2"
+   		    android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    		android:layout_gravity="center" 
+    		android:gravity="center"
+    		android:layout_weight="1"
+    		android:textSize="45dip"
+    	    android:text="@string/test_text" />
+        
+    </LinearLayout>
+</LinearLayout>	 
 </LinearLayout>

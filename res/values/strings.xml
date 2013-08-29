@@ -33,6 +33,9 @@
     <string name="temperature_title">Temperature</string>
     <string name="custom_multi_1">Two Gauge</string>
     <string name="custom_multi_2">Four Gauge</string>
+    <string name="reset_button">Reset Max</string>
+    <string name="max_button">Display Max</string>
+    
     
     <!--  Whats New String -->
     <string name="whats_new">

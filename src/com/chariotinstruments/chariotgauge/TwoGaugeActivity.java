@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.view.ViewManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TwoGaugeActivity extends Activity implements Runnable{
@@ -21,6 +22,8 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 	GaugeBuilder analogGauge2;
 	MultiGauges  multiGauge1;
 	MultiGauges  multiGauge2;
+	TextView 	 txtViewDigital;
+    TextView 	 txtViewDigital2;
     ImageButton  btnOne;
     ImageButton	 btnTwo;
     Typeface	 typeFaceDigital;
@@ -85,17 +88,26 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 	    analogGauge2	= (GaugeBuilder) findViewById(R.id.analogGauge2);
 	    multiGauge1 	= new MultiGauges(context);
 	    multiGauge2 	= new MultiGauges(context);
+	    txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital);
+	    txtViewDigital2 = (TextView) findViewById(R.id.txtViewDigital2);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
         btnTwo			= (ImageButton) findViewById(R.id.btnTwo);  
         
+        //Set the font of the digital.
+        txtViewDigital.setTypeface(typeFaceDigital);
+        txtViewDigital2.setTypeface(typeFaceDigital);
+        txtViewDigital.setText("0.00");
+        txtViewDigital2.setText("0.00");
    	    
         //Setup gauge 1
         multiGauge1.setAnalogGauge(analogGauge1);
         multiGauge1.buildGauge(currentTokenOne);
+        txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
         
         //Setup gauge 2
         multiGauge2.setAnalogGauge(analogGauge2);
         multiGauge2.buildGauge(currentTokenTwo);
+        txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
 	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();
@@ -114,8 +126,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 	    	root = btnOne.getRootView(); //Get root layer view.
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	    }
-	    
-	    Toast.makeText(getApplicationContext(), "Tap screen to go back", Toast.LENGTH_SHORT).show();
 	    
 	}
     
@@ -190,6 +200,9 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     public void updateGauges(){
     	analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 		analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
+		
+		txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
+		txtViewDigital2.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
     }
     
     private void parseInput(String sValue){
@@ -234,6 +247,8 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     	if(!paused){
     		paused = true;
     		//set the gauge/digital to the max value captured so far for two seconds.
+    		txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+			txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
     		analogGauge1.setValue((float)multiGauge1.getSensorMaxValue());
     		analogGauge2.setValue((float)multiGauge2.getSensorMaxValue());
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
