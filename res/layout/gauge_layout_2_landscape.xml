@@ -3,7 +3,7 @@
         xmlns:atswidget="http://schemas.android.com/apk/res/com.chariotinstruments.chariotgauge"
         android:orientation="horizontal" 
         android:layout_width="wrap_content" 
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent">
         
 	 <RelativeLayout style="@style/TitleBarVertical">
        
