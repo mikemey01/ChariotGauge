@@ -92,6 +92,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 	    txtViewDigital2 = (TextView) findViewById(R.id.txtViewDigital2);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
         btnTwo			= (ImageButton) findViewById(R.id.btnTwo);  
+        typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
         
         //Set the font of the digital.
         txtViewDigital.setTypeface(typeFaceDigital);

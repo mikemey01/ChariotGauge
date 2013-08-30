@@ -3,7 +3,7 @@
         xmlns:atswidget="http://schemas.android.com/apk/res/com.chariotinstruments.chariotgauge"
         android:orientation="horizontal" 
         android:layout_width="wrap_content" 
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
         
 	 <RelativeLayout style="@style/TitleBarVertical">
        
@@ -43,21 +43,20 @@
 	
 <LinearLayout
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal">
         
     <LinearLayout
         android:orientation="horizontal"
-        android:paddingLeft="1.0dip"
-        android:paddingTop="1.0dip"
-        android:paddingRight="1.0dip"
-        android:paddingBottom="1.0dip"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_margin="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal">
 
 	    <com.chariotinstruments.chariotgauge.GaugeBuilder
 	            android:id="@+id/analogGauge" 
-	            android:layout_gravity="center" 
 	            android:layout_weight="1" 
           		android:layout_width="fill_parent"
            	    android:layout_height="wrap_content" 
@@ -66,7 +65,6 @@
 	    
 	    <com.chariotinstruments.chariotgauge.GaugeBuilder
 	            android:id="@+id/analogGauge2" 
-	            android:layout_gravity="center" 
 	            android:layout_weight="1" 
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" 
@@ -76,32 +74,30 @@
 	
     <LinearLayout
         android:orientation="horizontal"
-        android:paddingLeft="1.0dip"
-        android:paddingTop="1.0dip"
-        android:paddingRight="1.0dip"
-        android:paddingBottom="1.0dip"
+        android:layout_margin="0dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/analogGauge2">
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="3">
        
         <TextView
    		    android:id="@+id/txtViewDigital"
    		    android:layout_width="fill_parent"
     		android:layout_height="fill_parent"
-    		android:layout_gravity="center" 
     		android:gravity="center"
     		android:layout_weight="1"
-    		android:textSize="45dip"
+    		android:layout_gravity="fill"
+    		android:textSize="45sp"
     	    android:text="@string/test_text" />
         
         <TextView
    		    android:id="@+id/txtViewDigital2"
    		    android:layout_width="fill_parent"
     		android:layout_height="fill_parent"
-    		android:layout_gravity="center" 
     		android:gravity="center"
     		android:layout_weight="1"
-    		android:textSize="45dip"
+    		android:layout_gravity="fill"
+    		android:textSize="45sp"
     	    android:text="@string/test_text" />
         
     </LinearLayout>
