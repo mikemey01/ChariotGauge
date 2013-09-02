@@ -193,6 +193,10 @@ public class OilActivity extends Activity implements Runnable {
     	}
 	}
     
+    public void gaugeOneClick(View v){
+    	goHome(v);
+    }
+    
     protected void onPause(){
     	super.onPause();
     }

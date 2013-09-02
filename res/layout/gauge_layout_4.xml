@@ -89,7 +89,8 @@
     		android:gravity="center"
     		android:layout_weight="1"
     		android:textSize="45dip"
-    	    android:text="@string/test_text" />
+    	    android:text="@string/test_text"
+    	    android:onClick="gaugeOneClick" />
         
         <TextView
    		    android:id="@+id/txtViewDigital2"
@@ -99,7 +100,8 @@
     		android:gravity="center"
     		android:layout_weight="1"
     		android:textSize="45dip"
-    	    android:text="@string/test_text" />
+    	    android:text="@string/test_text"
+    	    android:onClick="gaugeTwoClick" />
         
     </LinearLayout>
 	
@@ -150,7 +152,8 @@
     		android:gravity="center"
     		android:layout_weight="1"
     		android:textSize="45dip"
-    	    android:text="@string/test_text" />
+    	    android:text="@string/test_text"
+    	    android:onClick="gaugeThreeClick" />
         
         <TextView
    		    android:id="@+id/txtViewDigital4"
@@ -160,7 +163,8 @@
     		android:gravity="center"
     		android:layout_weight="1"
     		android:textSize="45dip"
-    	    android:text="@string/test_text" />
+    	    android:text="@string/test_text"
+    	    android:onClick="gaugeFourClick" />
         
     </LinearLayout>
 	

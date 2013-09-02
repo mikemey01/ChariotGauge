@@ -25,12 +25,14 @@ public class MultiGauges extends View{
 	
 	//Preference vars
 	String		 pressureUnits; //Boost units.
+	boolean		 isKPA = false;
 	String		 unitType; //AFR or Lambda.
     String		 fuelType; //Fuel type in use.
     float		 wbLowVolts; //Low volts from the target table.
     float		 wbHighVolts; //High volts from the target table.
     float		 wbLowAFR; //Low AFR from the target table.
     float		 wbHighAFR; //High AFR from the target table.
+    boolean		 isLambda = false;
     String 		 tempUnits;
     double		 tempOne;
     double		 tempTwo;
@@ -132,14 +134,20 @@ public class MultiGauges extends View{
     	   	
 		vOut = (sValue*5.00)/1024;
 		kpa = ((vOut/5.00)+.04)/.004;
-		kpa = kpa - ATMOSPHERIC;
-		psi = kpa * KPA_TO_PSI;
-		if(pressureUnits.equals("KPA")){ //Gauge displayed in KPA
-			currentGaugeValue = (float)round(kpa+ATMOSPHERIC);
+		psi = (kpa - ATMOSPHERIC) * KPA_TO_PSI;
+		if(isKPA){ //Gauge displayed in KPA
 			
-			if(round(kpa) > sensorMaxValue && round(kpa) <= maxValue){
-        		sensorMaxValue = round(kpa);
-        	}
+			if(kpa < minValue){ //set the lower bounds on the data.
+				currentGaugeValue = (float)round(minValue);
+			}else if (kpa > maxValue){ //Set the upper bounds on the data
+				currentGaugeValue = (float)round(maxValue);
+			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
+				currentGaugeValue = (float)round(kpa);
+
+				if(round(kpa) > sensorMaxValue && round(kpa) <= maxValue){
+					sensorMaxValue = round(kpa);
+				}
+			}
 		}else{ //Gauge displayed in PSI
 			if(psi < 0){
 				psi = psi * PSI_TO_INHG;
@@ -167,14 +175,20 @@ public class MultiGauges extends View{
 		vPercentage = vOut / wbVoltRange;
 		o2 = wbLowAFR + (wbAFRRange * vPercentage);
 		
-		if(unitType.equals("Lambda")){ //If unit type is set to lambda, convert afr to lambda.
+		if(isLambda){ //If unit type is set to lambda, convert afr to lambda.
 			o2 = o2/wbStoich;
 		}
 		
-		currentGaugeValue = (float)round(o2);
-		
-		if(round(o2) > sensorMaxValue && round(o2) <= maxValue){
-    		sensorMaxValue = round(o2);
+		if(o2 < minValue){ //set the lower bounds on the data.
+			currentGaugeValue = (float)round(minValue);
+		}else if (o2 > maxValue){ //set the upper bounds on the data.
+			currentGaugeValue = (float)round(maxValue);
+		}else{ //if it is in-between the lower and upper bounds as it should be, display it.
+			currentGaugeValue = (float)round(o2);
+			
+			if(round(o2) > sensorMaxValue && round(o2) <= maxValue){ //Check to see if we've hit a new high, record it.
+        		sensorMaxValue = round(o2);
+        	}
 		}
 	}
 	
@@ -244,7 +258,7 @@ public class MultiGauges extends View{
 			case 1: //Boost
 				currentToken=1; //set the value to the boost token.
 				prefsBoostInit(); //get stored prefs for boost.
-				if(pressureUnits.equals("KPA")){
+				if(isKPA){
 		        	//Set up the gauge values and the values that are handled from the sensor for KPA
 		        	minValue = 0;
 				    maxValue = 250;
@@ -286,7 +300,7 @@ public class MultiGauges extends View{
 				//High and low range for AFR/Volts
 			    wbAFRRange = (double)(wbHighAFR - wbLowAFR);
 			    wbVoltRange = (double)(wbHighVolts - wbLowVolts);
-				if(unitType.equals("Lambda")){
+				if(isLambda){
 		    		//Set up the gauge values and the values that are handled from the sensor.
 				    minValue = 0;
 				    maxValue = 2;
@@ -369,7 +383,7 @@ public class MultiGauges extends View{
 				currentToken = 3;
 				prefsTempInit();
 				getSHHCoefficients();
-				if(tempUnits.toLowerCase(Locale.US).equals("celsius")){
+				if(isCelsius){
 				    //Set up the gauge values and the values that are handled from the sensor for Celsius.
 				    minValue = -35;
 				    maxValue = 105;
@@ -447,6 +461,9 @@ public class MultiGauges extends View{
 	public void prefsBoostInit(){
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
     	pressureUnits = sp.getString("pressureUnits", "PSI");
+    	if(pressureUnits.equals("KPA")){
+    		isKPA = true;
+    	}
     	
     }
 	
@@ -454,6 +471,10 @@ public class MultiGauges extends View{
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		unitType = sp.getString("widebandUnits", "AFR");
     	fuelType = sp.getString("widebandFuelType", "Gasoline");
+    	
+    	if(unitType.equals("Lambda")){
+    		isLambda = true;
+    	}
     	
     	String sLowVolts = sp.getString("afrvoltage_low_voltage", "0.00");
     	String sHighVolts = sp.getString("afrvoltage_high_voltage", "5.00");

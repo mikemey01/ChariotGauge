@@ -41,7 +41,7 @@
         
         <ListPreference
             android:key="pressureUnits"
-            android:title="Pressure Units"
+            android:title="Toggle PSI or KPA"
             android:summary="Select which units to display"
             android:defaultValue="PSI"
             android:entries="@array/pressureUnit"
@@ -184,7 +184,7 @@
         
         <ListPreference
             android:key="tempUnits"
-            android:title="Temperature Units"
+            android:title="Toggle Celsius or Fahrenheit"
             android:summary="Select which units to display"
             android:defaultValue="Celsius"
             android:entries="@array/tempUnit"

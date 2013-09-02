@@ -283,15 +283,11 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 	}
     
     public void gaugeOneClick(View v){
-    	PassObject.setObject(mSerialService);
-    	onBackPressed();
-		finish();
+    	goHome(v);
     }
     
     public void gaugeTwoClick(View v){
-    	PassObject.setObject(mSerialService);
-    	onBackPressed();
-		finish();
+    	goHome(v);
     }
     
     protected void onPause(){

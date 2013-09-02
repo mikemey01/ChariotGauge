@@ -280,19 +280,19 @@ public class FourGaugeActivity extends Activity implements Runnable{
     
     //Analog gauge one click
     public void gaugeOneClick(View v){
-    	//((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital);
+    	goHome(v);
     }
     
     public void gaugeTwoClick(View v){
-    	//((ViewManager)txtViewDigital2.getParent()).removeView(txtViewDigital2);
+    	goHome(v);
     }
     
     public void gaugeThreeClick(View v){
-    	//((ViewManager)txtViewDigital3.getParent()).removeView(txtViewDigital3);
+    	goHome(v);
     }
     
     public void gaugeFourClick(View v){
-    	//((ViewManager)txtViewDigital4.getParent()).removeView(txtViewDigital4);
+    	goHome(v);
     }
     
     protected void onPause(){
