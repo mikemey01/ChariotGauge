@@ -39,6 +39,7 @@ public class MultiGauges extends View{
     double		 tempOhmsTwo;
     double		 tempOhmsThree;
     double		 tempBiasResistor;
+    boolean		 isCelsius = false;
     double 		 oilLowPSI;
     double		 oilLowOhms;
     double		 oilHighPSI;
@@ -52,6 +53,7 @@ public class MultiGauges extends View{
 	public static final double KPA_TO_PSI  = 0.14503773773020923;
     public static final double ATMOSPHERIC = 101.325;
     public static final double KPA_TO_INHG = 0.295299830714;
+    public static final double PSI_TO_INHG = 2.03625437;
     
     //Wideband gauge parameters
     double		 wbAFRRange;
@@ -139,12 +141,15 @@ public class MultiGauges extends View{
         		sensorMaxValue = round(kpa);
         	}
 		}else{ //Gauge displayed in PSI
+			if(psi < 0){
+				psi = psi * PSI_TO_INHG;
+			}
 			if(psi < minValue){ //set the lower bounds on the data.
-				currentGaugeValue = (float)round(minValue);
+				currentGaugeValue = (float)round(Math.abs(minValue));
 			}else if (psi > maxValue){ //Set the upper bounds on the data
-				currentGaugeValue = (float)round(maxValue);
+				currentGaugeValue = (float)round(Math.abs(maxValue));
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-				currentGaugeValue = (float)round(psi);
+				currentGaugeValue = (float)round(Math.abs(psi));
 
 				if(round(psi) > sensorMaxValue && round(psi) <= maxValue){
 					sensorMaxValue = round(psi);
@@ -179,7 +184,7 @@ public class MultiGauges extends View{
     	
 		res = getResistance(sValue);
     	temp = getTemperature(res);
-		if(tempUnits.toLowerCase().equals("celsius")){ //Celsius
+		if(isCelsius){ //Celsius
 			if(temp < minValue){ //set the lower bounds on the data.
 				currentGaugeValue = (float)round(minValue);
 			}else if (temp > maxValue){ //set the upper bounds on the data.
@@ -257,20 +262,21 @@ public class MultiGauges extends View{
 				    analogGauge.setValue((float)minValue);
 		        }else{
 		        	//Set up the gauge values and the values that are handled from the sensor for PSI
-		        	minValue = -10;
+		        	minValue = -30;
 				    maxValue = 25;
 				    sensorMinValue = minValue;
 				    sensorMaxValue = minValue;
 				    
 				    //Set up the Boost GaugeBuilder for PSI
-				    analogGauge.setTotalNotches(55);
+				    analogGauge.setTotalNotches(65);
 				    analogGauge.setIncrementPerLargeNotch(5);
 				    analogGauge.setIncrementPerSmallNotch(1);
-				    analogGauge.setScaleCenterValue(10);
+				    analogGauge.setScaleCenterValue(0);
 				    analogGauge.setScaleMinValue(minValue);
 				    analogGauge.setScaleMaxValue(maxValue);
 				    analogGauge.setUnitTitle("Boost (PSI)");
 				    analogGauge.setValue((float)minValue);
+				    analogGauge.setAbsoluteNumbers(true);
 		        }
 				break;
 			case 2: //Wideband
@@ -497,6 +503,12 @@ public class MultiGauges extends View{
 		SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(context);
 		tempUnits = sp.getString("tempUnits", "fahrenheit");
     	
+		if(tempUnits.toLowerCase(Locale.US).equals("celsius")){
+			isCelsius = true;
+		}else{
+			isCelsius = false;
+		}
+		
     	String stempOne   = sp.getString("temp_one", "-18.00");
     	String stempTwo   = sp.getString("temp_two", "4.00");
     	String stempThree = sp.getString("temp_three", "99.00");

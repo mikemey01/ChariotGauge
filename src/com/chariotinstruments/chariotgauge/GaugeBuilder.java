@@ -74,6 +74,7 @@ package com.chariotinstruments.chariotgauge;
 	        private Paint unitPaint;        
 	        private Path  unitPath;
 	        private RectF unitRect;
+	        private boolean absoluteNumbers;
 
 	        private Paint lowerTitlePaint;  
 	        private Paint upperTitlePaint;  
@@ -184,6 +185,14 @@ package com.chariotinstruments.chariotgauge;
 	        	degreesPerNotch = 360.0f/totalNotches;  
 	        }
 	        
+	        public void setAbsoluteNumbers(boolean trueFalse){
+	        	absoluteNumbers = trueFalse;
+	        }
+	        
+	        public boolean getAbsoluteNumbers(){
+	        	return absoluteNumbers;
+	        }
+	        
 	        
 	        @Override
 	        protected void onAttachedToWindow() {
@@ -246,6 +255,8 @@ package com.chariotinstruments.chariotgauge;
 	                        if (unitTitle != null) this.unitTitle = unitTitle;
 	                        if (lowerTitle != null) this.lowerTitle = lowerTitle;
 	                        if (upperTitle != null) this.upperTitle = upperTitle;
+	                        
+	                        a.recycle();
 	                }
 	                degreeMinValue        = valueToAngle(scaleMinValue)        + centerDegrees;
 	                degreeMaxValue        = valueToAngle(scaleMaxValue)        + centerDegrees;
@@ -483,8 +494,12 @@ package com.chariotinstruments.chariotgauge;
 	                                if (value >= scaleMinValue && value <= scaleMaxValue) {
 	                                        // draw a nick
 	                                        canvas.drawLine(0.5f, y1, 0.5f, y3, scalePaint);
-
-	                                        String valueString = Integer.toString(value);
+	                                        String valueString;
+	                                        if(absoluteNumbers){
+	                                        	valueString = Integer.toString(Math.abs(value));
+	                                        }else{
+	                                        	valueString = Integer.toString(value);
+	                                        }
 	                                        // Draw the text 0.15 away from y3 which is the long nick.
 	                                        canvas.drawText(valueString, 0.5f, y3 - 0.015f, scalePaint);
 	                                }

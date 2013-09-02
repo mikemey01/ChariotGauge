@@ -105,6 +105,13 @@ public class TwoGaugeActivity extends Activity implements Runnable{
         multiGauge1.buildGauge(currentTokenOne);
         txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
         
+        //Check if the gauge uses negative numbers or not.
+        if(analogGauge1.getAbsoluteNumbers()){ 
+        	txtViewDigital.setText(Float.toString(Math.abs(multiGauge1.getMinValue())));
+        }else{
+        	txtViewDigital.setText(Float.toString(multiGauge1.getMinValue()));
+        }
+        
         //Setup gauge 2
         multiGauge2.setAnalogGauge(analogGauge2);
         multiGauge2.buildGauge(currentTokenTwo);

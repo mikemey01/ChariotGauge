@@ -76,7 +76,13 @@ public class BoostActivity extends Activity implements Runnable {
         //Setup gauge
         multiGauge.setAnalogGauge(analogGauge);
         multiGauge.buildGauge(CURRENT_TOKEN);
-        txtViewDigital.setText(Float.toString(multiGauge.getMinValue()));
+        
+        //Check if the gauge uses negative numbers or not.
+        if(analogGauge.getAbsoluteNumbers()){ 
+        	txtViewDigital.setText(Float.toString(Math.abs(multiGauge.getMinValue())));
+        }else{
+        	txtViewDigital.setText(Float.toString(multiGauge.getMinValue()));
+        }
         	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();

@@ -117,7 +117,13 @@ public class FourGaugeActivity extends Activity implements Runnable{
         //Setup gauge 1
         multiGauge1.setAnalogGauge(analogGauge1);
         multiGauge1.buildGauge(BOOST_TOKEN);
-        txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+        
+        //Check if the gauge uses negative numbers or not.
+        if(analogGauge1.getAbsoluteNumbers()){ 
+        	txtViewDigital.setText(Float.toString(Math.abs(multiGauge1.getMinValue())));
+        }else{
+        	txtViewDigital.setText(Float.toString(multiGauge1.getMinValue()));
+        }
 		
         //Setup gauge 2
         multiGauge2.setAnalogGauge(analogGauge2);
