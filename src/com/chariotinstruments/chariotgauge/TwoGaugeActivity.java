@@ -41,6 +41,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     float		 wbSValue;
     float		 tempSValue;
     float		 oilSValue;
+    boolean		 isAbsolute;
     
     //Prefs vars
     View		 root;
@@ -116,6 +117,13 @@ public class TwoGaugeActivity extends Activity implements Runnable{
         multiGauge2.setAnalogGauge(analogGauge2);
         multiGauge2.buildGauge(currentTokenTwo);
         txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
+        
+        //Check if the gauge uses negative numbers or not.
+        if(analogGauge2.getAbsoluteNumbers()){ 
+        	txtViewDigital2.setText(Float.toString(Math.abs(multiGauge2.getMinValue())));
+        }else{
+        	txtViewDigital2.setText(Float.toString(multiGauge2.getMinValue()));
+        }
 	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();
@@ -209,8 +217,16 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     	analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 		analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
 		
-		txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
-		txtViewDigital2.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
+		if(analogGauge1.getAbsoluteNumbers()){
+			txtViewDigital.setText(Float.toString(Math.abs(multiGauge1.getCurrentGaugeValue())));
+		}else{
+			txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
+		}
+		if(analogGauge2.getAbsoluteNumbers()){
+			txtViewDigital2.setText(Float.toString(Math.abs(multiGauge2.getCurrentGaugeValue())));
+		}else{
+			txtViewDigital2.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
+		}
     }
     
     private void parseInput(String sValue){

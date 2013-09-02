@@ -205,7 +205,7 @@ public class FourGaugeActivity extends Activity implements Runnable{
     
     public void updateGauges(){
     	if(!paused){
-    		analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
+    		analogGauge1.setValue(Math.abs(multiGauge1.getCurrentGaugeValue()));
 			analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
 			analogGauge3.setValue(multiGauge3.getCurrentGaugeValue());
 			analogGauge4.setValue(multiGauge4.getCurrentGaugeValue());

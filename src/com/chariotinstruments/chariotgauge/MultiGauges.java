@@ -145,11 +145,11 @@ public class MultiGauges extends View{
 				psi = psi * PSI_TO_INHG;
 			}
 			if(psi < minValue){ //set the lower bounds on the data.
-				currentGaugeValue = (float)round(Math.abs(minValue));
+				currentGaugeValue = (float)round(minValue);
 			}else if (psi > maxValue){ //Set the upper bounds on the data
-				currentGaugeValue = (float)round(Math.abs(maxValue));
+				currentGaugeValue = (float)round(maxValue);
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-				currentGaugeValue = (float)round(Math.abs(psi));
+				currentGaugeValue = (float)round(psi);
 
 				if(round(psi) > sensorMaxValue && round(psi) <= maxValue){
 					sensorMaxValue = round(psi);

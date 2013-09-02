@@ -146,7 +146,7 @@ public class BoostActivity extends Activity implements Runnable {
     public void updateGauges(){
     	if(!paused){
     		analogGauge.setValue(multiGauge.getCurrentGaugeValue());
-    		txtViewDigital.setText(Float.toString(multiGauge.getCurrentGaugeValue()));
+    		txtViewDigital.setText(Float.toString(Math.abs(multiGauge.getCurrentGaugeValue())));
     	}
     }
     
