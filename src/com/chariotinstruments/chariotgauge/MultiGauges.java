@@ -274,7 +274,7 @@ public class MultiGauges extends View{
 				    analogGauge.setScaleCenterValue(0);
 				    analogGauge.setScaleMinValue(minValue);
 				    analogGauge.setScaleMaxValue(maxValue);
-				    analogGauge.setUnitTitle("Boost (PSI)");
+				    analogGauge.setUnitTitle("Boost (PSI/inHG)");
 				    analogGauge.setValue((float)minValue);
 				    analogGauge.setAbsoluteNumbers(true);
 		        }

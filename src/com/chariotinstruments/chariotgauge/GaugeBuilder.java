@@ -64,6 +64,8 @@ package com.chariotinstruments.chariotgauge;
 	        
 	        private Paint scalePaint;
 	        private RectF scaleRect;
+	        
+	        private Paint redPaint;
 
 	        private RectF valueRect;
 	        private RectF rangeRect;
@@ -103,6 +105,7 @@ package com.chariotinstruments.chariotgauge;
 	        private int incrementPerSmallNotch       = 2;
 
 	        private int scaleColor                   = Color .rgb(105, 105, 105);
+	        private int redColor                     = Color .rgb(225, 18, 18);
 	        private int scaleCenterValue             = 15; // the one in the top center (12 o'clock), this corresponds with -90 degrees
 	        private int scaleMinValue                = 0;
 	        private int scaleMaxValue                = 100;
@@ -338,6 +341,17 @@ package com.chariotinstruments.chariotgauge;
 	                scalePaint.setTextScaleX(0.6f);
 	                scalePaint.setTextAlign(Paint.Align.CENTER); 
 	                scalePaint.setLinearText(true);
+	                
+	                //For red values.
+	                redPaint = new Paint();
+	                redPaint.setStyle(Paint.Style.STROKE);
+	                redPaint.setColor(redColor);
+	                redPaint.setAntiAlias(true);
+	                redPaint.setTextSize(0.078f);
+	                redPaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
+	                redPaint.setTextScaleX(0.6f);
+	                redPaint.setTextAlign(Paint.Align.CENTER); 
+	                redPaint.setLinearText(true);
 
 	                
 	                rangeAllPaint = new Paint();
@@ -501,7 +515,11 @@ package com.chariotinstruments.chariotgauge;
 	                                        	valueString = Integer.toString(value);
 	                                        }
 	                                        // Draw the text 0.15 away from y3 which is the long nick.
-	                                        canvas.drawText(valueString, 0.5f, y3 - 0.015f, scalePaint);
+	                                        if(value == scaleCenterValue){
+	                                        	canvas.drawText(valueString, 0.5f, y3 - 0.015f, redPaint);//scalePaint);
+	                                        }else{
+	                                        	canvas.drawText(valueString, 0.5f, y3 - 0.015f, scalePaint);
+	                                        }
 	                                }
 	                        }
 	                        else{
@@ -510,10 +528,8 @@ package com.chariotinstruments.chariotgauge;
 	                                        canvas.drawLine(0.5f, y1, 0.5f, y2, scalePaint);
 	                                }
 	                        }
-	                        
 	                        canvas.rotate(degreesPerNotch, 0.5f, 0.5f);
 	                }
-
 	                canvas.restore();
 	        }
 	        
