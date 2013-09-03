@@ -57,8 +57,7 @@
 	            android:layout_weight="1" 
           		android:layout_width="fill_parent"
            	    android:layout_height="wrap_content" 
-	            android:layout_margin="2dp"
-	            android:onClick="gaugeOneClick" />
+	            android:layout_margin="2dp"  />
 	    
 	    <com.chariotinstruments.chariotgauge.GaugeBuilder
 	            android:id="@+id/analogGauge2" 
@@ -66,8 +65,7 @@
 	            android:layout_weight="1" 
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" 
-	            android:layout_margin="2dp"
-	            android:onClick="gaugeTwoClick" />
+	            android:layout_margin="2dp"  />
 	</LinearLayout>
 	
     <LinearLayout
@@ -89,8 +87,7 @@
     		android:gravity="center"
     		android:layout_weight="1"
     		android:textSize="45dip"
-    	    android:text="@string/test_text"
-    	    android:onClick="gaugeOneClick" />
+    	    android:text="@string/test_text" />
         
         <TextView
    		    android:id="@+id/txtViewDigital2"
@@ -100,8 +97,7 @@
     		android:gravity="center"
     		android:layout_weight="1"
     		android:textSize="45dip"
-    	    android:text="@string/test_text"
-    	    android:onClick="gaugeTwoClick" />
+    	    android:text="@string/test_text" />
         
     </LinearLayout>
 	
@@ -121,8 +117,7 @@
             android:layout_weight="1" 
          	android:layout_width="fill_parent"
           	android:layout_height="wrap_content" 
-            android:layout_margin="2dp"
-            android:onClick="gaugeThreeClick" />
+            android:layout_margin="2dp" />
 	    
 	    <com.chariotinstruments.chariotgauge.GaugeBuilder
             android:id="@+id/analogGauge4" 
@@ -130,8 +125,7 @@
             android:layout_weight="1" 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" 
-            android:layout_margin="2dp"
-            android:onClick="gaugeFourClick" />
+            android:layout_margin="2dp" />
 	</LinearLayout>
 	
 	<LinearLayout
@@ -152,8 +146,7 @@
     		android:gravity="center"
     		android:layout_weight="1"
     		android:textSize="45dip"
-    	    android:text="@string/test_text"
-    	    android:onClick="gaugeThreeClick" />
+    	    android:text="@string/test_text" />
         
         <TextView
    		    android:id="@+id/txtViewDigital4"
@@ -163,8 +156,7 @@
     		android:gravity="center"
     		android:layout_weight="1"
     		android:textSize="45dip"
-    	    android:text="@string/test_text"
-    	    android:onClick="gaugeFourClick" />
+    	    android:text="@string/test_text" />
         
     </LinearLayout>
 	

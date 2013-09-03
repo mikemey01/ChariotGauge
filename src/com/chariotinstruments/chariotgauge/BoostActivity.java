@@ -190,7 +190,7 @@ public class BoostActivity extends Activity implements Runnable {
     	if(!paused){
     		paused = true;
     		//set the gauge/digital to the max value captured so far for two seconds.
-    		txtViewDigital.setText(Double.toString(multiGauge.getSensorMaxValue()));
+    		txtViewDigital.setText(Double.toString(Math.abs(multiGauge.getSensorMaxValue())));
     		analogGauge.setValue((float)multiGauge.getSensorMaxValue());
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
     	}else{

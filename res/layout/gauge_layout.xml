@@ -46,8 +46,7 @@
             android:layout_gravity="center" 
             android:layout_width="wrap_content"
             android:layout_height="fill_parent" 
-            android:layout_margin="2px" 
-            android:onClick="gaugeOneClick"/>
+            android:layout_margin="2px" />
     
     <TextView android:id="@+id/txtViewDigital"
  		android:layout_width="fill_parent"
@@ -55,8 +54,7 @@
   		android:gravity="center_horizontal"
   		android:layout_alignParentBottom="true"
   		android:textSize="80dip"
-  	    android:text="@string/test_text"
-  	    android:onClick="gaugeOneClick" />
+  	    android:text="@string/test_text" />
     
 
 </LinearLayout>

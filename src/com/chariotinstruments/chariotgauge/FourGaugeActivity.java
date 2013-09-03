@@ -205,12 +205,12 @@ public class FourGaugeActivity extends Activity implements Runnable{
     
     public void updateGauges(){
     	if(!paused){
-    		analogGauge1.setValue(Math.abs(multiGauge1.getCurrentGaugeValue()));
+    		analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 			analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
 			analogGauge3.setValue(multiGauge3.getCurrentGaugeValue());
 			analogGauge4.setValue(multiGauge4.getCurrentGaugeValue());
 			
-			txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
+			txtViewDigital.setText(Float.toString(Math.abs(multiGauge1.getCurrentGaugeValue())));
 			txtViewDigital2.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
 			txtViewDigital3.setText(Float.toString(multiGauge3.getCurrentGaugeValue()));
 			txtViewDigital4.setText(Float.toString(multiGauge4.getCurrentGaugeValue()));
@@ -262,7 +262,7 @@ public class FourGaugeActivity extends Activity implements Runnable{
     		paused = true;
     		
     		//set the gauge/digital to the max value captured so far.
-			txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+			txtViewDigital.setText(Double.toString(Math.abs(multiGauge1.getSensorMaxValue())));
 			txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
 			txtViewDigital3.setText(Double.toString(multiGauge3.getSensorMaxValue()));
 			txtViewDigital4.setText(Double.toString(multiGauge4.getSensorMaxValue()));

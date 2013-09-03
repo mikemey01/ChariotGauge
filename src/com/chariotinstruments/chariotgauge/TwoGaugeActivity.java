@@ -104,26 +104,20 @@ public class TwoGaugeActivity extends Activity implements Runnable{
         //Setup gauge 1
         multiGauge1.setAnalogGauge(analogGauge1);
         multiGauge1.buildGauge(currentTokenOne);
-        txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+        //txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
         
         //Check if the gauge uses negative numbers or not.
-        if(analogGauge1.getAbsoluteNumbers()){ 
-        	txtViewDigital.setText(Float.toString(Math.abs(multiGauge1.getMinValue())));
-        }else{
         	txtViewDigital.setText(Float.toString(multiGauge1.getMinValue()));
-        }
+
         
         //Setup gauge 2
         multiGauge2.setAnalogGauge(analogGauge2);
         multiGauge2.buildGauge(currentTokenTwo);
-        txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
+        //txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
         
         //Check if the gauge uses negative numbers or not.
-        if(analogGauge2.getAbsoluteNumbers()){ 
-        	txtViewDigital2.setText(Float.toString(Math.abs(multiGauge2.getMinValue())));
-        }else{
         	txtViewDigital2.setText(Float.toString(multiGauge2.getMinValue()));
-        }
+
 	  
 	    //Get the mSerialService object from the UI activity.
 	    Object obj = PassObject.getObject();
@@ -217,16 +211,9 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     	analogGauge1.setValue(multiGauge1.getCurrentGaugeValue());
 		analogGauge2.setValue(multiGauge2.getCurrentGaugeValue());
 		
-		if(analogGauge1.getAbsoluteNumbers()){
-			txtViewDigital.setText(Float.toString(Math.abs(multiGauge1.getCurrentGaugeValue())));
-		}else{
 			txtViewDigital.setText(Float.toString(multiGauge1.getCurrentGaugeValue()));
-		}
-		if(analogGauge2.getAbsoluteNumbers()){
-			txtViewDigital2.setText(Float.toString(Math.abs(multiGauge2.getCurrentGaugeValue())));
-		}else{
 			txtViewDigital2.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
-		}
+
     }
     
     private void parseInput(String sValue){
@@ -271,8 +258,8 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     	if(!paused){
     		paused = true;
     		//set the gauge/digital to the max value captured so far for two seconds.
-    		txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
-			txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
+    			txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
+    			txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
     		analogGauge1.setValue((float)multiGauge1.getSensorMaxValue());
     		analogGauge2.setValue((float)multiGauge2.getSensorMaxValue());
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
