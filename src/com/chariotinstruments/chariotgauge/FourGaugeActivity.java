@@ -277,24 +277,7 @@ public class FourGaugeActivity extends Activity implements Runnable{
     		btnTwo.setBackgroundResource(Color.TRANSPARENT);
     	}
 	}
-    
-    //Analog gauge one click
-    public void gaugeOneClick(View v){
-    	goHome(v);
-    }
-    
-    public void gaugeTwoClick(View v){
-    	goHome(v);
-    }
-    
-    public void gaugeThreeClick(View v){
-    	goHome(v);
-    }
-    
-    public void gaugeFourClick(View v){
-    	goHome(v);
-    }
-    
+       
     protected void onPause(){
     	super.onPause();
     }

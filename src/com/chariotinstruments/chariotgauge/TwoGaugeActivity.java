@@ -104,7 +104,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
         //Setup gauge 1
         multiGauge1.setAnalogGauge(analogGauge1);
         multiGauge1.buildGauge(currentTokenOne);
-        //txtViewDigital.setText(Double.toString(multiGauge1.getSensorMaxValue()));
         
         //Check if the gauge uses negative numbers or not.
         	txtViewDigital.setText(Float.toString(multiGauge1.getMinValue()));
@@ -113,7 +112,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
         //Setup gauge 2
         multiGauge2.setAnalogGauge(analogGauge2);
         multiGauge2.buildGauge(currentTokenTwo);
-        //txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
         
         //Check if the gauge uses negative numbers or not.
         	txtViewDigital2.setText(Float.toString(multiGauge2.getMinValue()));
@@ -268,14 +266,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     		btnTwo.setBackgroundResource(Color.TRANSPARENT);
     	}
 	}
-    
-    public void gaugeOneClick(View v){
-    	goHome(v);
-    }
-    
-    public void gaugeTwoClick(View v){
-    	goHome(v);
-    }
     
     protected void onPause(){
     	super.onPause();

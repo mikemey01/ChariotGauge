@@ -198,11 +198,7 @@ public class BoostActivity extends Activity implements Runnable {
     		btnTwo.setBackgroundResource(Color.TRANSPARENT);
     	}
 	}
-    
-    public void gaugeOneClick(View v){
-    	goHome(v);
-    }
-    
+       
     protected void onPause(){
     	super.onPause();
     }
