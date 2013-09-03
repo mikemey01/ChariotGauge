@@ -65,9 +65,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST       = "toast";
-    public static final double KPA_TO_PSI  = 0.14503773773020923;
-    public static final double ATMOSPHERIC = 101.325;
-    public static final double KPA_TO_INHG = 0.295299830714;
     private static final int BOOST_TOKEN = 1;
     private static final int WIDEBAND_TOKEN = 2;
     private static final int TEMP_TOKEN = 3;
