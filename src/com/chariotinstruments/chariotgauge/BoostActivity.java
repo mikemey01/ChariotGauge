@@ -128,7 +128,6 @@ public class BoostActivity extends Activity implements Runnable {
 				workerMsg.sendToTarget();
 				updateGauges();
 			}
-			
         }
     };
     

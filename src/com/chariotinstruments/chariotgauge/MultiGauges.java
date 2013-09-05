@@ -109,6 +109,9 @@ public class MultiGauges extends View{
 	//pass the raw sensor data to the appropriate handler
 	public void handleSensor(float sValue){ 
 		switch(currentToken){
+		case 0:
+			handleVoltMeter(sValue);
+			break;
 		case 1:
 			handleBoostSensor(sValue);
 			break;
@@ -142,10 +145,11 @@ public class MultiGauges extends View{
 			}else if (kpa > maxValue){ //Set the upper bounds on the data
 				currentGaugeValue = (float)round(maxValue);
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-				currentGaugeValue = (float)round(kpa);
+				kpa = round(kpa);
+				currentGaugeValue = (float)kpa;
 
-				if(round(kpa) > sensorMaxValue && round(kpa) <= maxValue){
-					sensorMaxValue = round(kpa);
+				if(kpa > sensorMaxValue && kpa <= 248){
+					sensorMaxValue = kpa;
 				}
 			}
 		}else{ //Gauge displayed in PSI
@@ -157,14 +161,16 @@ public class MultiGauges extends View{
 			}else if (psi > maxValue){ //Set the upper bounds on the data
 				currentGaugeValue = (float)round(maxValue);
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-				currentGaugeValue = (float)round(psi);
+				psi = round(psi);
+				currentGaugeValue = (float)psi;
 
-				if(round(psi) > sensorMaxValue && round(psi) <= maxValue){
-					sensorMaxValue = round(psi);
+				if(psi > this.sensorMaxValue && psi <= 21.0d){
+					sensorMaxValue = psi;
 				}
 			}
 		} //PSI closing paren.
     } //handleSensor closing paren.
+	
 	
 	public void handleWidebandSensor(float sValue){
 		double vOut;
@@ -184,10 +190,11 @@ public class MultiGauges extends View{
 		}else if (o2 > maxValue){ //set the upper bounds on the data.
 			currentGaugeValue = (float)round(maxValue);
 		}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-			currentGaugeValue = (float)round(o2);
+			o2 = round(o2);
+			currentGaugeValue = (float)o2;
 			
-			if(round(o2) > sensorMaxValue && round(o2) <= maxValue){ //Check to see if we've hit a new high, record it.
-        		sensorMaxValue = round(o2);
+			if(o2 > sensorMaxValue && o2 <= (maxValue-.1d)){ //Check to see if we've hit a new high, record it.
+        		sensorMaxValue = o2;
         	}
 		}
 	}
@@ -204,10 +211,11 @@ public class MultiGauges extends View{
 			}else if (temp > maxValue){ //set the upper bounds on the data.
 				currentGaugeValue = (float)round(maxValue);
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-				currentGaugeValue = (float)round(temp);
+				temp = round(getF(temp));
+				currentGaugeValue = (float)temp;
     		
-    			if(round(temp) > sensorMaxValue && round(temp) <= maxValue){
-    				sensorMaxValue = round(temp);
+    			if(temp > sensorMaxValue && temp <= (maxValue - .1d)){
+    				sensorMaxValue = temp;
     			}
 			}
 		}else{ //Fahrenheit
@@ -216,10 +224,11 @@ public class MultiGauges extends View{
 			}else if(getF(temp) > maxValue){
 				currentGaugeValue = (float)round(maxValue);
 			}else{
-				currentGaugeValue = (float)round(getF(temp));
+				temp = round(getF(temp));
+				currentGaugeValue = (float)temp;
     		
-    			if(round(getF(temp)) > sensorMaxValue && round(getF(temp)) <= maxValue){
-    				sensorMaxValue = round(getF(temp));
+    			if(temp > sensorMaxValue && temp <= maxValue){
+    				sensorMaxValue = temp;
     			}
 			}
 		}
@@ -244,12 +253,24 @@ public class MultiGauges extends View{
 		}else if (oil > maxValue){ //set the upper bounds on the data.
 			currentGaugeValue = (float)round(maxValue);
 		}else{ //if it is in-between the lower and upper bounds as it should be, display it.
-			currentGaugeValue = (float)round(oil);
+			oil = round(oil);
+			currentGaugeValue = (float)oil;
 			
-			if(round(oil) > sensorMaxValue && round(oil) <= maxValue){ //Check to see if we've hit a new high, record it.
-        		sensorMaxValue = round(oil);
+			if(oil > sensorMaxValue && oil <= maxValue){ //Check to see if we've hit a new high, record it.
+        		sensorMaxValue = oil;
         	}
 		}
+	}
+	
+	public void handleVoltMeter(float sValue){
+		double volts = 0;
+		volts = getVoltMeter(sValue);
+		volts = round(volts);
+		currentGaugeValue = (float)volts;
+		
+		if(volts > sensorMaxValue && volts <= maxValue){ //Check to see if we've hit a new high, record it.
+    		sensorMaxValue = volts;
+    	}
 	}
 	
 	public void buildGauge(int gaugeType){
@@ -631,4 +652,12 @@ public class MultiGauges extends View{
     	oilRangeVolts = oilHighVolts - oilLowVolts;
     	oilRangePSI = oilHighPSI - oilLowPSI;
     }
+		/* volt meter Helper Functions */
+	private double getVoltMeter(float ADC){
+		double ret = 0;
+		
+		ret = .029326*ADC; //scale input adc to voltage
+		
+		return ret;
+	}
 }
