@@ -93,7 +93,7 @@ public class TemperatureActivity extends Activity implements Runnable {
 	    if(showNightMode){
 	    	root = btnOne.getRootView(); //Get root layer view.
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
-	        ((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital); //Remove digital gauge due to fading for now.
+	        //((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital); //Remove digital gauge due to fading for now.
 	    }
 	    
 	}

@@ -193,7 +193,7 @@ public class MultiGauges extends View{
 			o2 = round(o2);
 			currentGaugeValue = (float)o2;
 			
-			if(o2 > sensorMaxValue && o2 <= (maxValue-.1d)){ //Check to see if we've hit a new high, record it.
+			if(o2 > sensorMaxValue && o2 <= (maxValue)){ //Check to see if we've hit a new high, record it.
         		sensorMaxValue = o2;
         	}
 		}
@@ -214,7 +214,7 @@ public class MultiGauges extends View{
 				temp = round(getF(temp));
 				currentGaugeValue = (float)temp;
     		
-    			if(temp > sensorMaxValue && temp <= (maxValue - .1d)){
+    			if(temp > sensorMaxValue && temp <= (maxValue)){
     				sensorMaxValue = temp;
     			}
 			}
@@ -276,6 +276,8 @@ public class MultiGauges extends View{
 	public void buildGauge(int gaugeType){
 		prefsGaugeResolutionInit();
 		switch(gaugeType){
+			case 0: //volts
+				currentToken=0;
 			case 1: //Boost
 				currentToken=1; //set the value to the boost token.
 				prefsBoostInit(); //get stored prefs for boost.
@@ -293,7 +295,7 @@ public class MultiGauges extends View{
 				    analogGauge.setScaleCenterValue(150);
 				    analogGauge.setScaleMinValue(minValue);
 				    analogGauge.setScaleMaxValue(maxValue);
-				    analogGauge.setUnitTitle("Boost (KPA)");
+				    analogGauge.setUnitTitle("Boost/Vac (KPA)");
 				    analogGauge.setValue((float)minValue);
 		        }else{
 		        	//Set up the gauge values and the values that are handled from the sensor for PSI
@@ -309,7 +311,7 @@ public class MultiGauges extends View{
 				    analogGauge.setScaleCenterValue(0);
 				    analogGauge.setScaleMinValue(minValue);
 				    analogGauge.setScaleMaxValue(maxValue);
-				    analogGauge.setUnitTitle("Boost (PSI/inHG)");
+				    analogGauge.setUnitTitle("Boost/Vac (PSI/inHG)");
 				    analogGauge.setValue((float)minValue);
 				    analogGauge.setAbsoluteNumbers(true);
 		        }
