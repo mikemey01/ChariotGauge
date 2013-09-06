@@ -29,6 +29,8 @@ public class BoostActivity extends Activity implements Runnable {
     Context		 context;
     String	 	 currentMsg;
     TextView 	 txtViewDigital;
+    TextView	 txtViewVolts;
+    TextView	 txtViewVoltsText;
     boolean		 paused;
     
     
@@ -37,6 +39,7 @@ public class BoostActivity extends Activity implements Runnable {
     boolean		 showAnalog; //Display the analog gauge or not.
     boolean		 showDigital; //Display the digital gauge or not.
     boolean		 showNightMode; //Change background to black.
+    boolean		 showVoltMeter;
     
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -65,6 +68,8 @@ public class BoostActivity extends Activity implements Runnable {
 	    //Instantiate the gaugeBuilder.
 	    analogGauge		= (GaugeBuilder) findViewById(R.id.analogGauge);
 	    txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital); 
+	    txtViewVolts    = (TextView) findViewById(R.id.txtViewVolts);
+	    txtViewVoltsText= (TextView) findViewById(R.id.txtViewVoltsText);
 	    multiGauge	 	= new MultiGauges(context);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
         btnTwo			= (ImageButton) findViewById(R.id.btnTwo);
@@ -72,6 +77,8 @@ public class BoostActivity extends Activity implements Runnable {
         
         //Set the font of the title text
         txtViewDigital.setTypeface(typeFaceDigital);
+        txtViewVolts.setTypeface(typeFaceDigital);
+        txtViewVoltsText.setTypeface(typeFaceDigital);
         
         //Setup gauge
         multiGauge.setAnalogGauge(analogGauge);
@@ -104,6 +111,12 @@ public class BoostActivity extends Activity implements Runnable {
 	    	root = btnOne.getRootView(); //Get root layer view.
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	        //((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital); //Remove digital gauge due to fading for now.
+	    }
+	    
+	    if(!showVoltMeter){
+	    	root = btnOne.getRootView(); //Get root layer view.
+	    	((ViewManager)txtViewVolts.getParent()).removeView(txtViewVolts);
+	    	((ViewManager)txtViewVoltsText.getParent()).removeView(txtViewVoltsText);
 	    }
 
 	}
@@ -215,6 +228,7 @@ public class BoostActivity extends Activity implements Runnable {
     	showAnalog = sp.getBoolean("showAnalog", true);
     	showDigital = sp.getBoolean("showDigital", true);
     	showNightMode = sp.getBoolean("showNightMode", false);
+    	showVoltMeter = sp.getBoolean("showVoltMeter", true);
     }
 
     

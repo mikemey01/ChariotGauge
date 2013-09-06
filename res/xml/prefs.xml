@@ -20,10 +20,17 @@
             android:defaultValue="true" />
         
         <CheckBoxPreference 
+            android:title="Show Volt Meter"
+            android:summary="Turn on volt meter" 
+            android:key="showVoltMeter" 
+            android:defaultValue="true" />
+        
+        <CheckBoxPreference 
             android:title="Night Mode"
             android:summary="Toggle night mode" 
             android:key="showNightMode" 
             android:defaultValue="false" />
+        
         
         <ListPreference
             android:key="gaugeResolutions"
