@@ -53,6 +53,7 @@ public class BoostActivity extends Activity implements Runnable {
     // Key names received from the BluetoothChatService Handler
     public static final String TOAST       = "toast";
     private static final int CURRENT_TOKEN = 1;
+    private static final int VOLT_TOKEN = 0;
     
     BluetoothSerialService mSerialService; 
     private Handler workerHandler;
