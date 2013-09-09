@@ -658,7 +658,7 @@ public class MultiGauges extends View{
 	private double getVoltMeter(float ADC){
 		double ret = 0;
 		
-		ret = .029326*ADC; //scale input adc to voltage
+		ret = .029326*ADC; //scale input adc to voltage using 10k/2k voltage divider.
 		
 		return ret;
 	}
