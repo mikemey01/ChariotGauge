@@ -278,6 +278,10 @@ public class MultiGauges extends View{
 		switch(gaugeType){
 			case 0: //volts
 				currentToken=0;
+				minValue = 0;
+				maxValue = 20;
+				sensorMinValue = minValue;
+			    sensorMaxValue = minValue;
 			case 1: //Boost
 				currentToken=1; //set the value to the boost token.
 				prefsBoostInit(); //get stored prefs for boost.

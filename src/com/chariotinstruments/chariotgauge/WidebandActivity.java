@@ -154,7 +154,7 @@ public class WidebandActivity extends Activity implements Runnable {
     	float ret = 0f;
     	
     	try {
-			ret = new Float(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
+			ret = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
 		} catch (NumberFormatException e) {
 			ret = 0f;
 		} catch (ArrayIndexOutOfBoundsException e){

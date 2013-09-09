@@ -231,10 +231,10 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     	
     	try {
     		//Get current tokens for this gauge activity, cast as float.
-    		boostSValue = new Float(tokens[BOOST_TOKEN].toString());
-    		wbSValue 	= new Float(tokens[WIDEBAND_TOKEN].toString());
-    		tempSValue 	= new Float(tokens[TEMP_TOKEN].toString());
-    		oilSValue 	= new Float(tokens[OIL_TOKEN].toString());
+    		boostSValue = Float.valueOf(tokens[BOOST_TOKEN].toString());
+    		wbSValue 	= Float.valueOf(tokens[WIDEBAND_TOKEN].toString());
+    		tempSValue 	= Float.valueOf(tokens[TEMP_TOKEN].toString());
+    		oilSValue 	= Float.valueOf(tokens[OIL_TOKEN].toString());
 		} catch (NumberFormatException e) {
 			boostSValue = 0;
 			wbSValue 	= 0;

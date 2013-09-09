@@ -26,6 +26,7 @@ public class BoostActivity extends Activity implements Runnable {
     ImageButton	 btnTwo;
     Typeface	 typeFaceDigital;
     MultiGauges  multiGauge;
+    MultiGauges  multiGaugeVolts;
     Context		 context;
     String	 	 currentMsg;
     TextView 	 txtViewDigital;
@@ -72,6 +73,7 @@ public class BoostActivity extends Activity implements Runnable {
 	    txtViewVolts    = (TextView) findViewById(R.id.txtViewVolts);
 	    txtViewVoltsText= (TextView) findViewById(R.id.txtViewVoltsText);
 	    multiGauge	 	= new MultiGauges(context);
+	    multiGaugeVolts = new MultiGauges(context);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
         btnTwo			= (ImageButton) findViewById(R.id.btnTwo);
         typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
@@ -84,6 +86,7 @@ public class BoostActivity extends Activity implements Runnable {
         //Setup gauge
         multiGauge.setAnalogGauge(analogGauge);
         multiGauge.buildGauge(CURRENT_TOKEN);
+        //multiGaugeVolts.buildGauge(VOLT_TOKEN);
         
         //Check if the gauge uses negative numbers or not.
         if(analogGauge.getAbsoluteNumbers()){ 
@@ -113,7 +116,6 @@ public class BoostActivity extends Activity implements Runnable {
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	        //((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital); //Remove digital gauge due to fading for now.
 	    }
-	    
 	    if(!showVoltMeter){
 	    	root = btnOne.getRootView(); //Get root layer view.
 	    	((ViewManager)txtViewVolts.getParent()).removeView(txtViewVolts);
@@ -168,7 +170,7 @@ public class BoostActivity extends Activity implements Runnable {
     	float ret = 0f;
     	
     	try {
-			ret = new Float(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
+			ret = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
 		} catch (NumberFormatException e) {
 			ret = 0f;
 		} catch (ArrayIndexOutOfBoundsException e){
@@ -177,6 +179,7 @@ public class BoostActivity extends Activity implements Runnable {
     	
     	return ret;
     }
+  
     
     //Activity transfer handling
     public void goHome(View v){
