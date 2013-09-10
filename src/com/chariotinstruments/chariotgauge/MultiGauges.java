@@ -141,14 +141,14 @@ public class MultiGauges extends View{
 		if(isKPA){ //Gauge displayed in KPA
 			
 			if(kpa < minValue){ //set the lower bounds on the data.
-				currentGaugeValue = (float)round(minValue);
+				currentGaugeValue = (float)minValue;
 			}else if (kpa > maxValue){ //Set the upper bounds on the data
-				currentGaugeValue = (float)round(maxValue);
+				currentGaugeValue = (float)maxValue;
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
 				kpa = round(kpa);
 				currentGaugeValue = (float)kpa;
 
-				if(kpa > sensorMaxValue && kpa <= 248){
+				if(kpa > sensorMaxValue && kpa <= maxValue){
 					sensorMaxValue = kpa;
 				}
 			}
@@ -157,14 +157,14 @@ public class MultiGauges extends View{
 				psi = psi * PSI_TO_INHG;
 			}
 			if(psi < minValue){ //set the lower bounds on the data.
-				currentGaugeValue = (float)round(minValue);
+				currentGaugeValue = (float)minValue;
 			}else if (psi > maxValue){ //Set the upper bounds on the data
-				currentGaugeValue = (float)round(maxValue);
+				currentGaugeValue = (float)maxValue;
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
 				psi = round(psi);
 				currentGaugeValue = (float)psi;
 
-				if(psi > this.sensorMaxValue && psi <= 21.0d){
+				if(psi > this.sensorMaxValue && psi <= maxValue){
 					sensorMaxValue = psi;
 				}
 			}
@@ -186,9 +186,9 @@ public class MultiGauges extends View{
 		}
 		
 		if(o2 < minValue){ //set the lower bounds on the data.
-			currentGaugeValue = (float)round(minValue);
+			currentGaugeValue = (float)minValue;
 		}else if (o2 > maxValue){ //set the upper bounds on the data.
-			currentGaugeValue = (float)round(maxValue);
+			currentGaugeValue = (float)maxValue;
 		}else{ //if it is in-between the lower and upper bounds as it should be, display it.
 			o2 = round(o2);
 			currentGaugeValue = (float)o2;
@@ -207,22 +207,22 @@ public class MultiGauges extends View{
     	temp = getTemperature(res);
 		if(isCelsius){ //Celsius
 			if(temp < minValue){ //set the lower bounds on the data.
-				currentGaugeValue = (float)round(minValue);
+				currentGaugeValue = (float)minValue;
 			}else if (temp > maxValue){ //set the upper bounds on the data.
-				currentGaugeValue = (float)round(maxValue);
+				currentGaugeValue = (float)maxValue;
 			}else{ //if it is in-between the lower and upper bounds as it should be, display it.
 				temp = round(getF(temp));
 				currentGaugeValue = (float)temp;
     		
-    			if(temp > sensorMaxValue && temp <= (maxValue)){
+    			if(temp > sensorMaxValue && temp <= maxValue){
     				sensorMaxValue = temp;
     			}
 			}
 		}else{ //Fahrenheit
 			if(getF(temp) < minValue){
-				currentGaugeValue = (float)round(minValue);
+				currentGaugeValue = (float)minValue;
 			}else if(getF(temp) > maxValue){
-				currentGaugeValue = (float)round(maxValue);
+				currentGaugeValue = (float)maxValue;
 			}else{
 				temp = round(getF(temp));
 				currentGaugeValue = (float)temp;
@@ -249,9 +249,9 @@ public class MultiGauges extends View{
 		oil = vPercentage * oilRangePSI; //apply same percentage to range of oil.
 		
 		if(oil < minValue){ //set the lower bounds on the data.
-			currentGaugeValue = (float)round(minValue);
+			currentGaugeValue = (float)minValue;
 		}else if (oil > maxValue){ //set the upper bounds on the data.
-			currentGaugeValue = (float)round(maxValue);
+			currentGaugeValue = (float)maxValue;
 		}else{ //if it is in-between the lower and upper bounds as it should be, display it.
 			oil = round(oil);
 			currentGaugeValue = (float)oil;
@@ -282,6 +282,7 @@ public class MultiGauges extends View{
 				maxValue = 20;
 				sensorMinValue = minValue;
 			    sensorMaxValue = minValue;
+			    break;
 			case 1: //Boost
 				currentToken=1; //set the value to the boost token.
 				prefsBoostInit(); //get stored prefs for boost.

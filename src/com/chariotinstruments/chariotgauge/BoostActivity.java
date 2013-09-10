@@ -32,6 +32,8 @@ public class BoostActivity extends Activity implements Runnable {
     TextView 	 txtViewDigital;
     TextView	 txtViewVolts;
     TextView	 txtViewVoltsText;
+    float		 currentSValue;
+    float 		 voltSValue;
     boolean		 paused;
     
     
@@ -86,7 +88,7 @@ public class BoostActivity extends Activity implements Runnable {
         //Setup gauge
         multiGauge.setAnalogGauge(analogGauge);
         multiGauge.buildGauge(CURRENT_TOKEN);
-        //multiGaugeVolts.buildGauge(VOLT_TOKEN);
+        multiGaugeVolts.buildGauge(VOLT_TOKEN);
         
         //Check if the gauge uses negative numbers or not.
         if(analogGauge.getAbsoluteNumbers()){ 
@@ -152,7 +154,9 @@ public class BoostActivity extends Activity implements Runnable {
     	workerHandler = new Handler(){
     		@Override
     		public void handleMessage(Message msg){
-    			multiGauge.handleSensor(parseInput((String)msg.obj));
+    			parseInput((String)msg.obj);
+    			multiGauge.handleSensor(currentSValue);
+    			multiGaugeVolts.handleSensor(voltSValue);
     		}
     	};
     	Looper.loop();
@@ -165,19 +169,19 @@ public class BoostActivity extends Activity implements Runnable {
     	}
     }
     
-    private float parseInput(String sValue){
+    private void parseInput(String sValue){
     	String[] tokens=sValue.split(","); //split the input into an array.
-    	float ret = 0f;
     	
     	try {
-			ret = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
+			currentSValue = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
+			voltSValue = Float.valueOf(tokens[VOLT_TOKEN].toString());//Get volt token value, cast as float.
 		} catch (NumberFormatException e) {
-			ret = 0f;
+			currentSValue = 0f;
+			voltSValue = 0f;
 		} catch (ArrayIndexOutOfBoundsException e){
-			ret = 0f;
+			currentSValue = 0f;
+			voltSValue = 0f;
 		}
-    	
-    	return ret;
     }
   
     
@@ -198,6 +202,7 @@ public class BoostActivity extends Activity implements Runnable {
     public void buttonOneClick(View v){   
     	//Reset the max value.
     	multiGauge.setSensorMaxValue(multiGauge.getMinValue());
+    	multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getMinValue());
     	Toast.makeText(getApplicationContext(), "Max value reset.", Toast.LENGTH_SHORT).show();
 	}
     
@@ -208,6 +213,7 @@ public class BoostActivity extends Activity implements Runnable {
     		//set the gauge/digital to the max value captured so far for two seconds.
     		txtViewDigital.setText(Double.toString(Math.abs(multiGauge.getSensorMaxValue())));
     		analogGauge.setValue((float)multiGauge.getSensorMaxValue());
+    		txtViewVolts.setText(Double.toString(Math.abs(multiGaugeVolts.getSensorMaxValue())));
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
     	}else{
     		paused = false;
