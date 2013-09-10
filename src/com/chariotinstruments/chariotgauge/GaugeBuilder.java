@@ -46,7 +46,7 @@ package com.chariotinstruments.chariotgauge;
 	import android.util.AttributeSet;
 	import android.util.Log;
 	import android.view.View;
-	import android.content.res.TypedArray;
+import android.content.res.TypedArray;
 
 	public final class GaugeBuilder extends View {
 
@@ -96,7 +96,6 @@ package com.chariotinstruments.chariotgauge;
 	        
 	        // scale configuration
 	        // Values passed as property. Defaults are set here.
-	        private boolean showHand                 = true;
 	        private boolean showGauge                = false;
 	        private boolean showRange                = true;
 	        
@@ -113,14 +112,13 @@ package com.chariotinstruments.chariotgauge;
 	        private float degreeMaxValue             = 100;
 
         
-	        private String lowerTitle                = "";
-	        private String upperTitle                = "";
+	        @SuppressWarnings("unused")
+			private String lowerTitle                = "";
+	        @SuppressWarnings("unused")
+			private String upperTitle                = "";
 	        private String unitTitle                 = "";
 
 	        // Fixed values. Use these to position the "layers" of the gauge.
-	        /**
-	         * TODO: Make the gauge ticks smaller, put on other side of values?
-	         */
 	        private static final float scalePosition = 0.135f;  // The distance from the rim to the scale
 	        private static final float valuePosition = 0.285f; // The distance from the rim to the ranges
 	        private static final float rangePosition = 0.140f; // The distance from the rim to the ranges
@@ -135,8 +133,8 @@ package com.chariotinstruments.chariotgauge;
 	        private boolean dialInitialized         = false;
 	        private float currentValue              = scaleCenterValue;
 	        private float targetValue               = scaleCenterValue;
-	        private float dialVelocity              = 0f;
-	        private float dialAcceleration          = 0f;
+	        private float dialVelocity              = 300f;
+	        private float dialAcceleration          = 50f;
 	        private long lastDialMoveTime           = -1L;
 	        
 	        
@@ -242,7 +240,6 @@ package com.chariotinstruments.chariotgauge;
 	                        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Dial);
 	                        showRange              = a.getBoolean(R.styleable.Dial_showRange,          showRange);
 	                        showGauge              = a.getBoolean(R.styleable.Dial_showGauge,          showGauge);
-	                        showHand               = a.getBoolean(R.styleable.Dial_showHand,           showHand);
 
 	                        totalNotches           = a.getInt(R.styleable.Dial_totalNotches,           totalNotches);
 	                        incrementPerLargeNotch = a.getInt(R.styleable.Dial_incrementPerLargeNotch, incrementPerLargeNotch);
@@ -590,10 +587,7 @@ package com.chariotinstruments.chariotgauge;
 	                canvas.scale(scale, scale);
 
 	                // Draw the needle using the updated value
-	                if (showHand){
-	                        drawHand(canvas);
-	                }
-
+	                drawHand(canvas);
 	                canvas.restore();
 	        
 	                // Calculate a new current value.
@@ -638,19 +632,19 @@ package com.chariotinstruments.chariotgauge;
 	                        float delta = (currentTime - lastDialMoveTime) / 1000.0f;
 
 	                        float direction = Math.signum(dialVelocity);
-	                        if (Math.abs(dialVelocity) < 90.0f) {
-	                                dialAcceleration = 5.0f * (targetValue - currentValue);
-	                        } else {
-	                                dialAcceleration = 0.0f;
-	                        }
-	                        dialVelocity = 500.0f;
-	                        dialAcceleration = 100.0f;
+//	                        if (Math.abs(dialVelocity) < 90.0f) {
+//	                                dialAcceleration = 1.0f * (targetValue - currentValue);
+//	                        } else {
+//	                                dialAcceleration = 0.0f;
+//	                        }
+	                        dialVelocity = 700.0f;
+	                        dialAcceleration = 500.0f;
 	                        currentValue += dialVelocity * delta;
 	                        dialVelocity += dialAcceleration * delta;
 	                        if ((targetValue - currentValue) * direction < 0.01f * direction) {
 	                                currentValue = targetValue;
-	                                dialVelocity = 0.0f;
-	                                dialAcceleration = 0.0f;
+	                                //dialVelocity = 0.0f;
+	                                //dialAcceleration = 0.0f;
 	                                lastDialMoveTime = -1L;
 	                        } else {
 	                                lastDialMoveTime = System.currentTimeMillis();                          

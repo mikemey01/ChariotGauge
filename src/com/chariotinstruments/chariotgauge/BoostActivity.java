@@ -24,6 +24,7 @@ public class BoostActivity extends Activity implements Runnable {
 	GaugeBuilder analogGauge;
     ImageButton  btnOne;
     ImageButton	 btnTwo;
+    ImageButton  btnHome;
     Typeface	 typeFaceDigital;
     MultiGauges  multiGauge;
     MultiGauges  multiGaugeVolts;
@@ -171,7 +172,8 @@ public class BoostActivity extends Activity implements Runnable {
     
     private void parseInput(String sValue){
     	String[] tokens=sValue.split(","); //split the input into an array.
-    	
+    	/**TESTING VOLTS. REMOVE**/
+    	tokens[0] = "250";
     	try {
 			currentSValue = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
 			voltSValue = Float.valueOf(tokens[VOLT_TOKEN].toString());//Get volt token value, cast as float.
@@ -194,9 +196,11 @@ public class BoostActivity extends Activity implements Runnable {
     
     @Override
     public void onBackPressed(){
+    	paused = true;
     	workerHandler.getLooper().quit();
     	super.onBackPressed();
     }
+    
     
     //Button one handling.
     public void buttonOneClick(View v){   
@@ -213,7 +217,7 @@ public class BoostActivity extends Activity implements Runnable {
     		//set the gauge/digital to the max value captured so far for two seconds.
     		txtViewDigital.setText(Double.toString(Math.abs(multiGauge.getSensorMaxValue())));
     		analogGauge.setValue((float)multiGauge.getSensorMaxValue());
-    		txtViewVolts.setText(Double.toString(Math.abs(multiGaugeVolts.getSensorMaxValue())));
+    		txtViewVolts.setText(Double.toString(multiGaugeVolts.getSensorMaxValue()));
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
     	}else{
     		paused = false;
@@ -221,9 +225,6 @@ public class BoostActivity extends Activity implements Runnable {
     	}
 	}
        
-    protected void onPause(){
-    	super.onPause();
-    }
     
     protected void onResume(){
     	super.onResume();

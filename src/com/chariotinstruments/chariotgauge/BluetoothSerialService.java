@@ -359,7 +359,7 @@ public class BluetoothSerialService {
                         }
                     }
                 } catch (IOException e) {
-                    Log.e(TAG, "disconnected", e);
+                    //Log.e(TAG, "disconnected", e);
                     connectionLost();
                     break;
                 }
