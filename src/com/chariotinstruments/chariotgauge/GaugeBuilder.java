@@ -657,8 +657,11 @@ import android.content.res.TypedArray;
 	        }
 	        
 	        public void setValue(float value) {
-	                if      (value < scaleMinValue) value = scaleMinValue;
-	                else if (value > scaleMaxValue) value = scaleMaxValue;
+	                if(value < scaleMinValue){
+	                	value = scaleMinValue;
+	                } else if (value > scaleMaxValue){
+	                	value = scaleMaxValue;
+	                }
 
 	                targetValue = value;
 	                dialInitialized = true;

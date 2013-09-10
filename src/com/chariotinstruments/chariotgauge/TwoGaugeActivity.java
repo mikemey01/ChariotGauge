@@ -255,6 +255,13 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 		finish();
 	}
     
+    @Override
+    public void onBackPressed(){
+    	paused = true;
+    	workerHandler.getLooper().quit();
+    	super.onBackPressed();
+    }
+    
     //Button one handling.
     public void buttonOneClick(View v){   
     	//Reset the max value.

@@ -173,6 +173,7 @@ public class WidebandActivity extends Activity implements Runnable {
     
     @Override
     public void onBackPressed(){
+    	paused = true;
     	workerHandler.getLooper().quit();
     	super.onBackPressed();
     }
@@ -201,6 +202,7 @@ public class WidebandActivity extends Activity implements Runnable {
     protected void onPause(){
     	super.onPause();
     }
+    
     
     protected void onResume(){
     	super.onResume();

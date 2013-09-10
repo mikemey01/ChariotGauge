@@ -167,13 +167,13 @@ public class BoostActivity extends Activity implements Runnable {
     	if(!paused){
     		analogGauge.setValue(multiGauge.getCurrentGaugeValue());
     		txtViewDigital.setText(Float.toString(Math.abs(multiGauge.getCurrentGaugeValue())));
+    		txtViewVolts.setText(Float.toString(Math.abs(multiGaugeVolts.getCurrentGaugeValue())));
     	}
     }
     
     private void parseInput(String sValue){
     	String[] tokens=sValue.split(","); //split the input into an array.
-    	/**TESTING VOLTS. REMOVE**/
-    	tokens[0] = "250";
+
     	try {
 			currentSValue = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
 			voltSValue = Float.valueOf(tokens[VOLT_TOKEN].toString());//Get volt token value, cast as float.
@@ -225,6 +225,9 @@ public class BoostActivity extends Activity implements Runnable {
     	}
 	}
        
+    protected void onPause(){
+    	super.onPause();
+    }
     
     protected void onResume(){
     	super.onResume();

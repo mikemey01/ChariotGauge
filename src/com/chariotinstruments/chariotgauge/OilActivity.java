@@ -168,6 +168,7 @@ public class OilActivity extends Activity implements Runnable {
     
     @Override
     public void onBackPressed(){
+    	paused = true;
     	workerHandler.getLooper().quit();
     	super.onBackPressed();
     }
