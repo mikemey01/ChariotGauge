@@ -26,6 +26,7 @@ public class FourGaugeActivity extends Activity implements Runnable{
 	MultiGauges  multiGauge2;
 	MultiGauges  multiGauge3;
 	MultiGauges  multiGauge4;
+	MultiGauges  multiGaugeVolts;
     ImageButton  btnOne;
     ImageButton	 btnTwo;
     Typeface	 typeFaceDigital;
@@ -33,15 +34,13 @@ public class FourGaugeActivity extends Activity implements Runnable{
     TextView 	 txtViewDigital2;
     TextView 	 txtViewDigital3;
     TextView 	 txtViewDigital4;
+    TextView	 txtViewVolts;
+    TextView	 txtViewVoltsText;
+    float 		 voltSValue;
     int		     digitalToken;
     String	 	 currentMsg;
     Thread		 thread;
 	
-    float 	     flt;
-    int			 minValue; //gauge min.
-    int			 maxValue; //gauge max.
-    double		 sensorMinValue; //the lowest value that has been sent from the arduino.
-    double		 sensorMaxValue; //the highest value that has been sent from the arduino.
     boolean		 paused;
     Context		 context;
     float		 boostSValue;
@@ -54,10 +53,8 @@ public class FourGaugeActivity extends Activity implements Runnable{
     boolean		 showAnalog; //Display the analog gauge or not.
     boolean		 showDigital; //Display the digital gauge or not.
     boolean		 showNightMode; //Change background to black.
-    String		 gaugeOnePref;
-    String		 gaugeTwoPref;
-    int			 currentTokenOne = 1;
-    int			 currentTokenTwo = 2;
+    boolean		 showVoltMeter;
+
     
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -74,9 +71,10 @@ public class FourGaugeActivity extends Activity implements Runnable{
     private static final int WIDEBAND_TOKEN = 2;
     private static final int TEMP_TOKEN 	= 3;
     private static final int OIL_TOKEN 		= 4;
+    private static final int VOLT_TOKEN 	= 0;
     
     BluetoothSerialService mSerialService;
-    private Handler workerHandler;
+    private static Handler workerHandler;
      
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -95,10 +93,13 @@ public class FourGaugeActivity extends Activity implements Runnable{
 	    multiGauge2 	= new MultiGauges(context);
 	    multiGauge3 	= new MultiGauges(context);
 	    multiGauge4 	= new MultiGauges(context);
+	    multiGaugeVolts = new MultiGauges(context);
 	    txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital);
 	    txtViewDigital2 = (TextView) findViewById(R.id.txtViewDigital2);
 	    txtViewDigital3 = (TextView) findViewById(R.id.txtViewDigital3);
 	    txtViewDigital4 = (TextView) findViewById(R.id.txtViewDigital4);
+	    txtViewVolts    = (TextView) findViewById(R.id.txtViewVolts);
+	    txtViewVoltsText= (TextView) findViewById(R.id.txtViewVoltsText);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
         btnTwo			= (ImageButton) findViewById(R.id.btnTwo);  
         typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
@@ -109,6 +110,8 @@ public class FourGaugeActivity extends Activity implements Runnable{
         txtViewDigital2.setTypeface(typeFaceDigital);
         txtViewDigital3.setTypeface(typeFaceDigital);
         txtViewDigital4.setTypeface(typeFaceDigital);
+        txtViewVolts.setTypeface(typeFaceDigital);
+        txtViewVoltsText.setTypeface(typeFaceDigital);
         txtViewDigital.setText("0.00");
         txtViewDigital2.setText("0.00");
         txtViewDigital3.setText("0.00");
@@ -139,6 +142,9 @@ public class FourGaugeActivity extends Activity implements Runnable{
         multiGauge4.setAnalogGauge(analogGauge4);
         multiGauge4.buildGauge(OIL_TOKEN);
         txtViewDigital4.setText(Double.toString(multiGauge4.getSensorMaxValue()));
+        
+        //Setup voltmeter
+        multiGaugeVolts.buildGauge(VOLT_TOKEN);
 
 	  
 	    //Get the mSerialService object from the UI activity.
@@ -158,8 +164,11 @@ public class FourGaugeActivity extends Activity implements Runnable{
 	    	root = btnOne.getRootView(); //Get root layer view.
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	    }
-	    
-	    //Toast.makeText(getApplicationContext(), "Digital set to boost, tap a gauge to change", Toast.LENGTH_LONG).show();
+	    if(!showVoltMeter){
+	    	root = btnOne.getRootView(); //Get root layer view.
+	    	((ViewManager)txtViewVolts.getParent()).removeView(txtViewVolts);
+	    	((ViewManager)txtViewVoltsText.getParent()).removeView(txtViewVoltsText);
+	    }
 
 	}
     
@@ -198,6 +207,7 @@ public class FourGaugeActivity extends Activity implements Runnable{
     			multiGauge2.handleSensor(wbSValue);
     			multiGauge3.handleSensor(tempSValue);
     			multiGauge4.handleSensor(oilSValue);
+    			multiGaugeVolts.handleSensor(voltSValue);
     		}
     	};
     	Looper.loop();
@@ -214,6 +224,8 @@ public class FourGaugeActivity extends Activity implements Runnable{
 			txtViewDigital2.setText(Float.toString(multiGauge2.getCurrentGaugeValue()));
 			txtViewDigital3.setText(Float.toString(multiGauge3.getCurrentGaugeValue()));
 			txtViewDigital4.setText(Float.toString(multiGauge4.getCurrentGaugeValue()));
+			
+			txtViewVolts.setText(Float.toString(Math.abs(multiGaugeVolts.getCurrentGaugeValue())));
     	}
     }
     
@@ -226,16 +238,19 @@ public class FourGaugeActivity extends Activity implements Runnable{
     		wbSValue 	= Float.valueOf(tokens[WIDEBAND_TOKEN].toString());
     		tempSValue 	= Float.valueOf(tokens[TEMP_TOKEN].toString());
     		oilSValue 	= Float.valueOf(tokens[OIL_TOKEN].toString());
+    		voltSValue  = Float.valueOf(tokens[VOLT_TOKEN].toString());//Get volt token value, cast as float.
 		} catch (NumberFormatException e) {
 			boostSValue = 0;
 			wbSValue 	= 0;
 			tempSValue 	= 0;
 			oilSValue	= 0;
+			voltSValue  = 0f;
 		} catch (ArrayIndexOutOfBoundsException e){
 			boostSValue = 0;
 			wbSValue 	= 0;
 			tempSValue 	= 0;
 			oilSValue	= 0;
+			voltSValue  = 0f;
 		}
     }
     
@@ -261,6 +276,7 @@ public class FourGaugeActivity extends Activity implements Runnable{
     	multiGauge2.setSensorMaxValue(multiGauge2.getMinValue());
     	multiGauge3.setSensorMaxValue(multiGauge3.getMinValue());
     	multiGauge4.setSensorMaxValue(multiGauge4.getMinValue());
+    	multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getMinValue());
     	Toast.makeText(getApplicationContext(), "Max value reset", Toast.LENGTH_SHORT).show();
 	}
     
@@ -279,6 +295,9 @@ public class FourGaugeActivity extends Activity implements Runnable{
     		analogGauge2.setValue((float)multiGauge2.getSensorMaxValue());
     		analogGauge3.setValue((float)multiGauge3.getSensorMaxValue());
     		analogGauge4.setValue((float)multiGauge4.getSensorMaxValue());
+    		
+    		txtViewVolts.setText(Double.toString(multiGaugeVolts.getSensorMaxValue()));
+    		
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
     	}else{
     		paused = false;
@@ -305,16 +324,6 @@ public class FourGaugeActivity extends Activity implements Runnable{
     	showAnalog = sp.getBoolean("showAnalog", true);
     	showDigital = sp.getBoolean("showDigital", true);
     	showNightMode = sp.getBoolean("showNightMode", false);
-    	gaugeOnePref = sp.getString("multiGaugeOne", "boost");
-    	gaugeTwoPref = sp.getString("multiGaugeTwo", "wb");
-    	
-    	if(gaugeOnePref.equals("Boost")){currentTokenOne = BOOST_TOKEN;}else 
-    	if(gaugeOnePref.equals("Wideband O2")){currentTokenOne = WIDEBAND_TOKEN;}else 
-    	if(gaugeOnePref.equals("Temperature")){currentTokenOne = TEMP_TOKEN;}else 
-    	if(gaugeOnePref.equals("Oil Pressure")){currentTokenOne = OIL_TOKEN;}
-    	if(gaugeTwoPref.equals("Boost")){currentTokenTwo = BOOST_TOKEN;}else
-    	if(gaugeTwoPref.equals("Wideband O2")){currentTokenTwo = WIDEBAND_TOKEN;}else
-    	if(gaugeTwoPref.equals("Temperature")){currentTokenTwo = TEMP_TOKEN;}else
-    	if(gaugeTwoPref.equals("Oil Pressure")){currentTokenTwo = OIL_TOKEN;}
+    	showVoltMeter = sp.getBoolean("showVoltMeter", true);
     }
 }

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:atswidget="http://schemas.android.com/apk/res/com.chariotinstruments.chariotgauge"
         android:orientation="vertical" 
-        android:layout_margin="1px"
+        android:layout_margin="1dp"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content">
         
@@ -48,8 +47,7 @@
         android:paddingRight="1.0dip"
         android:paddingBottom="1.0dip"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnTwo">
+        android:layout_height="wrap_content" >
 
 	    <com.chariotinstruments.chariotgauge.GaugeBuilder
 	            android:id="@+id/analogGauge" 
@@ -76,8 +74,7 @@
         android:paddingBottom="1.0dip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/analogGauge2">
+        android:layout_gravity="center_horizontal" >
        
         <TextView
    		    android:id="@+id/txtViewDigital"
@@ -86,7 +83,7 @@
     		android:layout_gravity="center" 
     		android:gravity="center"
     		android:layout_weight="1"
-    		android:textSize="45dip"
+    		android:textSize="45sp"
     	    android:text="@string/test_text" />
         
         <TextView
@@ -96,7 +93,7 @@
     		android:layout_gravity="center" 
     		android:gravity="center"
     		android:layout_weight="1"
-    		android:textSize="45dip"
+    		android:textSize="45sp"
     	    android:text="@string/test_text" />
         
     </LinearLayout>
@@ -108,8 +105,7 @@
         android:paddingRight="1.0dip"
         android:paddingBottom="6.0dip"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtViewDigital">
+        android:layout_height="wrap_content" >
 
 	    <com.chariotinstruments.chariotgauge.GaugeBuilder
             android:id="@+id/analogGauge3" 
@@ -135,8 +131,7 @@
         android:paddingRight="1.0dip"
         android:paddingBottom="1.0dip"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/analogGauge4">
+        android:layout_height="wrap_content">
        
         <TextView
    		    android:id="@+id/txtViewDigital3"
@@ -145,7 +140,7 @@
     		android:layout_gravity="center" 
     		android:gravity="center"
     		android:layout_weight="1"
-    		android:textSize="45dip"
+    		android:textSize="45sp"
     	    android:text="@string/test_text" />
         
         <TextView
@@ -155,9 +150,34 @@
     		android:layout_gravity="center" 
     		android:gravity="center"
     		android:layout_weight="1"
-    		android:textSize="45dip"
+    		android:textSize="45sp"
     	    android:text="@string/test_text" />
         
     </LinearLayout>
+    
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+	        
+	    <TextView android:id="@+id/txtViewVoltsText"
+	 		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:gravity="left"
+	  		android:layout_alignParentBottom="true"
+	  		android:layout_alignParentLeft="true"
+	  		android:layout_toLeftOf="@+id/txtViewVolts"
+	  		android:textSize="35sp"
+	  	    android:text="@string/volts" />    
+	    
+	    <TextView android:id="@+id/txtViewVolts"
+	 		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:gravity="center_horizontal"
+	  		android:layout_alignParentBottom="true"
+	  		android:layout_alignParentRight="true"
+	  		android:textSize="35sp"
+	  	    android:text="@string/test_text" />
+    
+    </RelativeLayout>
 	
 </LinearLayout>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:atswidget="http://schemas.android.com/apk/res/com.chariotinstruments.chariotgauge"
         android:orientation="vertical" 
-        android:layout_margin="1px"
+        android:layout_margin="1dp"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content">
         
@@ -58,25 +57,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-        
-    <TextView android:id="@+id/txtViewVoltsText"
- 		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:gravity="left"
-  		android:layout_alignParentBottom="true"
-  		android:layout_alignParentLeft="true"
-  		android:layout_toLeftOf="@+id/txtViewVolts"
-  		android:textSize="35sp"
-  	    android:text="@string/volts" />    
-    
-    <TextView android:id="@+id/txtViewVolts"
- 		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:gravity="center_horizontal"
-  		android:layout_alignParentBottom="true"
-  		android:layout_alignParentRight="true"
-  		android:textSize="35sp"
-  	    android:text="@string/test_text" />
+	        
+	    <TextView android:id="@+id/txtViewVoltsText"
+	 		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:gravity="left"
+	  		android:layout_alignParentBottom="true"
+	  		android:layout_alignParentLeft="true"
+	  		android:layout_toLeftOf="@+id/txtViewVolts"
+	  		android:textSize="35sp"
+	  	    android:text="@string/volts" />    
+	    
+	    <TextView android:id="@+id/txtViewVolts"
+	 		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:gravity="center_horizontal"
+	  		android:layout_alignParentBottom="true"
+	  		android:layout_alignParentRight="true"
+	  		android:textSize="35sp"
+	  	    android:text="@string/test_text" />
     
     </RelativeLayout>
     
