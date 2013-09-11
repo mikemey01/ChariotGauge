@@ -25,21 +25,25 @@ public class WidebandActivity extends Activity implements Runnable {
 	GaugeBuilder analogGauge;
     ImageButton  btnOne;
     ImageButton	 btnTwo;
+    ImageButton  btnHome;
     Typeface	 typeFaceDigital;
-	
-    TextView 	 txtViewDigital;
-    int			 minValue; //gauge min.
-    int			 maxValue; //gauge max.
-    boolean		 paused;
     MultiGauges  multiGauge;
+    MultiGauges  multiGaugeVolts;
     Context		 context;
     String	 	 currentMsg;
+    TextView 	 txtViewDigital;
+    TextView	 txtViewVolts;
+    TextView	 txtViewVoltsText;
+    float		 currentSValue;
+    float 		 voltSValue;
+    boolean		 paused;
     
     //Prefs vars
     View		 root;
     boolean		 showAnalog; //Display the analog gauge or not.
     boolean		 showDigital; //Display the digital gauge or not.
     boolean		 showNightMode; //Change background to black.
+    boolean		 showVoltMeter;
     
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -52,9 +56,10 @@ public class WidebandActivity extends Activity implements Runnable {
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST       = "toast";
     private static final int CURRENT_TOKEN = 2;
+    private static final int VOLT_TOKEN = 0;
         
     BluetoothSerialService mSerialService;
-    private Handler workerHandler;
+    private static Handler workerHandler;
      
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,19 +70,25 @@ public class WidebandActivity extends Activity implements Runnable {
 	    prefsInit(); //Load up the preferences.
 	    
 	    //Instantiate the gaugeBuilder.
-	    analogGauge 	= (GaugeBuilder) findViewById(R.id.analogGauge);
+	    analogGauge		= (GaugeBuilder) findViewById(R.id.analogGauge);
 	    txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital); 
-	    multiGauge		= new MultiGauges(context);
+	    txtViewVolts    = (TextView) findViewById(R.id.txtViewVolts);
+	    txtViewVoltsText= (TextView) findViewById(R.id.txtViewVoltsText);
+	    multiGauge	 	= new MultiGauges(context);
+	    multiGaugeVolts = new MultiGauges(context);
         btnOne			= (ImageButton) findViewById(R.id.btnOne);
         btnTwo			= (ImageButton) findViewById(R.id.btnTwo);
         typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
         
         //Set the font of the title text
         txtViewDigital.setTypeface(typeFaceDigital);
+        txtViewVolts.setTypeface(typeFaceDigital);
+        txtViewVoltsText.setTypeface(typeFaceDigital);
         
         //Setup gauge
         multiGauge.setAnalogGauge(analogGauge);
         multiGauge.buildGauge(CURRENT_TOKEN);
+        multiGaugeVolts.buildGauge(VOLT_TOKEN);
         txtViewDigital.setText(Float.toString(multiGauge.getMinValue()));
 	  
 	    //Get the mSerialService object from the UI activity.
@@ -100,6 +111,11 @@ public class WidebandActivity extends Activity implements Runnable {
 	    	root = btnOne.getRootView(); //Get root layer view.
 	        root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
 	        //((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital); //Remove digital gauge due to fading for now.
+	    }
+	    if(!showVoltMeter){
+	    	root = btnOne.getRootView(); //Get root layer view.
+	    	((ViewManager)txtViewVolts.getParent()).removeView(txtViewVolts);
+	    	((ViewManager)txtViewVoltsText.getParent()).removeView(txtViewVoltsText);
 	    }
 	    
 	}
@@ -135,7 +151,9 @@ public class WidebandActivity extends Activity implements Runnable {
     	workerHandler = new Handler(){
     		@Override
     		public void handleMessage(Message msg){
-    			multiGauge.handleSensor(parseInput((String)msg.obj));
+    			parseInput((String)msg.obj);
+    			multiGauge.handleSensor(currentSValue);
+    			multiGaugeVolts.handleSensor(voltSValue);
     		}
     	};
     	Looper.loop();
@@ -145,23 +163,24 @@ public class WidebandActivity extends Activity implements Runnable {
     	if(!paused){
     		analogGauge.setValue(multiGauge.getCurrentGaugeValue());
     		txtViewDigital.setText(Float.toString(multiGauge.getCurrentGaugeValue()));
+    		txtViewVolts.setText(Float.toString(Math.abs(multiGaugeVolts.getCurrentGaugeValue())));
     	}
     }
     
     
-    private float parseInput(String sValue){
+    private void parseInput(String sValue){
     	String[] tokens=sValue.split(","); //split the input into an array.
-    	float ret = 0f;
-    	
+
     	try {
-			ret = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
+			currentSValue = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
+			voltSValue = Float.valueOf(tokens[VOLT_TOKEN].toString());//Get volt token value, cast as float.
 		} catch (NumberFormatException e) {
-			ret = 0f;
+			currentSValue = 0f;
+			voltSValue = 0f;
 		} catch (ArrayIndexOutOfBoundsException e){
-			ret = 0f;
+			currentSValue = 0f;
+			voltSValue = 0f;
 		}
-    	
-    	return ret;
     }
     
     //Activity transfer handling
@@ -182,6 +201,7 @@ public class WidebandActivity extends Activity implements Runnable {
     public void buttonOneClick(View v){   
     	//Reset the max value.
     	multiGauge.setSensorMaxValue(multiGauge.getMinValue());
+    	multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getMinValue());
     	Toast.makeText(getApplicationContext(), "Max value reset.", Toast.LENGTH_SHORT).show();
 	}
     
@@ -192,6 +212,7 @@ public class WidebandActivity extends Activity implements Runnable {
     		//set the gauge/digital to the max value captured so far for two seconds.
     		txtViewDigital.setText(Double.toString(multiGauge.getSensorMaxValue()));
     		analogGauge.setValue((float)multiGauge.getSensorMaxValue());
+    		txtViewVolts.setText(Double.toString(multiGaugeVolts.getSensorMaxValue()));
         	btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
     	}else{
     		paused = false;
@@ -216,5 +237,6 @@ public class WidebandActivity extends Activity implements Runnable {
     	showAnalog = sp.getBoolean("showAnalog", true);
     	showDigital = sp.getBoolean("showDigital", true);
     	showNightMode = sp.getBoolean("showNightMode", false);
+    	showVoltMeter = sp.getBoolean("showVoltMeter", true);
     }
 }

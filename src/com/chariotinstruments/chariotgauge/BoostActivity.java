@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.util.Printer;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.view.ViewManager;
@@ -60,7 +59,7 @@ public class BoostActivity extends Activity implements Runnable {
     private static final int VOLT_TOKEN = 0;
     
     BluetoothSerialService mSerialService; 
-    private Handler workerHandler;
+    private static Handler workerHandler;
     
     @Override
 	public void onCreate(Bundle savedInstanceState) {
