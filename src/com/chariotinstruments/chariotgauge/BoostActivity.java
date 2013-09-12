@@ -228,6 +228,7 @@ public class BoostActivity extends Activity implements Runnable {
     	super.onPause();
     }
     
+    
     protected void onResume(){
     	super.onResume();
     	Thread thread = new Thread(BoostActivity.this);
