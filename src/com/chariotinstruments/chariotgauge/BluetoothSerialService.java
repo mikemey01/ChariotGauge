@@ -348,11 +348,13 @@ public class BluetoothSerialService {
                         for(int i=0;i<bytesAvailable;i++){
                             byte b = packetBytes[i];
                             if(b == delimiter){
+                            	
                                 byte[] encodedBytes = new byte[readBufferPosition];
                                 System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
                                 final String data = new String(encodedBytes, "US-ASCII");
                                 readBufferPosition = 0;
                                 mHandler.obtainMessage(PSensor.MESSAGE_READ, encodedBytes.length, -1, buffer).sendToTarget();
+                                
                             }else{
                             	buffer[readBufferPosition++] = b;
                             }
