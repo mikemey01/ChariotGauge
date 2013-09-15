@@ -66,9 +66,7 @@ public class PSensor extends Activity {
     
     BluetoothAdapter 			   mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private BluetoothSerialService mSerialService = null;
-    private String 				   mConnectedDeviceName = null;
     int 						   intReadMsgPrevious = 0;
-    private String 				   preMSG=null;
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,7 +258,7 @@ public class PSensor extends Activity {
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
-                mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+               // mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
 //                Toast.makeText(getApplicationContext(), "Connected to "
 //                               + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 break;
