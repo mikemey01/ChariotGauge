@@ -300,7 +300,7 @@ public class MultiGauges extends View{
 				    analogGauge.setScaleCenterValue(150);
 				    analogGauge.setScaleMinValue(minValue);
 				    analogGauge.setScaleMaxValue(maxValue);
-				    analogGauge.setUnitTitle("Boost/Vac (KPA)");
+				    analogGauge.setUnitTitle("Boost/Vac (KPA/inHG)");
 				    analogGauge.setValue((float)minValue);
 		        }else{
 		        	//Set up the gauge values and the values that are handled from the sensor for PSI
