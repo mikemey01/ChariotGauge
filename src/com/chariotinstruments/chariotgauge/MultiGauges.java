@@ -22,6 +22,7 @@ public class MultiGauges extends View{
 	private int currentToken;
 	TextView txtViewDigital;
 	float currentGaugeValue;
+	float permittedMax = 0;
 	
 	//Preference vars
 	String		 pressureUnits; //Boost units.
@@ -164,9 +165,10 @@ public class MultiGauges extends View{
 				psi = round(psi);
 				currentGaugeValue = (float)psi;
 
-				if(psi > this.sensorMaxValue && psi <= maxValue){
+				if(psi > this.sensorMaxValue && sValue <= permittedMax){
 					sensorMaxValue = psi;
 				}
+				permittedMax = sValue*1.1f;
 			}
 		} //PSI closing paren.
     } //handleSensor closing paren.

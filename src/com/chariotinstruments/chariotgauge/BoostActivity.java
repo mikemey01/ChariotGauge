@@ -56,7 +56,7 @@ public class BoostActivity extends Activity implements Runnable {
     // Key names received from the BluetoothChatService Handler
     public static final String TOAST       = "toast";
     private static final int CURRENT_TOKEN = 1;
-    private static final int VOLT_TOKEN = 0;
+    private static final int VOLT_TOKEN    = 0;
     
     BluetoothSerialService mSerialService; 
     private static Handler workerHandler;
@@ -169,6 +169,7 @@ public class BoostActivity extends Activity implements Runnable {
     		txtViewVolts.setText(Float.toString(Math.abs(multiGaugeVolts.getCurrentGaugeValue())));
     	}
     }
+    
     
     private void parseInput(String sValue){
     	String[] tokens=sValue.split(","); //split the input into an array.

@@ -110,7 +110,9 @@ public class DeviceListActivity extends Activity {
         if (pairedDevices.size() > 0) {
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
             for (BluetoothDevice device : pairedDevices) {
-            	if(device.getName().equalsIgnoreCase("linvor")){
+            	if(device.getName().equalsIgnoreCase("linvor") ||
+            			device.getName().equalsIgnoreCase("HC-06") ||
+            			device.getName().equalsIgnoreCase("null")){
             		mPairedDevicesArrayAdapter.add("Chariot Gauge" + "\n" + device.getAddress());
             	}else{
             		mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
@@ -192,7 +194,13 @@ public class DeviceListActivity extends Activity {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // If it's already paired, skip it, because it's been listed already
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                	if(device.getName().equalsIgnoreCase("linvor") ||
+                		device.getName().equalsIgnoreCase("HC-06") ||
+                		device.getName().equalsIgnoreCase("null")){
+                		mNewDevicesArrayAdapter.add("Chariot Gauge" + "\n" + device.getAddress());
+                	}else{
+                		mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                	}
                 }
             // When discovery is finished, change the Activity title
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {

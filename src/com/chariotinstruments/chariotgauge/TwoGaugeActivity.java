@@ -60,7 +60,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     public static final int MESSAGE_DEVICE_NAME  = 4;
     public static final int MESSAGE_TOAST        = 5;
     
-    //Test
     
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
@@ -71,7 +70,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     private static final int OIL_TOKEN = 4;
     
     BluetoothSerialService mSerialService;
-    private Handler workerHandler;
+    private static Handler workerHandler;
      
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -161,7 +160,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 				workerMsg.sendToTarget();
 				updateGauges();
 			}
-			
         }
     };
     
