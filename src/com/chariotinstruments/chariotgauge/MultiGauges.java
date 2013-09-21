@@ -99,7 +99,7 @@ public class MultiGauges extends View{
 		return sensorMaxValue;
 	}
 	
-	public void setSensorMaxValue(int minValueIn){
+	public void setSensorMaxValue(double minValueIn){
 		sensorMaxValue = minValueIn;
 	}
 	

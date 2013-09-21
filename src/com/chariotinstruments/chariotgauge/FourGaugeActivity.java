@@ -176,18 +176,18 @@ public class FourGaugeActivity extends Activity implements Runnable{
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-        	
-            byte[] readBuf = (byte[]) msg.obj;
-            // construct a string from the valid bytes in the buffer
-            String readMessage;
-			try {
-				readMessage = new String(readBuf, 0, msg.arg1);
-			} catch (NullPointerException e) {
-				readMessage = "0";
-			}
-			//Redraw the needle to the correct value.
-            currentMsg = readMessage;
-			if(!paused){
+        	if(!paused){
+	            byte[] readBuf = (byte[]) msg.obj;
+	            // construct a string from the valid bytes in the buffer
+	            String readMessage;
+				try {
+					readMessage = new String(readBuf, 0, msg.arg1);
+				} catch (NullPointerException e) {
+					readMessage = "0";
+				}
+				//Redraw the needle to the correct value.
+	            currentMsg = readMessage;
+			
 				Message workerMsg = workerHandler.obtainMessage(1, currentMsg);
 				workerMsg.sendToTarget();
 				updateGauges();
@@ -284,7 +284,12 @@ public class FourGaugeActivity extends Activity implements Runnable{
     public void buttonTwoClick(View v){
     	if(!paused){
     		paused = true;
-    		
+    		multiGauge1.setSensorMaxValue(multiGauge1.getSensorMaxValue());
+        	multiGauge2.setSensorMaxValue(multiGauge2.getSensorMaxValue());
+        	multiGauge3.setSensorMaxValue(multiGauge3.getSensorMaxValue());
+        	multiGauge4.setSensorMaxValue(multiGauge4.getSensorMaxValue());
+        	multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getSensorMaxValue());
+        	
     		//set the gauge/digital to the max value captured so far.
 			txtViewDigital.setText(Double.toString(Math.abs(multiGauge1.getSensorMaxValue())));
 			txtViewDigital2.setText(Double.toString(multiGauge2.getSensorMaxValue()));
