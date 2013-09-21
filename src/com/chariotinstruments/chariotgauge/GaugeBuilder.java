@@ -130,7 +130,7 @@ import android.content.res.TypedArray;
 	        private static final int centerDegrees   = -90; // the one in the top center (12 o'clock), this corresponds with -90 degrees
 
 	        // hand dynamics 
-	        private boolean dialInitialized         = false;
+	        private boolean dialInitialized         = true;
 	        private float currentValue              = scaleCenterValue;
 	        private float targetValue               = scaleCenterValue;
 	        private float dialVelocity              = 300f;
@@ -399,12 +399,12 @@ import android.content.res.TypedArray;
 	                handPaint.setAntiAlias(true);
 	                handPaint.setColor(Color .rgb(254, 90, 30));         
 	                handPaint.setShadowLayer(0.01f, -0.005f, -0.005f, 0x7f000000);
-	                handPaint.setStyle(Paint.Style.FILL);   
+	                handPaint.setStyle(Paint.Style.FILL); 
+	                handPaint.setLinearText(true);
 
 	                //Where the needle would connect to the gauge.
 	                handScrewPaint = new Paint();
 	                handScrewPaint.setAntiAlias(true);
-	                //handScrewPaint.setColor(0xff493f3c);
 	                handScrewPaint.setColor(Color .rgb(0, 0, 0));
 	                handScrewPaint.setStyle(Paint.Style.FILL);
 	                
@@ -544,10 +544,10 @@ import android.content.res.TypedArray;
 	        private void drawHand(Canvas canvas) {
 	                if (dialInitialized) {
 	                        float angle = valueToAngle(currentValue);
-	                        canvas.save(Canvas.MATRIX_SAVE_FLAG);
+	                        //canvas.save(Canvas.MATRIX_SAVE_FLAG);
 	                        canvas.rotate(angle, 0.5f, 0.5f);
 	                        canvas.drawPath(handPath, handPaint);
-	                        canvas.restore();
+	                        //canvas.restore();
 	                        
 	                        canvas.drawCircle(0.5f, 0.5f, 0.02f, handScrewPaint);
 	                }
