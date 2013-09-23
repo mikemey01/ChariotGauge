@@ -284,11 +284,6 @@ public class FourGaugeActivity extends Activity implements Runnable{
     public void buttonTwoClick(View v){
     	if(!paused){
     		paused = true;
-    		multiGauge1.setSensorMaxValue(multiGauge1.getSensorMaxValue());
-        	multiGauge2.setSensorMaxValue(multiGauge2.getSensorMaxValue());
-        	multiGauge3.setSensorMaxValue(multiGauge3.getSensorMaxValue());
-        	multiGauge4.setSensorMaxValue(multiGauge4.getSensorMaxValue());
-        	multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getSensorMaxValue());
         	
     		//set the gauge/digital to the max value captured so far.
 			txtViewDigital.setText(Double.toString(Math.abs(multiGauge1.getSensorMaxValue())));

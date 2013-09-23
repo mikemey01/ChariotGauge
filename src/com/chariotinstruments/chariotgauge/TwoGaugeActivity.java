@@ -159,9 +159,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
 				Message workerMsg = workerHandler.obtainMessage(1, currentMsg);
 				workerMsg.sendToTarget();
 				updateGauges();
-			}else{
-				multiGauge1.setSensorMaxValue(multiGauge1.getSensorMaxValue());
-	        	multiGauge2.setSensorMaxValue(multiGauge2.getSensorMaxValue());
 			}
         }
     };
@@ -275,8 +272,6 @@ public class TwoGaugeActivity extends Activity implements Runnable{
     public void buttonTwoClick(View v){
     	if(!paused){
     		paused = true;
-    		multiGauge1.setSensorMaxValue(multiGauge1.getSensorMaxValue());
-        	multiGauge2.setSensorMaxValue(multiGauge2.getSensorMaxValue());
     		//set the gauge/digital to the max value captured so far for two seconds.
     		if(analogGauge1.getAbsoluteNumbers()){ 
     			txtViewDigital.setText(Double.toString(Math.abs(multiGauge1.getSensorMaxValue())));

@@ -209,8 +209,6 @@ public class WidebandActivity extends Activity implements Runnable {
     public void buttonTwoClick(View v){
     	if(!paused){
     		paused = true;
-    		multiGauge.setSensorMaxValue(multiGauge.getSensorMaxValue());
-    		multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getSensorMaxValue());
     		
     		//set the gauge/digital to the max value captured so far for two seconds.
     		txtViewDigital.setText(Double.toString(multiGauge.getSensorMaxValue()));
