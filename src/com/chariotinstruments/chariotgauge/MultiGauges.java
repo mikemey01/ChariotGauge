@@ -99,7 +99,6 @@ public class MultiGauges extends View{
 	}
 	
 	public void setSensorMaxValue(double minValueIn){
-		//Log.d("setSensorMaxValue", Double.toString(minValueIn));
 		sensorMaxValue = minValueIn;
 	}
 	
@@ -167,7 +166,6 @@ public class MultiGauges extends View{
 
 				if(psi > this.sensorMaxValue){
 					sensorMaxValue = psi;
-					//Log.d("BoostMax", Double.toString(psi) + " " + Float.toString(sValue));
 				}
 			}
 		} //PSI closing paren.
