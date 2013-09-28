@@ -159,6 +159,15 @@ public class FourGaugeActivity extends Activity implements Runnable{
 	   
 	    if(!showAnalog){
 	    	((ViewManager)analogGauge1.getParent()).removeView(analogGauge1); //Remove analog gauge
+	    	((ViewManager)analogGauge2.getParent()).removeView(analogGauge2); //Remove analog gauge
+	    	((ViewManager)analogGauge3.getParent()).removeView(analogGauge3); //Remove analog gauge
+	    	((ViewManager)analogGauge4.getParent()).removeView(analogGauge4); //Remove analog gauge
+	    }
+	    if(!showDigital){
+	    	((ViewManager)txtViewDigital.getParent()).removeView(txtViewDigital); //Remove digital gauge
+	    	((ViewManager)txtViewDigital2.getParent()).removeView(txtViewDigital2); //Remove digital gauge
+	    	((ViewManager)txtViewDigital3.getParent()).removeView(txtViewDigital3); //Remove digital gauge
+	    	((ViewManager)txtViewDigital4.getParent()).removeView(txtViewDigital4); //Remove digital gauge
 	    }
 	    if(showNightMode){
 	    	root = btnOne.getRootView(); //Get root layer view.
