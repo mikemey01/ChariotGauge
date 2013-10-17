@@ -40,7 +40,7 @@
     
     <!--  Whats New String -->
     <string name="whats_new">
-        Sept-15-2013: \n
+        Oct-15-2013: \n
            - Added landscape layout for two gauge view. \n
            - Added voltmeter support. \n
            - Better background processing. \n

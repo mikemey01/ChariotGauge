@@ -294,6 +294,11 @@
             android:entryValues="@array/multiGaugeTwoValues" /> 
         
     </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:key="go_to_site"
+        android:title="Buy Hardware Controller">
+    </PreferenceScreen>
 
         
 </PreferenceScreen>
