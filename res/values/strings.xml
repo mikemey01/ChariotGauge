@@ -40,10 +40,15 @@
     
     <!--  Whats New String -->
     <string name="whats_new">
-        Oct-15-2013: \n
+        The Chariot Gauge controller is now for sale! \n\n
+        Please visit: https://www.chariotgauge.com/ \n\n
+        Use coupon code EarlyAdopter for $30 off! \n\n
+        
+        Oct-27-2013: \n
            - Added landscape layout for two gauge view. \n
            - Added voltmeter support. \n
            - Better background processing. \n
+           - Added vacuum \n
            - Updated tablet support. \n\n
            
         Aug-26-2013: \n
