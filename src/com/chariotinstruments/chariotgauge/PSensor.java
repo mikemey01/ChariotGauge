@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class PSensor extends Activity {
 /** Called when the activity is first created. */
     
-	//Constants.
+	//Constants..
 	private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT      = 2;
     
