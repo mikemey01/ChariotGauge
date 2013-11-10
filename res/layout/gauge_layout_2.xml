@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:atswidget="http://schemas.android.com/apk/res/com.chariotinstruments.chariotgauge"
+        android:orientation="vertical" 
+        android:layout_margin="1dp"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content">
+        
+    <RelativeLayout style="@style/TitleBar">
+       
+        <ImageButton style="@style/TitleBarAction"
+            android:id="@+id/homeButton"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/home_string"
+            android:padding="5dip"
+            android:src="@drawable/title_home_default"
+            android:onClick="goHome" />
+        
+        <ImageView style="@style/TitleBarSeparator"
+            android:paddingLeft="2dp"
+            android:layout_toRightOf="@+id/homeButton" />
+        
+        
+        <ImageButton style="@style/TitleBarAction"
+            android:id="@+id/btnOne"
+            android:layout_toLeftOf="@+id/btnTwo"
+            android:paddingRight="2dp"
+            android:contentDescription="@string/home_string"
+            android:padding="5dip"
+            android:src="@drawable/title_gauge_reset"
+            android:onClick="buttonOneClick" />
+        
+        <ImageButton style="@style/TitleBarAction"
+            android:id="@+id/btnTwo"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/home_string"
+            android:padding="5dip"
+            android:src="@drawable/title_gauge_max"
+            android:onClick="buttonTwoClick" />
+
+        
+    </RelativeLayout>
+
+	    <com.chariotinstruments.chariotgauge.GaugeBuilder
+	            android:id="@+id/analogGauge" 
+	            android:layout_gravity="center" 
+	            android:layout_weight="1" 
+          		android:layout_width="fill_parent"
+           	    android:layout_height="wrap_content" 
+	            android:layout_margin="2dp" />
+	    
+	    <com.chariotinstruments.chariotgauge.GaugeBuilder
+	            android:id="@+id/analogGauge2" 
+	            android:layout_gravity="center" 
+	            android:layout_weight="1" 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" 
+	            android:layout_margin="2dp" />
+
+
+</LinearLayout>
