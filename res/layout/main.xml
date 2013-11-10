@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp" >
+
+    
+     <Button
+	 	android:id="@+id/btnConnect"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:layout_alignParentLeft="true"
+		android:text="Connect"/>
+    
+
+    <Button
+        android:id="@+id/btnShowGauges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/btnConnect"
+        android:layout_weight="1"
+        android:text="Show Gauges" />
+
+    <Button
+        android:id="@+id/btnPairedDevices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/btnShowGauges"
+        android:layout_weight="1"
+        android:text="Show Paired" />
+    
+    <ScrollView
+    android:id="@+id/SCROLLER_ID"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="center"
+    android:scrollbars="vertical"
+    android:fillViewport="true">
+    
+   		 <TextView
+   		    android:id="@+id/txtView"
+   		    android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    		android:layout_gravity="center"
+    		android:layout_alignParentBottom="true"
+    		android:textSize="30sp"
+    	    android:text="@string/hello" />
+    
+
+    </ScrollView>
+
+</RelativeLayout>

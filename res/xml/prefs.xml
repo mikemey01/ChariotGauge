@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="Chariot Gauge Settings"
+        android:key="main_preferencescreen">
+        
+    <PreferenceScreen
+            android:key="general_preferencescreen"
+            android:title="General settings">
+            
+        <CheckBoxPreference 
+            android:title="Show Analog Gauge"
+            android:summary="Turn the analog gauge on and off" 
+            android:key="showAnalog" 
+            android:defaultValue="true" />
+        
+        <CheckBoxPreference 
+            android:title="Show Digital Gauge"
+            android:summary="Turn the digital gauge on and off" 
+            android:key="showDigital" 
+            android:defaultValue="true" />
+        
+        <CheckBoxPreference 
+            android:title="Show Volt Meter"
+            android:summary="Turn on volt meter" 
+            android:key="showVoltMeter" 
+            android:defaultValue="true" />
+        
+        <CheckBoxPreference 
+            android:title="Night Mode"
+            android:summary="Toggle night mode" 
+            android:key="showNightMode" 
+            android:defaultValue="false" />
+        
+        
+        <ListPreference
+            android:key="gaugeResolutions"
+            android:title="Gauge Resolution"
+            android:summary="Select the digital gauge resolution"
+            android:defaultValue="Tenths"
+            android:entries="@array/gaugeResolution"
+            android:entryValues="@array/gaugeResolutionValues" />
+            
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+            android:key="boost_preferencescreen"
+            android:title="Boost settings">
+        
+        <ListPreference
+            android:key="pressureUnits"
+            android:title="Toggle PSI or KPA"
+            android:summary="Select which units to display"
+            android:defaultValue="PSI"
+            android:entries="@array/pressureUnit"
+            android:entryValues="@array/pressureUnitValues" />
+            
+            
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+            android:key="wideband_preferencescreen"
+            android:title="Wideband settings">
+        
+        <ListPreference
+            android:key="widebandUnits"
+            android:title="Toggle AFR or Lambda"
+            android:summary="Select AFR or Lambda to display"
+            android:defaultValue="AFR"
+            android:entries="@array/widebandUnit"
+            android:entryValues="@array/widebandUnitValues" />
+        
+        <ListPreference
+            android:key="widebandFuelType"
+            android:title="Fuel Type"
+            android:summary="Select fuel type for gauge parameters. Volt-AFR table must still be set!"
+            android:defaultValue="Gasoline"
+            android:entries="@array/widebandFuelType"
+            android:entryValues="@array/widebandFuelTypeValues" />
+        
+        <PreferenceScreen
+            android:key="wideband_volt_afr_table"
+            android:title="Volt-AFR Calibration">
+            
+            <PreferenceCategory
+                android:title="Low Values"
+                android:key="volts_column" />
+            
+            	<EditTextPreference 
+           			android:title="Low Voltage"
+            		android:inputType="numberDecimal"
+            		android:summary="Set Low Voltage"
+            		android:key="afrvoltage_low_voltage" 
+            		android:persistent="true" 
+            		android:defaultValue="0.00" />
+            	
+            	<EditTextPreference 
+           			android:title="Low AFR"
+            		android:inputType="numberDecimal"
+            		android:summary="Set Low AFR corresponding to low Voltage"
+            		android:key="afrvoltage_low_afr" 
+            		android:persistent="true" 
+            		android:defaultValue="7.35" />
+
+            <PreferenceCategory
+                android:title="High Values"
+                android:key="afr_column" />
+            
+         	   <EditTextPreference 
+           			android:title="High Voltage"
+            		android:inputType="numberDecimal"
+            		android:summary="Set High Voltage"
+            		android:key="afrvoltage_high_voltage" 
+            		android:persistent="true" 
+            		android:defaultValue="5.00" />
+            	
+            	<EditTextPreference 
+           			android:title="High AFR"
+            		android:inputType="numberDecimal"
+            		android:summary="Set High AFR corresponding to high Voltage"
+            		android:key="afrvoltage_high_afr" 
+            		android:persistent="true" 
+            		android:defaultValue="22.39" />
+
+        </PreferenceScreen>
+            
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+            android:key="oil_preferencescreen"
+            android:title="Oil settings">
+        
+        <PreferenceScreen
+            android:key="oil_calibration_table"
+            android:title="Oil Sensor Calibration">
+            	
+            <PreferenceCategory
+                android:title="Low Values"
+                android:key="oil_low_range" />
+            	
+           	 <EditTextPreference 
+           			android:title="Low PSI"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the low PSI range for the oil sensor"
+            		android:key="oil_psi_low" 
+            		android:persistent="true" 
+            		android:defaultValue="0" />	
+            		
+           	 <EditTextPreference 
+           			android:title="Low Ohms"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the low ohm range for the oil sensor. Corresponds to low PSI"
+            		android:key="oil_ohm_low" 
+            		android:persistent="true" 
+            		android:defaultValue="10" />
+            
+            <PreferenceCategory
+                android:title="Low Values"
+                android:key="oil_low_range" />	
+                
+             <EditTextPreference 
+           			android:title="High PSI"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the high PSI range for the oil sensor"
+            		android:key="oil_psi_high" 
+            		android:persistent="true" 
+            		android:defaultValue="80" />
+             
+             <EditTextPreference 
+           			android:title="High Ohms"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the high ohm range for the oil sensor. Corresponds to high PSI"
+            		android:key="oil_ohm_high" 
+            		android:persistent="true" 
+            		android:defaultValue="180" />
+        
+        </PreferenceScreen>
+        
+        <EditTextPreference 
+           	android:title="Bias Resistor"
+            android:inputType="numberDecimal"
+            android:summary="Oil Pressure Sensor bias resistor. DO NOT change if you have not modified the physical board"
+            android:key="bias_resistor_oil" 
+            android:persistent="true" 
+            android:defaultValue="100" />
+            
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+            android:key="temperature_preferencescreen"
+            android:title="Temperature settings">
+        
+        <ListPreference
+            android:key="tempUnits"
+            android:title="Toggle Celsius or Fahrenheit"
+            android:summary="Select which units to display"
+            android:defaultValue="Celsius"
+            android:entries="@array/tempUnit"
+            android:entryValues="@array/tempUnitValues" />
+        
+        <PreferenceScreen
+            android:key="temperature_calibration_table"
+            android:title="Temperature Calibration">
+            
+            <PreferenceCategory
+                android:title="First Temp/Ohm Values"
+                android:key="tempohm_column_one" />
+            
+          	  <EditTextPreference 
+           			android:title="Temperature One"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the first temp value (Degrees C)"
+            		android:key="temp_one" 
+            		android:persistent="true" 
+            		android:defaultValue="-18.00" />
+          	  
+          	  <EditTextPreference 
+           			android:title="Ohms One"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the first resistance value"
+            		android:key="ohms_one" 
+            		android:persistent="true" 
+            		android:defaultValue="25000" />
+          	  
+          <PreferenceCategory
+                android:title="Second Temp/Ohm Values"
+                android:key="tempohm_column_two" />
+            
+        	    <EditTextPreference 
+           			android:title="Temperature Two"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the second temp value (Degrees C)"
+            		android:key="temp_two" 
+            		android:persistent="true" 
+            		android:defaultValue="4.00" />
+        	    
+        	    <EditTextPreference 
+           			android:title="Ohms Two"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the second resistance value"
+            		android:key="ohms_two" 
+            		android:persistent="true" 
+            		android:defaultValue="7500" />
+        	    
+          <PreferenceCategory
+                android:title="Third Temp/Ohm Values"
+                android:key="tempohm_column_three" />
+            
+         	   <EditTextPreference 
+           			android:title="Temperature Three"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the third temp value (Degrees C)"
+            		android:key="temp_three" 
+            		android:persistent="true" 
+            		android:defaultValue="99.00" />
+         	   
+         	   <EditTextPreference 
+           			android:title="Ohms Three"
+            		android:inputType="numberDecimal"
+            		android:summary="Set the third resistance value"
+            		android:key="ohms_three" 
+            		android:persistent="true" 
+            		android:defaultValue="185" />
+
+         </PreferenceScreen>
+         
+         <EditTextPreference 
+           	android:title="Bias Resistor"
+            android:inputType="numberDecimal"
+            android:summary="Temperature sensor bias resistor. DO NOT change if you have not modified the physical board"
+            android:key="bias_resistor" 
+            android:persistent="true" 
+            android:defaultValue="2000" />
+            
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+            android:key="multi_gauge_setup"
+            android:title="Two Gauge Setup">
+         
+        <ListPreference
+            android:key="multiGaugeOne"
+            android:title="Select Gauge One"
+            android:summary="Select which gauge to display on top"
+            android:defaultValue="boost"
+            android:entries="@array/multiGaugeOne"
+            android:entryValues="@array/multiGaugeOneValues" /> 
+            
+        <ListPreference
+            android:key="multiGaugeTwo"
+            android:title="Select Gauge Two"
+            android:summary="Select which gauge to display on bottom"
+            android:defaultValue="wb"
+            android:entries="@array/multiGaugeTwo"
+            android:entryValues="@array/multiGaugeTwoValues" /> 
+        
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:key="go_to_site"
+        android:title="Buy Hardware Controller">
+    </PreferenceScreen>
+
+        
+</PreferenceScreen>
