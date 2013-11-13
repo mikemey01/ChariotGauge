@@ -3,7 +3,8 @@ Chariot Gauge brings engine tuning analysis to automotive enthusiasts while elim
 * Wideband Oxygen
 * 2.5bar Manifold Air Pressure(boost/vac)
 * Oil Pressure
-* and Intake Air or Coolant Temp. 
+* Intake Air or Coolant Temp. 
+* and Voltmeter
 
 Chariot Gauge is widely configurable for different IAT/CLT sensors, Wideband, and Oil Pressure sensors. The MAP (MPX4250AP) is soldered directly to the PCB board, future updates will allow for different sensors to be soldered in. Chariot Gauge is OBD agnostic and will work in virtually any automotive application.
 
