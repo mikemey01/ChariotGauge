@@ -24,30 +24,30 @@ public class MultiGauges extends View{
     float currentGaugeValue;
 
     //Preference vars
-    String		 pressureUnits; //Boost units.
-    boolean		 isKPA = false;
-    String		 unitType; //AFR or Lambda.
-    String		 fuelType; //Fuel type in use.
-    float		 wbLowVolts; //Low volts from the target table.
-    float		 wbHighVolts; //High volts from the target table.
-    float		 wbLowAFR; //Low AFR from the target table.
-    float		 wbHighAFR; //High AFR from the target table.
-    boolean		 isLambda = false;
-    String 		 tempUnits;
-    double		 tempOne;
-    double		 tempTwo;
-    double		 tempThree;
-    double		 tempOhmsOne;
-    double		 tempOhmsTwo;
-    double		 tempOhmsThree;
-    double		 tempBiasResistor;
-    boolean		 isCelsius = false;
-    double 		 oilLowPSI;
-    double		 oilLowOhms;
-    double		 oilHighPSI;
-    double		 oilHighOhms;
-    double		 oilBiasResistor;
-    String 		 gaugeResolution;
+    String   pressureUnits; //Boost units.
+    boolean  isKPA = false;
+    String   unitType; //AFR or Lambda.
+    String   fuelType; //Fuel type in use.
+    float    wbLowVolts; //Low volts from the target table.
+    float    wbHighVolts; //High volts from the target table.
+    float    wbLowAFR; //Low AFR from the target table.
+    float    wbHighAFR; //High AFR from the target table.
+    boolean  isLambda = false;
+    String   tempUnits;
+    double   tempOne;
+    double   tempTwo;
+    double   tempThree;
+    double   tempOhmsOne;
+    double   tempOhmsTwo;
+    double   tempOhmsThree;
+    double   tempBiasResistor;
+    boolean  isCelsius = false;
+    double   oilLowPSI;
+    double   oilLowOhms;
+    double   oilHighPSI;
+    double   oilHighOhms;
+    double   oilBiasResistor;
+    String   gaugeResolution;
     static DecimalFormat twoDForm;
 
 
@@ -58,15 +58,15 @@ public class MultiGauges extends View{
     public static final double PSI_TO_INHG = 2.03625437;
 
     //Wideband gauge parameters
-    double		 wbAFRRange;
-    double		 wbVoltRange;
-    double		 wbStoich;
+    double  wbAFRRange;
+    double  wbVoltRange;
+    double  wbStoich;
 
     //Oil gauge parameters
-    double		 oilLowVolts;
-    double		 oilHighVolts;
-    double		 oilRangeVolts;
-    double		 oilRangePSI;
+    double oilLowVolts;
+    double oilHighVolts;
+    double oilRangeVolts;
+    double oilRangePSI;
 
     //Temp gauge parameters
     double a;
