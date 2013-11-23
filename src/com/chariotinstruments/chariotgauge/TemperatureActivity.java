@@ -21,7 +21,7 @@ public class TemperatureActivity extends Activity implements Runnable {
 
     GaugeBuilder analogGauge;
     ImageButton  btnOne;
-    ImageButton	 btnTwo;
+    ImageButton  btnTwo;
     ImageButton  btnHome;
     Typeface     typeFaceDigital;
     MultiGauges  multiGauge;
@@ -68,14 +68,14 @@ public class TemperatureActivity extends Activity implements Runnable {
 
         //Instantiate the gaugeBuilder.
         analogGauge     = (GaugeBuilder) findViewById(R.id.analogGauge);
-        txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital); 
+        txtViewDigital  = (TextView) findViewById(R.id.txtViewDigital); 
         txtViewVolts    = (TextView) findViewById(R.id.txtViewVolts);
         txtViewVoltsText= (TextView) findViewById(R.id.txtViewVoltsText);
         multiGauge      = new MultiGauges(context);
         multiGaugeVolts = new MultiGauges(context);
         btnOne          = (ImageButton) findViewById(R.id.btnOne);
         btnTwo          = (ImageButton) findViewById(R.id.btnTwo);
-        typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
+        typeFaceDigital = Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
 
         //Set the font of the title text
         txtViewDigital.setTypeface(typeFaceDigital);
