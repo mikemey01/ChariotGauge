@@ -28,8 +28,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 /**
@@ -258,7 +256,8 @@ public class BluetoothSerialService {
             mmSocket = tmp;
         }
 
-        public void run() {
+        @Override
+		public void run() {
             Log.i(TAG, "BEGIN mConnectThread");
             setName("ConnectThread");
 
@@ -329,7 +328,8 @@ public class BluetoothSerialService {
             mmOutStream = tmpOut;
         }
 
-        public void run() {
+        @Override
+		public void run() {
             Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
             int bytes;
