@@ -149,6 +149,7 @@ public class BoostActivity extends Activity implements Runnable {
         }
     };
 
+    @Override
     public void run(){
         Looper.prepare();
         workerHandler = new Handler(){
@@ -230,11 +231,13 @@ public class BoostActivity extends Activity implements Runnable {
         }
     }
 
+    @Override
     protected void onPause(){
         super.onPause();
     }
 
 
+    @Override
     protected void onResume(){
         super.onResume();
         Thread thread = new Thread(BoostActivity.this);
