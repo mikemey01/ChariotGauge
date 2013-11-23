@@ -24,25 +24,25 @@ public class BoostActivity extends Activity implements Runnable {
     ImageButton  btnOne;
     ImageButton	 btnTwo;
     ImageButton  btnHome;
-    Typeface	 typeFaceDigital;
+    Typeface     typeFaceDigital;
     MultiGauges  multiGauge;
     MultiGauges  multiGaugeVolts;
-    Context		 context;
-    String	 	 currentMsg;
-    TextView 	 txtViewDigital;
-    TextView	 txtViewVolts;
-    TextView	 txtViewVoltsText;
-    float		 currentSValue;
-    float 		 voltSValue;
-    boolean		 paused;
+    Context      context;
+    String       currentMsg;
+    TextView     txtViewDigital;
+    TextView     txtViewVolts;
+    TextView     txtViewVoltsText;
+    float        currentSValue;
+    float        voltSValue;
+    boolean      paused;
 
 
     //Prefs vars
-    View		 root;
-    boolean		 showAnalog; //Display the analog gauge or not.
-    boolean		 showDigital; //Display the digital gauge or not.
-    boolean		 showNightMode; //Change background to black.
-    boolean		 showVoltMeter;
+    View     root;
+    boolean  showAnalog; //Display the analog gauge or not.
+    boolean	 showDigital; //Display the digital gauge or not.
+    boolean  showNightMode; //Change background to black.
+    boolean  showVoltMeter;
 
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -70,15 +70,15 @@ public class BoostActivity extends Activity implements Runnable {
         prefsInit(); //Load up the preferences.
 
         //Instantiate the gaugeBuilder.
-        analogGauge		= (GaugeBuilder) findViewById(R.id.analogGauge);
-        txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital); 
+        analogGauge     = (GaugeBuilder) findViewById(R.id.analogGauge);
+        txtViewDigital  = (TextView) findViewById(R.id.txtViewDigital); 
         txtViewVolts    = (TextView) findViewById(R.id.txtViewVolts);
         txtViewVoltsText= (TextView) findViewById(R.id.txtViewVoltsText);
-        multiGauge	 	= new MultiGauges(context);
+        multiGauge      = new MultiGauges(context);
         multiGaugeVolts = new MultiGauges(context);
-        btnOne			= (ImageButton) findViewById(R.id.btnOne);
-        btnTwo			= (ImageButton) findViewById(R.id.btnTwo);
-        typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
+        btnOne          = (ImageButton) findViewById(R.id.btnOne);
+        btnTwo          = (ImageButton) findViewById(R.id.btnTwo);
+        typeFaceDigital = Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
 
         //Set the font of the title text
         txtViewDigital.setTypeface(typeFaceDigital);
