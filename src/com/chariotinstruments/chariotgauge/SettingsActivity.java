@@ -13,23 +13,23 @@ import android.preference.PreferenceScreen;
 import android.view.View;
 
 public class SettingsActivity extends PreferenceActivity {
-	
-	View root;
-	
-	@Override
+
+    View root;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.prefs);
         getPreferenceManager()
         .findPreference("go_to_site")
         .setOnPreferenceClickListener(
-           new OnPreferenceClickListener() {
-        	 public boolean onPreferenceClick(Preference preference) {
-             Intent intent = new Intent(Intent.ACTION_VIEW);
-             intent.setData(Uri.parse("https://www.chariotgauge.com/product/controller/"));
-             startActivity(intent);
-             return true;
-         }
-     });
-	}
+                new OnPreferenceClickListener() {
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("https://www.chariotgauge.com/product/controller/"));
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+    }
 }
