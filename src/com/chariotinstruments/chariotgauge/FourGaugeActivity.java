@@ -29,31 +29,31 @@ public class FourGaugeActivity extends Activity implements Runnable{
 	MultiGauges  multiGaugeVolts;
     ImageButton  btnOne;
     ImageButton	 btnTwo;
-    Typeface	 typeFaceDigital;
-    TextView 	 txtViewDigital;
-    TextView 	 txtViewDigital2;
-    TextView 	 txtViewDigital3;
-    TextView 	 txtViewDigital4;
-    TextView	 txtViewVolts;
-    TextView	 txtViewVoltsText;
-    float 		 voltSValue;
-    int		     digitalToken;
-    String	 	 currentMsg;
-    Thread		 thread;
+    Typeface     typeFaceDigital;
+    TextView     txtViewDigital;
+    TextView     txtViewDigital2;
+    TextView     txtViewDigital3;
+    TextView     txtViewDigital4;
+    TextView     txtViewVolts;
+    TextView     txtViewVoltsText;
+    float        voltSValue;
+    int          digitalToken;
+    String       currentMsg;
+    Thread       thread;
 	
-    boolean		 paused;
-    Context		 context;
-    float		 boostSValue;
-    float		 wbSValue;
-    float		 tempSValue;
-    float		 oilSValue;
+    boolean  paused;
+    Context  context;
+    float    boostSValue;
+    float    wbSValue;
+    float    tempSValue;
+    float    oilSValue;
     
     //Prefs vars
-    View		 root;
-    boolean		 showAnalog; //Display the analog gauge or not.
-    boolean		 showDigital; //Display the digital gauge or not.
-    boolean		 showNightMode; //Change background to black.
-    boolean		 showVoltMeter;
+    View    root;
+    boolean showAnalog; //Display the analog gauge or not.
+    boolean showDigital; //Display the digital gauge or not.
+    boolean showNightMode; //Change background to black.
+    boolean showVoltMeter;
 
     
     // Message types sent from the BluetoothChatService Handler
@@ -85,25 +85,25 @@ public class FourGaugeActivity extends Activity implements Runnable{
 	    context = this;
 	    
 	    //Instantiate the GaugeBuilder.
-	    analogGauge1	= (GaugeBuilder) findViewById(R.id.analogGauge);
-	    analogGauge2	= (GaugeBuilder) findViewById(R.id.analogGauge2);
-	    analogGauge3	= (GaugeBuilder) findViewById(R.id.analogGauge3);
-	    analogGauge4	= (GaugeBuilder) findViewById(R.id.analogGauge4);
-	    multiGauge1 	= new MultiGauges(context);
-	    multiGauge2 	= new MultiGauges(context);
-	    multiGauge3 	= new MultiGauges(context);
-	    multiGauge4 	= new MultiGauges(context);
+	    analogGauge1    = (GaugeBuilder) findViewById(R.id.analogGauge);
+	    analogGauge2    = (GaugeBuilder) findViewById(R.id.analogGauge2);
+	    analogGauge3    = (GaugeBuilder) findViewById(R.id.analogGauge3);
+	    analogGauge4    = (GaugeBuilder) findViewById(R.id.analogGauge4);
+	    multiGauge1     = new MultiGauges(context);
+	    multiGauge2     = new MultiGauges(context);
+	    multiGauge3     = new MultiGauges(context);
+	    multiGauge4     = new MultiGauges(context);
 	    multiGaugeVolts = new MultiGauges(context);
-	    txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital);
+	    txtViewDigital  = (TextView) findViewById(R.id.txtViewDigital);
 	    txtViewDigital2 = (TextView) findViewById(R.id.txtViewDigital2);
 	    txtViewDigital3 = (TextView) findViewById(R.id.txtViewDigital3);
 	    txtViewDigital4 = (TextView) findViewById(R.id.txtViewDigital4);
 	    txtViewVolts    = (TextView) findViewById(R.id.txtViewVolts);
 	    txtViewVoltsText= (TextView) findViewById(R.id.txtViewVoltsText);
-        btnOne			= (ImageButton) findViewById(R.id.btnOne);
-        btnTwo			= (ImageButton) findViewById(R.id.btnTwo);  
-        typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
-        digitalToken	= 1;
+        btnOne          = (ImageButton) findViewById(R.id.btnOne);
+        btnTwo          = (ImageButton) findViewById(R.id.btnTwo);  
+        typeFaceDigital = Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
+        digitalToken    = 1;
         
         //Set the font of the digital.
         txtViewDigital.setTypeface(typeFaceDigital);
