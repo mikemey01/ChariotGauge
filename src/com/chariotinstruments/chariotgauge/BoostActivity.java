@@ -170,6 +170,10 @@ public class BoostActivity extends Activity implements Runnable {
     	}
     }
     
+    public void testMethod(){
+        //test tabs
+    }
+    
     
     private void parseInput(String sValue){
     	String[] tokens=sValue.split(","); //split the input into an array.
