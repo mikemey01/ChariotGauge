@@ -35,11 +35,11 @@ public class OilActivity extends Activity implements Runnable {
     float        voltSValue;
     boolean      paused;
 
-    View     root;
-    boolean	 showAnalog; //Display the analog gauge or not.
-    boolean  showDigital; //Display the digital gauge or not.
-    boolean	 showNightMode; //Change background to black.
-    boolean  showVoltMeter;
+    View    root;
+    boolean showAnalog; //Display the analog gauge or not.
+    boolean showDigital; //Display the digital gauge or not.
+    boolean showNightMode; //Change background to black.
+    boolean showVoltMeter;
 
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -67,14 +67,14 @@ public class OilActivity extends Activity implements Runnable {
 
         //Instantiate the gaugeBuilder.
         analogGauge     = (GaugeBuilder) findViewById(R.id.analogGauge);
-        txtViewDigital 	= (TextView) findViewById(R.id.txtViewDigital); 
+        txtViewDigital  = (TextView) findViewById(R.id.txtViewDigital); 
         txtViewVolts    = (TextView) findViewById(R.id.txtViewVolts);
         txtViewVoltsText= (TextView) findViewById(R.id.txtViewVoltsText);
         multiGauge      = new MultiGauges(context);
         multiGaugeVolts = new MultiGauges(context);
         btnOne          = (ImageButton) findViewById(R.id.btnOne);
         btnTwo          = (ImageButton) findViewById(R.id.btnTwo);
-        typeFaceDigital	= Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
+        typeFaceDigital = Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
 
         //Set the font of the title text
         txtViewDigital.setTypeface(typeFaceDigital);
