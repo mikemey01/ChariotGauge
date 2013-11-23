@@ -406,7 +406,7 @@ containing a value of this type.
         public static final int custom_multi_2=0x7f09001b;
         public static final int hello=0x7f090000;
         public static final int home_string=0x7f090011;
-        /**   Dashboard Strings 
+        /**  Dashboard Strings 
          */
         public static final int logo_string=0x7f09000f;
         public static final int max_button=0x7f09001d;
@@ -415,7 +415,7 @@ containing a value of this type.
         public static final int not_connected=0x7f090004;
         public static final int oil_title=0x7f090017;
         public static final int reset_button=0x7f09001c;
-        /**   DeviceListActivity 
+        /**  DeviceListActivity 
          */
         public static final int scanning=0x7f090008;
         public static final int search_string=0x7f090012;
@@ -430,7 +430,7 @@ containing a value of this type.
         public static final int title_paired_devices=0x7f09000c;
         public static final int tps_title=0x7f090015;
         public static final int volts=0x7f090003;
-        /**   Whats New String 
+        /**  Whats New String 
          */
         public static final int whats_new=0x7f09001e;
         public static final int wideband_title=0x7f090018;
