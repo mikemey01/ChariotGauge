@@ -21,7 +21,7 @@ public class OilActivity extends Activity implements Runnable {
 
     GaugeBuilder analogGauge;
     ImageButton  btnOne;
-    ImageButton	 btnTwo;
+    ImageButton  btnTwo;
     ImageButton  btnHome;
     Typeface     typeFaceDigital;
     MultiGauges  multiGauge;
