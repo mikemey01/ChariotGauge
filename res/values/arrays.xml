@@ -5,48 +5,34 @@
         <item name="PSI">PSI</item>
         <item name="KPA">KPA</item>
     </string-array>
-    
     <string-array name="pressureUnitValues">
         <item name="PSI">PSI</item>
         <item name="KPA">KPA</item>
     </string-array>
-    
-        
-        
     <string-array name="tempUnit">
         <item name="celsius">Celsius</item>
         <item name="fahrenheit">Fahrenheit</item>
     </string-array>
-    
     <string-array name="tempUnitValues">
         <item name="celsius">Celsius</item>
         <item name="fahrenheit">Fahrenheit</item>
     </string-array>
-    
-    
     <string-array name="gaugeResolution">
         <item name="tenths">Tenths</item>
         <item name="hundredths">Hundredths</item>
     </string-array>
-    
     <string-array name="gaugeResolutionValues">
         <item name="tenths">Tenths</item>
         <item name="hundredths">Hundredths</item>
     </string-array>
-        
-        
     <string-array name="widebandUnit">
         <item name="afr">AFR</item>
         <item name="lambda">Lambda</item>
     </string-array>
-    
     <string-array name="widebandUnitValues">
         <item name="afr">AFR</item>
         <item name="lambda">Lambda</item>
     </string-array>
-    
-        
-        
     <string-array name="widebandFuelType">
         <item name="gasoline">Gasoline</item>
         <item name="propane">Propane</item>
@@ -55,7 +41,6 @@
         <item name="ethanol">Ethanol</item>
         <item name="e85">E85</item>
     </string-array>
-    
     <string-array name="widebandFuelTypeValues">
         <item name="gasoline">Gasoline</item>
         <item name="propane">Propane</item>
@@ -64,37 +49,29 @@
         <item name="ethanol">Ethanol</item>
         <item name="e85">E85</item>
     </string-array>
-    
-    
-    
     <string-array name="multiGaugeOne">
         <item name="boost">Boost</item>
         <item name="wb">Wideband O2</item>
         <item name="temp">Temperature</item>
         <item name="oil">Oil Pressure</item>
     </string-array>
-    
     <string-array name="multiGaugeOneValues">
         <item name="boost">Boost</item>
         <item name="wb">Wideband O2</item>
         <item name="temp">Temperature</item>
         <item name="oil">Oil Pressure</item>
     </string-array>
-    
-    
-    
     <string-array name="multiGaugeTwo">
         <item name="boost">Boost</item>
         <item name="wb">Wideband O2</item>
         <item name="temp">Temperature</item>
         <item name="oil">Oil Pressure</item>
     </string-array>
-    
     <string-array name="multiGaugeTwoValues">
         <item name="boost">Boost</item>
         <item name="wb">Wideband O2</item>
         <item name="temp">Temperature</item>
         <item name="oil">Oil Pressure</item>
     </string-array>
-    
+
 </resources>

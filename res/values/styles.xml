@@ -18,6 +18,7 @@
     limitations under the License.
 -->
 <resources>
+
     <!-- Base application theme is the default theme. -->
     <style name="Theme" parent="android:Theme"></style>
 
@@ -26,10 +27,10 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
-    
+
     <style name="PreferencesTheme">
-  		<item name="android:background">#ffffff</item>
-	</style>
+        <item name="android:background">#ffffff</item>
+    </style>
 
     <style name="DashboardButton">
         <item name="android:layout_gravity">center_vertical</item>
@@ -42,7 +43,7 @@
         <item name="android:textColor">@color/background_normal</item>
         <item name="android:background">@null</item>
     </style>
-    
+
     <style name="TitleBarText">
         <item name="android:id">@id/title_text</item>
         <item name="android:layout_width">0dp</item>
@@ -55,9 +56,8 @@
         <item name="android:textColor">@color/title_text</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
-
     </style>
-        
+
     <style name="TitleBar">
         <item name="android:id">@id/title_container</item>
         <item name="android:layout_width">fill_parent</item>
@@ -65,9 +65,9 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@drawable/title_bar_gradient</item>
         <item name="android:shadowColor">#000000</item>
-   		<item name="android:shadowRadius">2</item>
+        <item name="android:shadowRadius">2</item>
     </style>
-    
+
     <style name="TitleBarVertical">
         <item name="android:id">@id/title_container_vertical</item>
         <item name="android:layout_width">@dimen/title_height</item>
@@ -75,9 +75,9 @@
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/title_bar_gradient</item>
         <item name="android:shadowColor">#000000</item>
-   		<item name="android:shadowRadius">2</item>
+        <item name="android:shadowRadius">2</item>
     </style>
-    
+
     <style name="FooterBar">
         <item name="android:id">@id/footer_container</item>
         <item name="android:layout_width">fill_parent</item>
@@ -92,7 +92,7 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:background">@drawable/title_button</item>
     </style>
-    
+
     <style name="TitleBarActionVertical">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/title_height</item>
@@ -104,7 +104,7 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:background">@color/title_text</item>
     </style>
-    
+
     <style name="TitleBarSeparatorVertical">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">1px</item>
@@ -123,7 +123,7 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">1</item>
     </style>
-    
+
     <style name="TitleBarText_name">
         <item name="android:id">@id/title_text_name</item>
         <item name="android:layout_width">0dp</item>
@@ -137,11 +137,11 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:shadowColor">#000000</item>
-   		<item name="android:shadowDx">1</item>
-   		<item name="android:shadowDy">1</item>
-   		<item name="android:shadowRadius">1</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
     </style>
-    
+
     <style name="TitleBarText_gauge">
         <item name="android:id">@id/title_text_name</item>
         <item name="android:layout_width">wrap_content</item>

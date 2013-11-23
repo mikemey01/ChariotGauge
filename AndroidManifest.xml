@@ -4,71 +4,80 @@
     android:versionCode="15"
     android:versionName="1.5" >
 
-    <uses-sdk 
-        android:minSdkVersion="7" 
-        android:targetSdkVersion="17"/>
-    <supports-screens 
-        android:largeScreens="true" 
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="17" />
+
+    <supports-screens
+        android:largeScreens="true"
         android:xlargeScreens="true" />
+
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
-        android:icon="@drawable/logo"
-        android:label="@string/app_name" 
-        android:screenOrientation="portrait"
         android:finishOnTaskLaunch="true"
-        android:hardwareAccelerated="false">
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait" >
         <activity
-            android:theme="@style/Theme.D1"
-            android:label="@string/app_name"
             android:name=".PSensor"
-            android:screenOrientation="portrait" >
-            <intent-filter >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.D1" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeviceListActivity"
-                  android:label="@string/select_device"
-                  android:theme="@android:style/Theme.Dialog"
-                  android:screenOrientation="portrait"
-                  android:noHistory="true"
-                  android:configChanges="orientation|keyboardHidden" />
-        
-        <activity android:name=".BoostActivity"
-            android:theme="@style/Theme.D1"
+        <activity
+            android:name=".DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/select_device"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
-        <activity android:name=".ConnectionActivity"
-            android:theme="@style/Theme.D1"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".BoostActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
-        <activity android:name=".SettingsActivity"
+            android:theme="@style/Theme.D1" />
+        <activity
+            android:name=".ConnectionActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
-        <activity android:name=".WidebandActivity"
-            android:theme="@style/Theme.D1"
+            android:theme="@style/Theme.D1" />
+        <activity
+            android:name=".SettingsActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WidebandActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
-        <activity android:name=".OilActivity"
-            android:theme="@style/Theme.D1"
+            android:theme="@style/Theme.D1" />
+        <activity
+            android:name=".OilActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
-        <activity android:name=".TwoGaugeActivity"
+            android:theme="@style/Theme.D1" />
+        <activity
+            android:name=".TwoGaugeActivity"
+            android:noHistory="true"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.D1"
-            android:noHistory="true"/>
-        <activity android:name=".FourGaugeActivity"
-            android:theme="@style/Theme.D1"
+            android:theme="@style/Theme.D1" />
+        <activity
+            android:name=".FourGaugeActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
-        <activity android:name=".TemperatureActivity"
-            android:theme="@style/Theme.D1"
+            android:theme="@style/Theme.D1" />
+        <activity
+            android:name=".TemperatureActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
-        
+            android:theme="@style/Theme.D1" />
     </application>
 
 </manifest>

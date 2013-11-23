@@ -1,83 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" 
-        android:layout_margin="1dp"
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content">
-        
-    <RelativeLayout style="@style/TitleBar">
-       
-        <ImageButton style="@style/TitleBarAction"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:orientation="vertical" >
+
+    <RelativeLayout style="@style/TitleBar" >
+
+        <ImageButton
             android:id="@+id/homeButton"
+            style="@style/TitleBarAction"
             android:layout_alignParentLeft="true"
             android:contentDescription="@string/home_string"
+            android:onClick="goHome"
             android:padding="5dip"
-            android:src="@drawable/title_home_default"
-            android:onClick="goHome" />
-        
-        <ImageView style="@style/TitleBarSeparator"
-            android:paddingLeft="2dp"
-            android:layout_toRightOf="@+id/homeButton" />
-        
-        
-        <ImageButton style="@style/TitleBarAction"
+            android:src="@drawable/title_home_default" />
+
+        <ImageView
+            style="@style/TitleBarSeparator"
+            android:layout_toRightOf="@+id/homeButton"
+            android:paddingLeft="2dp" />
+
+        <ImageButton
             android:id="@+id/btnOne"
+            style="@style/TitleBarAction"
             android:layout_toLeftOf="@+id/btnTwo"
-            android:paddingRight="2dp"
             android:contentDescription="@string/home_string"
+            android:onClick="buttonOneClick"
             android:padding="5dip"
-            android:src="@drawable/title_gauge_reset"
-            android:onClick="buttonOneClick" />
-        
-        <ImageButton style="@style/TitleBarAction"
+            android:paddingRight="2dp"
+            android:src="@drawable/title_gauge_reset" />
+
+        <ImageButton
             android:id="@+id/btnTwo"
+            style="@style/TitleBarAction"
             android:layout_alignParentRight="true"
             android:contentDescription="@string/home_string"
+            android:onClick="buttonTwoClick"
             android:padding="5dip"
-            android:src="@drawable/title_gauge_max"
-            android:onClick="buttonTwoClick" />
-
-        
+            android:src="@drawable/title_gauge_max" />
     </RelativeLayout>
 
     <com.chariotinstruments.chariotgauge.GaugeBuilder
-            android:id="@+id/analogGauge" 
-            android:layout_gravity="center" 
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent" 
-            android:layout_margin="2dp" />
-    
-    <TextView android:id="@+id/txtViewDigital"
- 		android:layout_width="fill_parent"
-  		android:layout_height="fill_parent"
-  		android:gravity="center_horizontal"
-  		android:textSize="80sp"
-  	    android:text="@string/test_text" />
-    
+        android:id="@+id/analogGauge"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_margin="2dp" />
+
+    <TextView
+        android:id="@+id/txtViewDigital"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
+        android:text="@string/test_text"
+        android:textSize="80sp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-	        
-	    <TextView android:id="@+id/txtViewVoltsText"
-	 		android:layout_width="wrap_content"
-	  		android:layout_height="wrap_content"
-	  		android:gravity="left"
-	  		android:layout_alignParentBottom="true"
-	  		android:layout_alignParentLeft="true"
-	  		android:layout_toLeftOf="@+id/txtViewVolts"
-	  		android:textSize="35sp"
-	  	    android:text="@string/volts" />    
-	    
-	    <TextView android:id="@+id/txtViewVolts"
-	 		android:layout_width="wrap_content"
-	  		android:layout_height="wrap_content"
-	  		android:gravity="center_horizontal"
-	  		android:layout_alignParentBottom="true"
-	  		android:layout_alignParentRight="true"
-	  		android:textSize="35sp"
-	  	    android:text="@string/test_text" />
-    
+
+        <TextView
+            android:id="@+id/txtViewVoltsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/txtViewVolts"
+            android:gravity="left"
+            android:text="@string/volts"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/txtViewVolts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal"
+            android:text="@string/test_text"
+            android:textSize="35sp" />
     </RelativeLayout>
-    
 
 </LinearLayout>

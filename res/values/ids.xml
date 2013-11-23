@@ -19,19 +19,17 @@
 -->
 
 <resources>
-    <item type="id" name="title_container" />
-    <item type="id" name="title_container_vertical" />
-    <item type="id" name="footer_container" />
-    <item type="id" name="title_logo" />
-    <item type="id" name="title_text" />
-    <item type="id" name="title_text_name" />
 
-    <item type="id" name="dialog_discard_confirm" />
-
-    <item type="id" name="dialog_moderator" />
-    <item type="id" name="dialog_wave" />
-
-    <item type="id" name="blocks_ruler" />
-    <item type="id" name="blocks_now" />
+    <item name="title_container" type="id"/>
+    <item name="title_container_vertical" type="id"/>
+    <item name="footer_container" type="id"/>
+    <item name="title_logo" type="id"/>
+    <item name="title_text" type="id"/>
+    <item name="title_text_name" type="id"/>
+    <item name="dialog_discard_confirm" type="id"/>
+    <item name="dialog_moderator" type="id"/>
+    <item name="dialog_wave" type="id"/>
+    <item name="blocks_ruler" type="id"/>
+    <item name="blocks_now" type="id"/>
 
 </resources>

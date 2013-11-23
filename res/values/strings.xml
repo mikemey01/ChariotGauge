@@ -5,13 +5,12 @@
     <string name="app_name">Chariot Gauge</string>
     <string name="test_text">0.00</string>
     <string name="volts">Volts</string>
-    
     <string name="not_connected">You are not connected to a device</string>
     <string name="title_connecting">connecting...</string>
     <string name="title_connected_to">connected: </string>
     <string name="title_not_connected">not connected</string>
 
-    <!--  DeviceListActivity -->
+    <!-- DeviceListActivity -->
     <string name="scanning">Scanning for devices...</string>
     <string name="select_device">Select a device to connect</string>
     <string name="none_paired">No devices have been paired</string>
@@ -19,9 +18,9 @@
     <string name="title_paired_devices">Paired Devices</string>
     <string name="title_other_devices">Other Available Devices</string>
     <string name="button_scan">Scan for devices</string>
-    
-    <!--  Dashboard Strings -->
-	<string name="logo_string">Demo</string>
+
+    <!-- Dashboard Strings -->
+    <string name="logo_string">Demo</string>
     <string name="about_string">About</string>
     <string name="home_string">Home</string>
     <string name="search_string">Search</string>
@@ -36,11 +35,9 @@
     <string name="custom_multi_2">Quad Gauge</string>
     <string name="reset_button">Reset Max</string>
     <string name="max_button">Display Max</string>
-    
-    
-    <!--  Whats New String -->
-    <string name="whats_new">
-        The Chariot Gauge controller is now for sale! \n\n
+
+    <!-- Whats New String -->
+    <string name="whats_new">        The Chariot Gauge controller is now for sale! \n\n
         Please visit: https://www.chariotgauge.com/ \n\n
         Use coupon code EarlyAdopter for $30 off! \n\n
         
@@ -75,7 +72,6 @@
    		   - Fixed force close when passing BT object between views while connecting \n\n
    		   
    		Oct-5-2012: \n
-   		   - Initial release
-    </string>
+   		   - Initial release</string>
 
 </resources>

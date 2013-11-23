@@ -42,7 +42,7 @@ public class BluetoothSerialService {
     private static final boolean D = false;
 
 
-	private static final UUID SerialPortServiceClass_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID SerialPortServiceClass_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     // Member fields
     private final BluetoothAdapter mAdapter;
@@ -50,7 +50,7 @@ public class BluetoothSerialService {
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
     private int mState;
- 
+
 
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
@@ -68,9 +68,9 @@ public class BluetoothSerialService {
         mState = STATE_NONE;
         mHandler = handler;
     }
-    
+
     public void setHandler(Handler inHandler){
-    	mHandler = inHandler;
+        mHandler = inHandler;
     }
 
     /**
@@ -99,14 +99,14 @@ public class BluetoothSerialService {
 
         // Cancel any thread attempting to make a connection
         if (mConnectThread != null) {
-        	mConnectThread.cancel(); 
-        	mConnectThread = null;
+            mConnectThread.cancel(); 
+            mConnectThread = null;
         }
 
         // Cancel any thread currently running a connection
         if (mConnectedThread != null) {
-        	mConnectedThread.cancel(); 
-        	mConnectedThread = null;
+            mConnectedThread.cancel(); 
+            mConnectedThread = null;
         }
 
         setState(STATE_NONE);
@@ -143,14 +143,14 @@ public class BluetoothSerialService {
 
         // Cancel the thread that completed the connection
         if (mConnectThread != null) {
-        	mConnectThread.cancel(); 
-        	mConnectThread = null;
+            mConnectThread.cancel(); 
+            mConnectThread = null;
         }
 
         // Cancel any thread currently running a connection
         if (mConnectedThread != null) {
-        	mConnectedThread.cancel(); 
-        	mConnectedThread = null;
+            mConnectedThread.cancel(); 
+            mConnectedThread = null;
         }
 
         // Start the thread to manage the connection and perform transmissions
@@ -175,13 +175,13 @@ public class BluetoothSerialService {
 
 
         if (mConnectThread != null) {
-        	mConnectThread.cancel(); 
-        	mConnectThread = null;
+            mConnectThread.cancel(); 
+            mConnectThread = null;
         }
 
         if (mConnectedThread != null) {
-        	mConnectedThread.cancel(); 
-        	mConnectedThread = null;
+            mConnectedThread.cancel(); 
+            mConnectedThread = null;
         }
 
         setState(STATE_NONE);
@@ -203,7 +203,7 @@ public class BluetoothSerialService {
         // Perform the write unsynchronized
         r.write(out);
     }
-    
+
     /**
      * Indicate that the connection attempt failed and notify the UI Activity.
      */
@@ -257,7 +257,7 @@ public class BluetoothSerialService {
         }
 
         @Override
-		public void run() {
+        public void run() {
             Log.i(TAG, "BEGIN mConnectThread");
             setName("ConnectThread");
 
@@ -308,7 +308,7 @@ public class BluetoothSerialService {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
-        
+
 
         public ConnectedThread(BluetoothSocket socket) {
             Log.d(TAG, "create ConnectedThread");
@@ -329,11 +329,11 @@ public class BluetoothSerialService {
         }
 
         @Override
-		public void run() {
+        public void run() {
             Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
             int bytes;
-            
+
             //New Shit:
             final byte delimiter = 10; //This is the ASCII code for a newline character
             int readBufferPosition = 0;
@@ -341,22 +341,22 @@ public class BluetoothSerialService {
             // Keep listening to the InputStream while connected
             while (true) {
                 try {
-                	int bytesAvailable = mmInStream.available();                        
+                    int bytesAvailable = mmInStream.available();                        
                     if(bytesAvailable > 0){
                         byte[] packetBytes = new byte[bytesAvailable];
                         mmInStream.read(packetBytes);
                         for(int i=0;i<bytesAvailable;i++){
                             byte b = packetBytes[i];
                             if(b == delimiter){
-                            	
+
                                 byte[] encodedBytes = new byte[readBufferPosition];
                                 System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
                                 final String data = new String(encodedBytes, "US-ASCII");
                                 readBufferPosition = 0;
                                 mHandler.obtainMessage(PSensor.MESSAGE_READ, encodedBytes.length, -1, buffer).sendToTarget();
-                                
+
                             }else{
-                            	buffer[readBufferPosition++] = b;
+                                buffer[readBufferPosition++] = b;
                             }
                         }
                     }
@@ -378,7 +378,7 @@ public class BluetoothSerialService {
 
                 // Share the sent message back to the UI Activity
                 mHandler.obtainMessage(PSensor.MESSAGE_WRITE, buffer.length, -1, buffer)
-                        .sendToTarget();
+                .sendToTarget();
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);
             }
