@@ -18,17 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FourGaugeActivity extends Activity implements Runnable{
-	GaugeBuilder analogGauge1;
-	GaugeBuilder analogGauge2;
-	GaugeBuilder analogGauge3;
-	GaugeBuilder analogGauge4;
-	MultiGauges  multiGauge1;
-	MultiGauges  multiGauge2;
-	MultiGauges  multiGauge3;
-	MultiGauges  multiGauge4;
-	MultiGauges  multiGaugeVolts;
+    GaugeBuilder analogGauge1;
+    GaugeBuilder analogGauge2;
+    GaugeBuilder analogGauge3;
+    GaugeBuilder analogGauge4;
+    MultiGauges  multiGauge1;
+    MultiGauges  multiGauge2;
+    MultiGauges  multiGauge3;
+    MultiGauges  multiGauge4;
+    MultiGauges  multiGaugeVolts;
     ImageButton  btnOne;
-    ImageButton	 btnTwo;
+    ImageButton  btnTwo;
     Typeface     typeFaceDigital;
     TextView     txtViewDigital;
     TextView     txtViewDigital2;
@@ -67,11 +67,11 @@ public class FourGaugeActivity extends Activity implements Runnable{
     
     // Key names received from the BluetoothChatService Handler
     public static final String TOAST        = "toast";
-    private static final int BOOST_TOKEN 	= 1;
+    private static final int BOOST_TOKEN    = 1;
     private static final int WIDEBAND_TOKEN = 2;
-    private static final int TEMP_TOKEN 	= 3;
-    private static final int OIL_TOKEN 		= 4;
-    private static final int VOLT_TOKEN 	= 0;
+    private static final int TEMP_TOKEN     = 3;
+    private static final int OIL_TOKEN      = 4;
+    private static final int VOLT_TOKEN      = 0;
     
     BluetoothSerialService mSerialService;
     private static Handler workerHandler;
