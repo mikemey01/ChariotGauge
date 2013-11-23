@@ -24,12 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PSensor extends Activity {
-/** Called when the activity is first created. */
-    
-	//Constants..
-	private static final int REQUEST_CONNECT_DEVICE = 1;
+    /** Called when the activity is first created. */
+
+    //Constants..
+    private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT      = 2;
-    
+
     // Debugging
     private static final String TAG = "ProjectSensor";
     private static final boolean D  = true;
@@ -40,59 +40,59 @@ public class PSensor extends Activity {
     public static final int MESSAGE_WRITE        = 3;
     public static final int MESSAGE_DEVICE_NAME  = 4;
     public static final int MESSAGE_TOAST        = 5;
-    
+
     //Used to show whats new dialog.
-    private static final String PRIVATE_PREF 	 = "myapp";
-    private static final String VERSION_KEY 	 = "version_number";
+    private static final String PRIVATE_PREF = "myapp";
+    private static final String VERSION_KEY  = "version_number";
 
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST       = "toast";
-	
+
     //Global Variables.
-    TextView  titleText;
+    TextView titleText;
     TextView  titleText2;
     ImageView connectionImage;
     Typeface  typeFaceBtn;
     Typeface  typeFaceTitle;
-    Button	  btnConnect;
+    Button    btnConnect;
     Button    btnSettings;
-    Button 	  btnWideband;
-    Button 	  btnBoost;
-    Button 	  btnOil;
+    Button    btnWideband;
+    Button    btnBoost;
+    Button    btnOil;
     Button    btnCustom;
     Button    btnMulti1;
     Button    btnMulti2;
-    
-    BluetoothAdapter 			   mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private BluetoothSerialService mSerialService = null;
-    int 						   intReadMsgPrevious = 0;
-    
+    int intReadMsgPrevious = 0;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
-        
+
         //Set the screen to the main.xml layout.
         setContentView(R.layout.psensor_layout);
-        
+
         //Show the whats new dialog if this is the first time run
         showWhatsNew();
-        
+
         //Get the instances of the layout objects.
-        connectionImage  = (ImageView) findViewById(R.id.connection_status_image);
-        titleText 		 = (TextView) findViewById(R.id.title_text);
-        titleText2 		 = (TextView) findViewById(R.id.title_text_2);
-        btnConnect 		 = (Button)   findViewById(R.id.connectBtn);
-        btnSettings 	 = (Button)   findViewById(R.id.settingsBtn);
-        btnWideband 	 = (Button)   findViewById(R.id.widebandBtn);
-        btnBoost 		 = (Button)   findViewById(R.id.boostBtn);
-        btnOil 		 	 = (Button)   findViewById(R.id.oilBtn);
-        btnCustom 		 = (Button)   findViewById(R.id.customBtn);
-        btnMulti1 		 = (Button)   findViewById(R.id.multiBtn1);
-        btnMulti2 		 = (Button)   findViewById(R.id.multiBtn2);
-        typeFaceBtn		 = Typeface.createFromAsset(getAssets(), "fonts/CaviarDreams_Bold.ttf");
-        typeFaceTitle	 = Typeface.createFromAsset(getAssets(), "fonts/Parisian.ttf");     
-        
+        connectionImage = (ImageView) findViewById(R.id.connection_status_image);
+        titleText       = (TextView) findViewById(R.id.title_text);
+        titleText2      = (TextView) findViewById(R.id.title_text_2);
+        btnConnect      = (Button)   findViewById(R.id.connectBtn);
+        btnSettings     = (Button)   findViewById(R.id.settingsBtn);
+        btnWideband     = (Button)   findViewById(R.id.widebandBtn);
+        btnBoost        = (Button)   findViewById(R.id.boostBtn);
+        btnOil          = (Button)   findViewById(R.id.oilBtn);
+        btnCustom       = (Button)   findViewById(R.id.customBtn);
+        btnMulti1       = (Button)   findViewById(R.id.multiBtn1);
+        btnMulti2       = (Button)   findViewById(R.id.multiBtn2);
+        typeFaceBtn     = Typeface.createFromAsset(getAssets(), "fonts/CaviarDreams_Bold.ttf");
+        typeFaceTitle   = Typeface.createFromAsset(getAssets(), "fonts/Parisian.ttf");     
+
         //Set the font of the title text
         titleText.setTypeface(typeFaceTitle);
         titleText2.setTypeface(typeFaceTitle);
@@ -104,78 +104,78 @@ public class PSensor extends Activity {
         btnCustom.setTypeface(typeFaceBtn);
         btnMulti1.setTypeface(typeFaceBtn);
         btnMulti2.setTypeface(typeFaceBtn);
-        
-        
+
+
         //Check if there is a BluetoothSerialService object being passed back. If true then don't run through initial setup.
         Object obj = PassObject.getObject();
         //Assign it to global mSerialService variable in this activity.
         mSerialService = (BluetoothSerialService)obj;
-        
-        	if(mSerialService != null){
-        		//Update the BluetoothSerialService instance's handler to this activities.
-        	    mSerialService.setHandler(mHandler);
-        	    //Update the connection status on the dashboard.
-                if (getConnectionState() == BluetoothSerialService.STATE_CONNECTED) {
-        	    	connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_connected));
-        	    	btnConnect.setText("Disconnect");
-        	    }else{
-        	    	connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
-        	    	btnConnect.setText("Connect");
-        	    }
-        	}else{
-        		//Looks like an initial launch - Call the method that sets up bluetooth on the device.
-        		connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
-    	    	btnConnect.setText("Connect");
-        		setupBT();
-        	}
-    }
-     
-    
-    public void onDestroy() {
-		super.onDestroy();
-	
-        if (mSerialService != null)
-        	Log.d(TAG, "onDestroy()");
-        	mSerialService.stop();
-	}
-    
-    public void onResume(){
-    	super.onResume();
-    	mSerialService.setHandler(mHandler);
+
+        if(mSerialService != null){
+            //Update the BluetoothSerialService instance's handler to this activities.
+            mSerialService.setHandler(mHandler);
+            //Update the connection status on the dashboard.
+            if (getConnectionState() == BluetoothSerialService.STATE_CONNECTED) {
+                connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_connected));
+                btnConnect.setText("Disconnect");
+            }else{
+                connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
+                btnConnect.setText("Connect");
+            }
+        }else{
+            //Looks like an initial launch - Call the method that sets up bluetooth on the device.
+            connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
+            btnConnect.setText("Connect");
+            setupBT();
+        }
     }
 
-    
-    public int getConnectionState() {
-		return mSerialService.getState();
-	}
-    
-    public void setupBT(){
-    	
-    	//Get the bluetooth device adapter, if there is not one, toast.
-    	if (mBluetoothAdapter == null) {
-    		Toast.makeText(getApplicationContext(), "This device does not support Bluetooth", Toast.LENGTH_SHORT).show();
-    	}
-    	
-    	if (!mBluetoothAdapter.isEnabled()) {
-    	    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-    	    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-    	}
-    	
-    	if(mSerialService==null){
-    		mSerialService = new BluetoothSerialService(this, mHandler);
-    	}
+
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mSerialService != null)
+            Log.d(TAG, "onDestroy()");
+        mSerialService.stop();
     }
-    
+
+    public void onResume(){
+        super.onResume();
+        mSerialService.setHandler(mHandler);
+    }
+
+
+    public int getConnectionState() {
+        return mSerialService.getState();
+    }
+
+    public void setupBT(){
+
+        //Get the bluetooth device adapter, if there is not one, toast.
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(getApplicationContext(), "This device does not support Bluetooth", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+
+        if(mSerialService==null){
+            mSerialService = new BluetoothSerialService(this, mHandler);
+        }
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-        
+
         case REQUEST_CONNECT_DEVICE: 
 
             // When DeviceListActivity returns with a device to connect
             if (resultCode == Activity.RESULT_OK) {
                 // Get the device MAC address
                 String address = data.getExtras()
-                                     .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+                        .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
                 // Get the BLuetoothDevice object
                 BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
                 // Attempt to connect to the device
@@ -183,34 +183,34 @@ public class PSensor extends Activity {
                 mSerialService.connect(device);                
             }
             break;
-        	
+
         case REQUEST_ENABLE_BT:
             // When the request to enable Bluetooth returns
             if (resultCode == Activity.RESULT_OK) {
-            	//If OK (device contains bluetooth connectivity, user did not click "no"):
+                //If OK (device contains bluetooth connectivity, user did not click "no"):
                 Toast.makeText(getApplicationContext(), "Enabled Bluetooth OK", Toast.LENGTH_SHORT).show();              
             }else{
-            	//If NOT OK, say so.
-            	Toast.makeText(getApplicationContext(), "Bluetooth NOT enabled or not Present", Toast.LENGTH_SHORT).show();
+                //If NOT OK, say so.
+                Toast.makeText(getApplicationContext(), "Bluetooth NOT enabled or not Present", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    
-  
+
+
     public void connectDevice(){
-    	if (getConnectionState() == BluetoothSerialService.STATE_NONE) {
-    		Intent serverIntent = new Intent(this, DeviceListActivity.class);
-    		startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-    	}else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTED){
-    		mSerialService.stop();
-    		mSerialService.start();
-    	}else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTING){
-    		mSerialService.stop();
-			mSerialService.start();
-    	}
+        if (getConnectionState() == BluetoothSerialService.STATE_NONE) {
+            Intent serverIntent = new Intent(this, DeviceListActivity.class);
+            startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+        }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTED){
+            mSerialService.stop();
+            mSerialService.start();
+        }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTING){
+            mSerialService.stop();
+            mSerialService.start();
+        }
     }
-    
- // The Handler that gets information back from the BluetoothChatService
+
+    // The Handler that gets information back from the BluetoothChatService
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -219,20 +219,20 @@ public class PSensor extends Activity {
                 if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
                 switch (msg.arg1) {
                 case BluetoothSerialService.STATE_CONNECTED:
-                	btnConnect.setClickable(true);
-                	connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_connected));
-                	btnConnect.setText("Disconnect");
+                    btnConnect.setClickable(true);
+                    connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_connected));
+                    btnConnect.setText("Disconnect");
                     break;
                 case BluetoothSerialService.STATE_CONNECTING:
-                	btnConnect.setText("Connecting...");
+                    btnConnect.setText("Connecting...");
                     break;
                 case BluetoothSerialService.STATE_LISTEN:
-                	btnConnect.setClickable(true);
-                	break;
+                    btnConnect.setClickable(true);
+                    break;
                 case BluetoothSerialService.STATE_NONE:
-                	btnConnect.setClickable(true);
-                	connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
-                	btnConnect.setText("Connect");
+                    btnConnect.setClickable(true);
+                    connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
+                    btnConnect.setText("Connect");
                     break;
                 }
                 break;
@@ -243,53 +243,53 @@ public class PSensor extends Activity {
                 ////mConversationArrayAdapter.add("Me:  " + writeMessage);
                 break;
             case MESSAGE_READ:
-            	int intReadMessage = 0;
+                int intReadMessage = 0;
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
-                
+
                 try {
-                	intReadMessage = Integer.parseInt(readMessage);
-					intReadMsgPrevious = intReadMessage;
-				} catch (NumberFormatException e) {
-					intReadMessage = intReadMsgPrevious;	
-				}
+                    intReadMessage = Integer.parseInt(readMessage);
+                    intReadMsgPrevious = intReadMessage;
+                } catch (NumberFormatException e) {
+                    intReadMessage = intReadMsgPrevious;	
+                }
 
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
-               // mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
-//                Toast.makeText(getApplicationContext(), "Connected to "
-//                               + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                // mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+                //                Toast.makeText(getApplicationContext(), "Connected to "
+                //                               + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 break;
             case MESSAGE_TOAST:
                 Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
-                               Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();
                 break;
             }
         }
     };
-    
+
     private void showWhatsNew() {
         SharedPreferences sharedPref    = getSharedPreferences(PRIVATE_PREF, this.MODE_PRIVATE);
         int currentVersionNumber        = 0;
         int savedVersionNumber          = sharedPref.getInt(VERSION_KEY, 0);
- 
+
         try {
             PackageInfo pi          = getPackageManager().getPackageInfo(getPackageName(), 0);
             currentVersionNumber    = pi.versionCode;
         } catch (Exception e) {}
- 
+
         if (currentVersionNumber > savedVersionNumber) {
             showWhatsNewDialog();
- 
+
             Editor editor   = sharedPref.edit();
- 
+
             editor.putInt(VERSION_KEY, currentVersionNumber);
             editor.commit();
         }
     }
-    
+
     private void showWhatsNewDialog() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view               = inflater.inflate(R.layout.dialog_whatsnew, null);
@@ -300,47 +300,47 @@ public class PSensor extends Activity {
                 dialog.dismiss();
             }
         });
- 
+
         builder.create().show();
     }
-    
+
     public void onClickActivity (View v){
-	    int id = v.getId();
-	    switch (id){
-	      case R.id.connectBtn:
-	    	   connectDevice();
-	           break;
-	      case R.id.settingsBtn:
-	    	   PassObject.setObject(mSerialService);
-	           startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-	           break;
-	      case R.id.widebandBtn:
-	    	   PassObject.setObject(mSerialService);
-	           startActivity(new Intent(getApplicationContext(), WidebandActivity.class));
-	           break;
-	      case R.id.customBtn:
-	    	   PassObject.setObject(mSerialService);
-	           startActivity(new Intent(getApplicationContext(), TemperatureActivity.class));
-	           break;
-	      case R.id.boostBtn:
-	    	   PassObject.setObject(mSerialService);
-	           startActivity(new Intent(getApplicationContext(), BoostActivity.class));
-	           break;
-	      case R.id.oilBtn:
-	    	   PassObject.setObject(mSerialService);
-	           startActivity(new Intent(getApplicationContext(), OilActivity.class));
-	           break;
-	      case R.id.multiBtn1:
-	    	   PassObject.setObject(mSerialService);
-	           startActivity(new Intent(getApplicationContext(), TwoGaugeActivity.class));
-	           break;
-	      case R.id.multiBtn2:
-	    	   PassObject.setObject(mSerialService);
-	           startActivity(new Intent(getApplicationContext(), FourGaugeActivity.class));
-	           break;
-	      default: 
-	    	   break;
-	    }
-	}
+        int id = v.getId();
+        switch (id){
+        case R.id.connectBtn:
+            connectDevice();
+            break;
+        case R.id.settingsBtn:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+            break;
+        case R.id.widebandBtn:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), WidebandActivity.class));
+            break;
+        case R.id.customBtn:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), TemperatureActivity.class));
+            break;
+        case R.id.boostBtn:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), BoostActivity.class));
+            break;
+        case R.id.oilBtn:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), OilActivity.class));
+            break;
+        case R.id.multiBtn1:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), TwoGaugeActivity.class));
+            break;
+        case R.id.multiBtn2:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), FourGaugeActivity.class));
+            break;
+        default: 
+            break;
+        }
+    }
 }
 
