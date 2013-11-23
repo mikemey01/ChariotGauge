@@ -22,7 +22,7 @@ public class BoostActivity extends Activity implements Runnable {
 
     GaugeBuilder analogGauge;
     ImageButton  btnOne;
-    ImageButton	 btnTwo;
+    ImageButton  btnTwo;
     ImageButton  btnHome;
     Typeface     typeFaceDigital;
     MultiGauges  multiGauge;
@@ -40,7 +40,7 @@ public class BoostActivity extends Activity implements Runnable {
     //Prefs vars
     View     root;
     boolean  showAnalog; //Display the analog gauge or not.
-    boolean	 showDigital; //Display the digital gauge or not.
+    boolean  showDigital; //Display the digital gauge or not.
     boolean  showNightMode; //Change background to black.
     boolean  showVoltMeter;
 
