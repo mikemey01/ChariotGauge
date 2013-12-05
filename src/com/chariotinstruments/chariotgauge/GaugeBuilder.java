@@ -632,11 +632,7 @@ public final class GaugeBuilder extends View {
             float delta = (currentTime - lastDialMoveTime) / 1000.0f;
 
             float direction = Math.signum(dialVelocity);
-            //	                        if (Math.abs(dialVelocity) < 90.0f) {
-                //	                                dialAcceleration = 1.0f * (targetValue - currentValue);
-            //	                        } else {
-            //	                                dialAcceleration = 0.0f;
-            //	                        }
+
             dialVelocity = 700.0f;
             dialAcceleration = 500.0f;
             currentValue += dialVelocity * delta;
