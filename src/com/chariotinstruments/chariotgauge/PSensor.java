@@ -91,7 +91,7 @@ public class PSensor extends Activity {
         btnMulti1       = (Button)   findViewById(R.id.multiBtn1);
         btnMulti2       = (Button)   findViewById(R.id.multiBtn2);
         typeFaceBtn     = Typeface.createFromAsset(getAssets(), "fonts/CaviarDreams_Bold.ttf");
-        typeFaceTitle   = Typeface.createFromAsset(getAssets(), "fonts/Parisian.ttf");     
+        typeFaceTitle   = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");     
 
         //Set the font of the title text
         titleText.setTypeface(typeFaceTitle);
