@@ -486,7 +486,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:columns
+          @attr name android:columns
         */
         public static final int BlocksLayout_columns = 0;
         /** Attributes that can be used with a Dial.
@@ -560,7 +560,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:incrementPerLargeNotch
+          @attr name android:incrementPerLargeNotch
         */
         public static final int Dial_incrementPerLargeNotch = 1;
         /**
@@ -574,7 +574,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:incrementPerSmallNotch
+          @attr name android:incrementPerSmallNotch
         */
         public static final int Dial_incrementPerSmallNotch = 2;
         /**
@@ -588,7 +588,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:lowerTitle
+          @attr name android:lowerTitle
         */
         public static final int Dial_lowerTitle = 17;
         /**
@@ -602,7 +602,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeErrorColor
+          @attr name android:rangeErrorColor
         */
         public static final int Dial_rangeErrorColor = 13;
         /**
@@ -616,7 +616,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeErrorMaxValue
+          @attr name android:rangeErrorMaxValue
         */
         public static final int Dial_rangeErrorMaxValue = 15;
         /**
@@ -630,7 +630,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeErrorMinValue
+          @attr name android:rangeErrorMinValue
         */
         public static final int Dial_rangeErrorMinValue = 14;
         /**
@@ -644,7 +644,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeOkColor
+          @attr name android:rangeOkColor
         */
         public static final int Dial_rangeOkColor = 7;
         /**
@@ -658,7 +658,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeOkMaxValue
+          @attr name android:rangeOkMaxValue
         */
         public static final int Dial_rangeOkMaxValue = 9;
         /**
@@ -672,7 +672,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeOkMinValue
+          @attr name android:rangeOkMinValue
         */
         public static final int Dial_rangeOkMinValue = 8;
         /**
@@ -686,7 +686,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeWarningColor
+          @attr name android:rangeWarningColor
         */
         public static final int Dial_rangeWarningColor = 10;
         /**
@@ -700,7 +700,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeWarningMaxValue
+          @attr name android:rangeWarningMaxValue
         */
         public static final int Dial_rangeWarningMaxValue = 12;
         /**
@@ -714,7 +714,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:rangeWarningMinValue
+          @attr name android:rangeWarningMinValue
         */
         public static final int Dial_rangeWarningMinValue = 11;
         /**
@@ -728,7 +728,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:scaleCenterValue
+          @attr name android:scaleCenterValue
         */
         public static final int Dial_scaleCenterValue = 4;
         /**
@@ -742,7 +742,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:scaleColor
+          @attr name android:scaleColor
         */
         public static final int Dial_scaleColor = 3;
         /**
@@ -756,7 +756,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:scaleMaxValue
+          @attr name android:scaleMaxValue
         */
         public static final int Dial_scaleMaxValue = 6;
         /**
@@ -770,7 +770,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:scaleMinValue
+          @attr name android:scaleMinValue
         */
         public static final int Dial_scaleMinValue = 5;
         /**
@@ -784,7 +784,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:showGauge
+          @attr name android:showGauge
         */
         public static final int Dial_showGauge = 21;
         /**
@@ -798,7 +798,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:showHand
+          @attr name android:showHand
         */
         public static final int Dial_showHand = 20;
         /**
@@ -812,7 +812,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:showRange
+          @attr name android:showRange
         */
         public static final int Dial_showRange = 19;
         /**
@@ -826,7 +826,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:totalNotches
+          @attr name android:totalNotches
         */
         public static final int Dial_totalNotches = 0;
         /**
@@ -840,7 +840,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:unitTitle
+          @attr name android:unitTitle
         */
         public static final int Dial_unitTitle = 18;
         /**
@@ -854,7 +854,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:upperTitle
+          @attr name android:upperTitle
         */
         public static final int Dial_upperTitle = 16;
         /** Attributes that can be used with a TimeRulerView.
@@ -900,7 +900,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:dividerColor
+          @attr name android:dividerColor
         */
         public static final int TimeRulerView_dividerColor = 6;
         /**
@@ -914,7 +914,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:endHour
+          @attr name android:endHour
         */
         public static final int TimeRulerView_endHour = 8;
         /**
@@ -930,7 +930,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:headerWidth
+          @attr name android:headerWidth
         */
         public static final int TimeRulerView_headerWidth = 0;
         /**
@@ -944,7 +944,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:horizontalDivider
+          @attr name android:horizontalDivider
         */
         public static final int TimeRulerView_horizontalDivider = 2;
         /**
@@ -960,7 +960,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:hourHeight
+          @attr name android:hourHeight
         */
         public static final int TimeRulerView_hourHeight = 1;
         /**
@@ -975,7 +975,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:labelColor
+          @attr name android:labelColor
         */
         public static final int TimeRulerView_labelColor = 5;
         /**
@@ -991,7 +991,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:labelPaddingLeft
+          @attr name android:labelPaddingLeft
         */
         public static final int TimeRulerView_labelPaddingLeft = 4;
         /**
@@ -1007,7 +1007,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:labelTextSize
+          @attr name android:labelTextSize
         */
         public static final int TimeRulerView_labelTextSize = 3;
         /**
@@ -1021,7 +1021,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.chariotinstruments.chariotgauge:startHour
+          @attr name android:startHour
         */
         public static final int TimeRulerView_startHour = 7;
     };
