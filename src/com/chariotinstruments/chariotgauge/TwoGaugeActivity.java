@@ -270,6 +270,8 @@ public class TwoGaugeActivity extends Activity implements Runnable{
         //Reset the max value.
         multiGauge1.setSensorMaxValue(multiGauge1.getMinValue());
         multiGauge2.setSensorMaxValue(multiGauge2.getMinValue());
+        paused = false;
+        btnTwo.setBackgroundResource(Color.TRANSPARENT);
         Toast.makeText(getApplicationContext(), "Max value reset", Toast.LENGTH_SHORT).show();
     }
 

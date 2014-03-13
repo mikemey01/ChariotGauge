@@ -14,7 +14,7 @@ import android.view.View;
 
 public class SettingsActivity extends PreferenceActivity {
 
-    View root;
+    View root; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class SettingsActivity extends PreferenceActivity {
         addPreferencesFromResource(R.xml.prefs);
         getPreferenceManager()
         .findPreference("go_to_site")
-        .setOnPreferenceClickListener(
+        .setOnPreferenceClickListener( 
                 new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference preference) {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -30,6 +30,6 @@ public class SettingsActivity extends PreferenceActivity {
                         startActivity(intent);
                         return true;
                     }
-                });
-    }
+                }); 
+    } 
 }

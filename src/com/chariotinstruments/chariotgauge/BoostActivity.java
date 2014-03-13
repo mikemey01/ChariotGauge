@@ -212,6 +212,8 @@ public class BoostActivity extends Activity implements Runnable {
         //Reset the max value.
         multiGauge.setSensorMaxValue(multiGauge.getMinValue());
         multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getMinValue());
+        paused = false;
+        btnTwo.setBackgroundResource(Color.TRANSPARENT);
         Toast.makeText(getApplicationContext(), "Max value reset.", Toast.LENGTH_SHORT).show();
     }
 
@@ -220,7 +222,7 @@ public class BoostActivity extends Activity implements Runnable {
         if(!paused){
             paused = true;
 
-            //set the gauge/digital to the max value captured so far for two seconds.
+            //set the gauge/digital to the max value captured so far.
             txtViewDigital.setText(Double.toString(Math.abs(multiGauge.getSensorMaxValue())));
             analogGauge.setValue((float)multiGauge.getSensorMaxValue());
             txtViewVolts.setText(Double.toString(multiGaugeVolts.getSensorMaxValue()));

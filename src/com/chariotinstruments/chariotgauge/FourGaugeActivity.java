@@ -286,6 +286,8 @@ public class FourGaugeActivity extends Activity implements Runnable{
         multiGauge3.setSensorMaxValue(multiGauge3.getMinValue());
         multiGauge4.setSensorMaxValue(multiGauge4.getMinValue());
         multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getMinValue());
+        paused = false;
+        btnTwo.setBackgroundResource(Color.TRANSPARENT);
         Toast.makeText(getApplicationContext(), "Max value reset", Toast.LENGTH_SHORT).show();
     }
 
