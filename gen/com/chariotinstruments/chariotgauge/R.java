@@ -343,29 +343,28 @@ containing a value of this type.
         public static final int analogGauge4=0x7f08001c;
         public static final int blocks_now=0x7f08000a;
         public static final int blocks_ruler=0x7f080009;
-        public static final int boostBtn=0x7f08002b;
+        public static final int boostBtn=0x7f080029;
         public static final int btnConnect=0x7f08001f;
         public static final int btnOne=0x7f080012;
         public static final int btnPairedDevices=0x7f080021;
         public static final int btnShowGauges=0x7f080020;
         public static final int btnTwo=0x7f080013;
         public static final int button_scan=0x7f08000f;
-        public static final int connectBtn=0x7f080027;
-        public static final int connection_status_image=0x7f080026;
-        public static final int customBtn=0x7f08002d;
+        public static final int connectBtn=0x7f080025;
+        public static final int customBtn=0x7f08002b;
         public static final int db1_root=0x7f080024;
         public static final int dialog_discard_confirm=0x7f080006;
         public static final int dialog_moderator=0x7f080007;
         public static final int dialog_wave=0x7f080008;
         public static final int footer_container=0x7f080002;
         public static final int homeButton=0x7f080011;
-        public static final int line=0x7f080029;
-        public static final int multiBtn1=0x7f08002e;
-        public static final int multiBtn2=0x7f08002f;
+        public static final int line=0x7f080027;
+        public static final int multiBtn1=0x7f08002c;
+        public static final int multiBtn2=0x7f08002d;
         public static final int new_devices=0x7f08000e;
-        public static final int oilBtn=0x7f08002c;
+        public static final int oilBtn=0x7f08002a;
         public static final int paired_devices=0x7f08000c;
-        public static final int settingsBtn=0x7f080028;
+        public static final int settingsBtn=0x7f080026;
         public static final int titleBarSeparator=0x7f080019;
         public static final int title_container=0x7f080000;
         public static final int title_container_vertical=0x7f080001;
@@ -373,7 +372,6 @@ containing a value of this type.
         public static final int title_new_devices=0x7f08000d;
         public static final int title_paired_devices=0x7f08000b;
         public static final int title_text=0x7f080004;
-        public static final int title_text_2=0x7f080025;
         public static final int title_text_name=0x7f080005;
         public static final int txtView=0x7f080023;
         public static final int txtViewDigital=0x7f080015;
@@ -383,7 +381,7 @@ containing a value of this type.
         public static final int txtViewVolts=0x7f080017;
         public static final int txtViewVoltsText=0x7f080016;
         public static final int whats_new_txt=0x7f080010;
-        public static final int widebandBtn=0x7f08002a;
+        public static final int widebandBtn=0x7f080028;
     }
     public static final class layout {
         public static final int device_list=0x7f030000;

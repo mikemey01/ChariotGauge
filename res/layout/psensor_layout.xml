@@ -10,20 +10,9 @@
         <TextView
             android:id="@+id/title_text"
             style="@style/TitleBarText_name"
-            android:gravity="center"
-            android:text="Chariot" />
+            android:gravity="center|center"
+            android:text="Chariot Gauge" />
 
-        <TextView
-            android:id="@+id/title_text_2"
-            style="@style/TitleBarText_name"
-            android:gravity="center|left"
-            android:text="Gauge" />
-
-        <ImageView
-            android:id="@+id/connection_status_image"
-            style="@style/TitleBarText"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/bluetooth_disconnected" />
     </LinearLayout>
 
     <LinearLayout

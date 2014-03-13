@@ -51,8 +51,6 @@ public class PSensor extends Activity {
 
     //Global Variables.
     TextView titleText;
-    TextView  titleText2;
-    ImageView connectionImage;
     Typeface  typeFaceBtn;
     Typeface  typeFaceTitle;
     Button    btnConnect;
@@ -79,9 +77,7 @@ public class PSensor extends Activity {
         showWhatsNew();
 
         //Get the instances of the layout objects.
-        connectionImage = (ImageView) findViewById(R.id.connection_status_image);
         titleText       = (TextView) findViewById(R.id.title_text);
-        titleText2      = (TextView) findViewById(R.id.title_text_2);
         btnConnect      = (Button)   findViewById(R.id.connectBtn);
         btnSettings     = (Button)   findViewById(R.id.settingsBtn);
         btnWideband     = (Button)   findViewById(R.id.widebandBtn);
@@ -95,7 +91,6 @@ public class PSensor extends Activity {
 
         //Set the font of the title text
         titleText.setTypeface(typeFaceTitle);
-        titleText2.setTypeface(typeFaceTitle);
         btnConnect.setTypeface(typeFaceBtn);
         btnSettings.setTypeface(typeFaceBtn);
         btnWideband.setTypeface(typeFaceBtn);
@@ -116,15 +111,12 @@ public class PSensor extends Activity {
             mSerialService.setHandler(mHandler);
             //Update the connection status on the dashboard.
             if (getConnectionState() == BluetoothSerialService.STATE_CONNECTED) {
-                connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_connected));
                 btnConnect.setText("Disconnect");
             }else{
-                connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
                 btnConnect.setText("Connect");
             }
         }else{
             //Looks like an initial launch - Call the method that sets up bluetooth on the device.
-            connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
             btnConnect.setText("Connect");
             setupBT();
         }
@@ -203,10 +195,10 @@ public class PSensor extends Activity {
             startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
         }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTED){
             mSerialService.stop();
-            mSerialService.start();
+            //mSerialService.start(); --potential error, leaving for now.
         }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTING){
             mSerialService.stop();
-            mSerialService.start();
+            //mSerialService.start(); --potential error, leaving for now.
         }
     }
 
@@ -220,8 +212,7 @@ public class PSensor extends Activity {
                 switch (msg.arg1) {
                 case BluetoothSerialService.STATE_CONNECTED:
                     btnConnect.setClickable(true);
-                    connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_connected));
-                    btnConnect.setText("Disconnect");
+                    btnConnect.setText("Connected! \n Tap to Disconnect");
                     break;
                 case BluetoothSerialService.STATE_CONNECTING:
                     btnConnect.setText("Connecting...");
@@ -231,7 +222,6 @@ public class PSensor extends Activity {
                     break;
                 case BluetoothSerialService.STATE_NONE:
                     btnConnect.setClickable(true);
-                    connectionImage.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth_disconnected));
                     btnConnect.setText("Connect");
                     break;
                 }
