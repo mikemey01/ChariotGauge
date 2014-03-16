@@ -139,7 +139,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
             ((ViewManager)txtViewDigital2.getParent()).removeView(txtViewDigital2); //Remove digital gauge
         }
         if(showNightMode){
-            root = btnOne.getRootView(); //Get root layer view.
+            root = btnOne.getRootView();  //Get root layer view.
             root.setBackgroundColor(getResources().getColor(R.color.black)); //Set background color to black.
         }
 

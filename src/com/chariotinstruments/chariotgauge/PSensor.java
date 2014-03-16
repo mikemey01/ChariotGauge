@@ -272,9 +272,7 @@ public class PSensor extends Activity {
 
         if (currentVersionNumber > savedVersionNumber) {
             showWhatsNewDialog();
-
             Editor editor   = sharedPref.edit();
-
             editor.putInt(VERSION_KEY, currentVersionNumber);
             editor.commit();
         }

@@ -40,6 +40,14 @@
     <string name="whats_new">        The Chariot Gauge controller is now for sale! \n\n
         Please visit: https://www.chariotgauge.com/ \n\n
         
+        Mar-14-2014: \n
+        	-Fixed error when disconnecting. \n
+        	-Updated max-reset functionality. \n
+        	-Updated logo. \n
+        	-Updated title bar. \n
+        	-Fixed border on single gauge view. \n\n
+        	
+        
         Oct-27-2013: \n
            - Added landscape layout for two gauge view. \n
            - Added voltmeter support. \n
