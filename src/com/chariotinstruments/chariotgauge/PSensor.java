@@ -168,8 +168,7 @@ public class PSensor extends Activity {
             // When DeviceListActivity returns with a device to connect
             if (resultCode == Activity.RESULT_OK) {
                 // Get the device MAC address
-                String address = data.getExtras()
-                        .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+                String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
                 // Get the BLuetoothDevice object
                 BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
                 // Attempt to connect to the device
@@ -199,12 +198,12 @@ public class PSensor extends Activity {
             if(mSerialService != null){
                 mSerialService.stop();
             }
-            //mSerialService.start(); --potential error, leaving for now.
+            //mSerialService.start(); //--potential error, leaving for now.
         }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTING){
             if(mSerialService != null){
-                mSerialService.stop();
+                mSerialService.stop(); 
             }
-            //mSerialService.start(); --potential error, leaving for now.
+            //mSerialService.start(); //--potential error, leaving for now.
         }
     }
 

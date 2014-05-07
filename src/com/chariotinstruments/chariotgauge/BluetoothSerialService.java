@@ -19,6 +19,7 @@ package com.chariotinstruments.chariotgauge;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
@@ -110,6 +111,7 @@ public class BluetoothSerialService {
         }
 
         setState(STATE_NONE);
+        Log.d("BL", "setState from start()");
     }
 
     /**
@@ -131,6 +133,7 @@ public class BluetoothSerialService {
         mConnectThread = new ConnectThread(device);
         mConnectThread.start();
         setState(STATE_CONNECTING);
+        Log.d("BL", "setState from connect(BluetoothDevice device)");
     }
 
     /**
@@ -165,6 +168,7 @@ public class BluetoothSerialService {
         mHandler.sendMessage(msg);
 
         setState(STATE_CONNECTED);
+        Log.d("BL", "connected(BluetoothSocket socket, BluetoothDevice device)");
     }
 
     /**
@@ -172,7 +176,6 @@ public class BluetoothSerialService {
      */
     public synchronized void stop() {
         if (D) Log.d(TAG, "stop");
-
 
         if (mConnectThread != null) {
             mConnectThread.cancel(); 
@@ -185,6 +188,7 @@ public class BluetoothSerialService {
         }
 
         setState(STATE_NONE);
+        Log.d("BL", "setState from stop()");
     }
 
     /**
@@ -209,6 +213,7 @@ public class BluetoothSerialService {
      */
     private void connectionFailed() {
         setState(STATE_NONE);
+        Log.d("BL", "setState from connectionFailed()");
 
         // Send a failure message back to the Activity
         Message msg = mHandler.obtainMessage(PSensor.MESSAGE_TOAST);
@@ -230,6 +235,7 @@ public class BluetoothSerialService {
         msg.setData(bundle);
         mHandler.sendMessage(msg);
         setState(STATE_NONE);
+        Log.d("BL", "setState from connectionLost()");
     }
 
     /**
@@ -240,7 +246,7 @@ public class BluetoothSerialService {
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final BluetoothDevice mmDevice;
-
+        
         public ConnectThread(BluetoothDevice device) {
             mmDevice = device;
             BluetoothSocket tmp = null;
@@ -252,6 +258,7 @@ public class BluetoothSerialService {
             } catch (IOException e) {
                 Log.e(TAG, "create() failed", e);
                 setState(STATE_NONE);
+                Log.d("BL", "setState from connectThread(BluetoothDevice device)");
             }
             mmSocket = tmp;
         }
@@ -340,31 +347,54 @@ public class BluetoothSerialService {
 
             // Keep listening to the InputStream while connected
             while (true) {
-                try {
-                    int bytesAvailable = mmInStream.available();                        
-                    if(bytesAvailable > 0){
-                        byte[] packetBytes = new byte[bytesAvailable];
-                        mmInStream.read(packetBytes);
-                        for(int i=0;i<bytesAvailable;i++){
-                            byte b = packetBytes[i];
-                            if(b == delimiter){
-
-                                byte[] encodedBytes = new byte[readBufferPosition];
-                                System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
-                                final String data = new String(encodedBytes, "US-ASCII");
-                                readBufferPosition = 0;
-                                mHandler.obtainMessage(PSensor.MESSAGE_READ, encodedBytes.length, -1, buffer).sendToTarget();
-
-                            }else{
-                                buffer[readBufferPosition++] = b;
+                //if(mState > 2){
+//                    try {
+                        int bytesAvailable = 0;
+                        try {
+                            bytesAvailable = mmInStream.available();
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            connectionLost();
+                            Log.d("bytesAvialable", "a thing", e);
+                            break;
+                        }                        
+                        if(bytesAvailable > 0){
+                            byte[] packetBytes = new byte[bytesAvailable];
+                            try {
+                                mmInStream.read(packetBytes);
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                connectionLost();
+                                e.printStackTrace();
+                                break;
+                            }
+                            for(int i=0;i<bytesAvailable;i++){
+                                byte b = packetBytes[i];
+                                if(b == delimiter){
+    
+                                    byte[] encodedBytes = new byte[readBufferPosition];
+                                    System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
+                                    try {
+                                        final String data = new String(encodedBytes, "US-ASCII");
+                                    } catch (UnsupportedEncodingException e) {
+                                        // TODO Auto-generated catch block
+                                        connectionLost();
+                                        e.printStackTrace();
+                                    }
+                                    readBufferPosition = 0;
+                                    mHandler.obtainMessage(PSensor.MESSAGE_READ, encodedBytes.length, -1, buffer).sendToTarget();
+    
+                                }else{
+                                    buffer[readBufferPosition++] = b;
+                                }
                             }
                         }
-                    }
-                } catch (IOException e) {
-                    if(D) Log.e(TAG, "disconnecteded", e);
-                    connectionLost();
-                    break;
-                }
+//                    } catch (IOException e) {
+//                        if(D) Log.e(TAG, "disconnected", e);
+//                        connectionLost();
+//                        break;
+//                    }
+                //}
             }
         }
 
@@ -389,6 +419,7 @@ public class BluetoothSerialService {
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
                 setState(STATE_NONE);
+                Log.d("BL", "setState from cancel()");
             }
         }
     }
