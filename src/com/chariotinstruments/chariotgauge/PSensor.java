@@ -126,9 +126,11 @@ public class PSensor extends Activity {
     public void onDestroy() {
         super.onDestroy();
 
-        if (mSerialService != null)
+        if (mSerialService != null){
             Log.d(TAG, "onDestroy()");
-        mSerialService.stop();
+            mSerialService.stop();
+        }
+        
     }
 
     public void onResume(){
@@ -194,10 +196,14 @@ public class PSensor extends Activity {
             Intent serverIntent = new Intent(this, DeviceListActivity.class);
             startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
         }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTED){
-            mSerialService.stop();
+            if(mSerialService != null){
+                mSerialService.stop();
+            }
             //mSerialService.start(); --potential error, leaving for now.
         }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTING){
-            mSerialService.stop();
+            if(mSerialService != null){
+                mSerialService.stop();
+            }
             //mSerialService.start(); --potential error, leaving for now.
         }
     }
@@ -208,7 +214,7 @@ public class PSensor extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
             case MESSAGE_STATE_CHANGE:
-                if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
+                if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE1: " + msg.arg1);
                 switch (msg.arg1) {
                 case BluetoothSerialService.STATE_CONNECTED:
                     btnConnect.setClickable(true);
@@ -234,6 +240,7 @@ public class PSensor extends Activity {
                 break;
             case MESSAGE_READ:
                 int intReadMessage = 0;
+                
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);

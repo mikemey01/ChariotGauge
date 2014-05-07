@@ -473,7 +473,7 @@ public class MultiGauges extends View{
 
     public static double round(double unrounded){
         double ret = 0.0;
-        try {
+        try { 
             ret = Double.valueOf(twoDForm.format(unrounded));
         } catch (NumberFormatException e) {
             Log.d("round",e.getMessage());
@@ -484,6 +484,7 @@ public class MultiGauges extends View{
     /* Initialize Preferences */
 
     public void prefsGaugeResolutionInit(){
+        /* -- removing gauge resolution settings.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         gaugeResolution = sp.getString("gaugeResolutions", "Tenths");
         if(gaugeResolution.toLowerCase().equals("hundredths")){
@@ -491,6 +492,8 @@ public class MultiGauges extends View{
         }else{ //Default to tenths if things go south.
             twoDForm = new DecimalFormat("#.#");
         }
+        */
+        twoDForm = new DecimalFormat("#.#");
     }
 
     public void prefsBoostInit(){

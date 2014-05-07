@@ -435,8 +435,8 @@ public final class GaugeBuilder extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Log.d(TAG, "Width spec: " + MeasureSpec.toString(widthMeasureSpec));
-        Log.d(TAG, "Height spec: " + MeasureSpec.toString(heightMeasureSpec));
+        //Log.d(TAG, "Width spec: " + MeasureSpec.toString(widthMeasureSpec));
+        //Log.d(TAG, "Height spec: " + MeasureSpec.toString(heightMeasureSpec));
 
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -483,7 +483,7 @@ public final class GaugeBuilder extends View {
 
     private void drawBackground(Canvas canvas) {
         if (background == null) {
-            Log.w(TAG, "Background not created");
+            //Log.w(TAG, "Background not created");
         } else {
             canvas.drawBitmap(background, 0, 0, backgroundPaint);
         }
@@ -596,7 +596,7 @@ public final class GaugeBuilder extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        Log.d(TAG, "Size changed to " + w + "x" + h);
+        //Log.d(TAG, "Size changed to " + w + "x" + h);
         regenerateBackground();
     }
 

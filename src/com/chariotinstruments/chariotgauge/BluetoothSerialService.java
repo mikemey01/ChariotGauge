@@ -39,7 +39,7 @@ import android.util.Log;
 public class BluetoothSerialService {
     // Debugging
     private static final String TAG = "BluetoothReadService";
-    private static final boolean D = false;
+    private static final boolean D = true;
 
 
     private static final UUID SerialPortServiceClass_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -361,7 +361,7 @@ public class BluetoothSerialService {
                         }
                     }
                 } catch (IOException e) {
-                    //Log.e(TAG, "disconnected", e);
+                    if(D) Log.e(TAG, "disconnecteded", e);
                     connectionLost();
                     break;
                 }
@@ -377,8 +377,7 @@ public class BluetoothSerialService {
                 mmOutStream.write(buffer);
 
                 // Share the sent message back to the UI Activity
-                mHandler.obtainMessage(PSensor.MESSAGE_WRITE, buffer.length, -1, buffer)
-                .sendToTarget();
+                mHandler.obtainMessage(PSensor.MESSAGE_WRITE, buffer.length, -1, buffer).sendToTarget();
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);
             }
