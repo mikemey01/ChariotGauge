@@ -5,6 +5,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -471,7 +472,13 @@ public class MultiGauges extends View{
     }
 
     public static double round(double unrounded){
-        return Double.valueOf(twoDForm.format(unrounded));
+        double ret = 0.0;
+        try {
+            ret = Double.valueOf(twoDForm.format(unrounded));
+        } catch (NumberFormatException e) {
+            Log.d("round",e.getMessage());
+        }
+        return ret;
     }
 
     /* Initialize Preferences */
