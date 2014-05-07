@@ -40,6 +40,11 @@
     <string name="whats_new">        The Chariot Gauge controller is now for sale! \n\n
         Please visit: https://www.chariotgauge.com/ \n\n
         
+        May-06-2014: \n
+        	-Fixed data parse error. \n
+        	-Fixed disconnect error. \n
+        	-Known error with Galaxy S3 when disconnecting. \n\n
+        
         Mar-14-2014: \n
         	-Fixed error when disconnecting. \n
         	-Updated max-reset functionality. \n
