@@ -329,7 +329,7 @@ public final class GaugeBuilder extends View {
 
                 Typeface scaleTF = Typeface.createFromAsset(context.getAssets(), "fonts/Mechanical.ttf");
                 scalePaint = new Paint();
-                scalePaint.setStyle(Paint.Style.STROKE);
+                scalePaint.setStyle(Paint.Style.FILL);
                 scalePaint.setColor(scaleColor);
                 //scalePaint.setStrokeWidth(0.006f);
                 scalePaint.setAntiAlias(true);
@@ -341,7 +341,7 @@ public final class GaugeBuilder extends View {
 
                 //For red values.
                 redPaint = new Paint();
-                redPaint.setStyle(Paint.Style.STROKE);
+                redPaint.setStyle(Paint.Style.FILL);
                 redPaint.setColor(redColor);
                 redPaint.setAntiAlias(true);
                 redPaint.setTextSize(0.078f);
