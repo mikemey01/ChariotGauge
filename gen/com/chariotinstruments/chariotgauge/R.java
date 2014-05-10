@@ -325,14 +325,13 @@ containing a value of this type.
         public static final int four_gauges=0x7f020009;
         public static final int logo=0x7f02000a;
         public static final int oil_logo=0x7f02000b;
-        public static final int plastic=0x7f02000c;
-        public static final int settings_logo=0x7f02000d;
-        public static final int title_bar_gradient=0x7f02000e;
-        public static final int title_button=0x7f02000f;
-        public static final int title_gauge_max=0x7f020010;
-        public static final int title_gauge_reset=0x7f020011;
-        public static final int title_home_default=0x7f020012;
-        public static final int wideband_logo=0x7f020013;
+        public static final int settings_logo=0x7f02000c;
+        public static final int title_bar_gradient=0x7f02000d;
+        public static final int title_button=0x7f02000e;
+        public static final int title_gauge_max=0x7f02000f;
+        public static final int title_gauge_reset=0x7f020010;
+        public static final int title_home_default=0x7f020011;
+        public static final int wideband_logo=0x7f020012;
     }
     public static final class id {
         public static final int SCROLLER_ID=0x7f080022;
