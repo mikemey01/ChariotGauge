@@ -105,6 +105,7 @@ public final class GaugeBuilder extends View {
     private int incrementPerSmallNotch       = 2;
 
     private int scaleColor                   = Color .rgb(105, 105, 105);
+    private int backgroundColor              = Color .rgb(220, 220, 220);
     private int redColor                     = Color .rgb(225, 18, 18);
     private int scaleCenterValue             = 15; // the one in the top center (12 o'clock), this corresponds with -90 degrees
     private int scaleMinValue                = 0;
@@ -292,15 +293,15 @@ public final class GaugeBuilder extends View {
         unitRect.set(faceRect.left  + unitPosition, faceRect.top    + unitPosition,
                 faceRect.right - unitPosition, faceRect.bottom - unitPosition);
 
-        faceTexture = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.background_soft_white);
-        BitmapShader paperShader = new BitmapShader(faceTexture, 
-                Shader.TileMode.MIRROR, 
-                Shader.TileMode.MIRROR);
-        Matrix paperMatrix = new Matrix();
-        paperMatrix.setScale(1.0f / faceTexture.getWidth(), 
-                1.0f / faceTexture.getHeight());
-
-        paperShader.setLocalMatrix(paperMatrix);
+//        faceTexture = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.background_soft_white);
+//        BitmapShader paperShader = new BitmapShader(faceTexture, 
+//                Shader.TileMode.MIRROR, 
+//                Shader.TileMode.MIRROR);
+//        Matrix paperMatrix = new Matrix();
+//        paperMatrix.setScale(1.0f / faceTexture.getWidth(), 
+//                1.0f / faceTexture.getHeight());
+//
+//        paperShader.setLocalMatrix(paperMatrix);
 
         rimShadowPaint = new Paint();
         rimShadowPaint.setShader(new RadialGradient(0.5f, 0.5f, faceRect.width() / 2.0f, 
@@ -311,132 +312,130 @@ public final class GaugeBuilder extends View {
 
         // the linear gradient is a bit skewed for realism
         rimPaint = new Paint();
-                rimPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-                rimPaint.setShader(new LinearGradient(0.40f, 0.0f, 0.60f, 1.0f, 
-                        Color.rgb(200, 200, 200),
-                        Color.rgb(90, 90, 90),
-                        Shader.TileMode.CLAMP));             
+        rimPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        rimPaint.setShader(new LinearGradient(0.40f, 0.0f, 0.60f, 1.0f, 
+                Color.rgb(200, 200, 200),
+                Color.rgb(90, 90, 90),
+                Shader.TileMode.CLAMP));             
 
-                rimCirclePaint = new Paint();
-                rimCirclePaint.setAntiAlias(true);
-                rimCirclePaint.setStyle(Paint.Style.STROKE);
-                rimCirclePaint.setColor(Color.argb(0x4f, 0x33, 0x36, 0x33));
-                rimCirclePaint.setStrokeWidth(0.005f);
+        rimCirclePaint = new Paint();
+        rimCirclePaint.setAntiAlias(true);
+        rimCirclePaint.setStyle(Paint.Style.STROKE);
+        rimCirclePaint.setColor(Color.argb(0x4f, 0x33, 0x36, 0x33));
+        rimCirclePaint.setStrokeWidth(0.005f);
 
-                facePaint = new Paint();
-                facePaint.setFilterBitmap(true);
-                facePaint.setStyle(Paint.Style.FILL);
-                facePaint.setShader(paperShader);
+        facePaint = new Paint();
+        facePaint.setFilterBitmap(true);
+        facePaint.setStyle(Paint.Style.FILL);
+        facePaint.setColor(backgroundColor);
+        //facePaint.setShader(paperShader);
 
-                //numbers
-                Typeface scaleTF = Typeface.createFromAsset(context.getAssets(), "fonts/Mechanical.ttf");
-                scalePaint = new Paint();
-                scalePaint.setStyle(Paint.Style.FILL);
-                scalePaint.setColor(scaleColor);
-                scalePaint.setAntiAlias(true);
-                scalePaint.setTextSize(0.078f);
-                scalePaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
-                scalePaint.setTextScaleX(0.6f);
-                scalePaint.setTextAlign(Paint.Align.CENTER); 
-                scalePaint.setLinearText(true);
-                
-                //inner circle
-                innerCircle = new Paint();
-                innerCircle.setStyle(Paint.Style.STROKE);
-                innerCircle.setColor(scaleColor);
-                innerCircle.setAntiAlias(true);
+        //numbers
+        Typeface scaleTF = Typeface.createFromAsset(context.getAssets(), "fonts/Mechanical.ttf");
+        scalePaint = new Paint();
+        scalePaint.setStyle(Paint.Style.FILL);
+        scalePaint.setColor(scaleColor);
+        scalePaint.setAntiAlias(true);
+        scalePaint.setTextSize(0.078f);
+        scalePaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
+        scalePaint.setTextScaleX(0.6f);
+        scalePaint.setTextAlign(Paint.Align.CENTER); 
+        scalePaint.setLinearText(true);
+        
+        //inner circle
+        innerCircle = new Paint();
+        innerCircle.setStyle(Paint.Style.STROKE);
+        innerCircle.setColor(scaleColor);
+        innerCircle.setAntiAlias(true);
 
-                //For red values.
-                redPaint = new Paint();
-                redPaint.setStyle(Paint.Style.FILL);
-                redPaint.setColor(redColor);
-                redPaint.setAntiAlias(true);
-                redPaint.setTextSize(0.078f);
-                redPaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
-                redPaint.setTextScaleX(0.6f);
-                redPaint.setTextAlign(Paint.Align.CENTER); 
-                redPaint.setLinearText(true);
+        //For red values.
+        redPaint = new Paint();
+        redPaint.setStyle(Paint.Style.FILL);
+        redPaint.setColor(redColor);
+        redPaint.setAntiAlias(true);
+        redPaint.setTextSize(0.078f);
+        redPaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
+        redPaint.setTextScaleX(0.6f);
+        redPaint.setTextAlign(Paint.Align.CENTER); 
+        redPaint.setLinearText(true);
 
+        rangeAllPaint = new Paint();
+        rangeAllPaint.setStyle(Paint.Style.STROKE);
+        rangeAllPaint.setColor(0xcff8f8f8);
+        rangeAllPaint.setStrokeWidth(0.012f);
+        rangeAllPaint.setAntiAlias(true);
+        rangeAllPaint.setShadowLayer(0.005f, -0.002f, -0.002f, 0x7f000000);
 
-                rangeAllPaint = new Paint();
-                rangeAllPaint.setStyle(Paint.Style.STROKE);
-                rangeAllPaint.setColor(0xcff8f8f8);
-                rangeAllPaint.setStrokeWidth(0.012f);
-                rangeAllPaint.setAntiAlias(true);
-                rangeAllPaint.setShadowLayer(0.005f, -0.002f, -0.002f, 0x7f000000);
+        //This is the inner "warning" gauge.
+        valueAllPaint = new Paint();
+        valueAllPaint.setStyle(Paint.Style.STROKE);
+        valueAllPaint.setColor(0xcff8f8f8);
+        valueAllPaint.setStrokeWidth(0.20f);
+        valueAllPaint.setAntiAlias(true);
+        valueAllPaint.setShadowLayer(0.005f, -0.002f, -0.002f, 0x7f000000);
 
+        //This is the gauge type (IE TPS, Boost, etc..)
+        Typeface unitTF = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Bold.ttf");
+        unitPaint = new Paint();
+        unitPaint.setColor(scaleColor);
+        unitPaint.setAntiAlias(true);
+        unitPaint.setTypeface(Typeface.create(unitTF, Typeface.NORMAL));
+        unitPaint.setTextAlign(Paint.Align.CENTER);
+        unitPaint.setTextSize(0.07f);
+        unitPaint.setTextScaleX(0.9f);
 
+        upperTitlePaint = new Paint();
+        upperTitlePaint.setColor(0xaf0c0c0c);
+        upperTitlePaint.setAntiAlias(true);
+        upperTitlePaint.setTypeface(Typeface.DEFAULT_BOLD);
+        upperTitlePaint.setTextAlign(Paint.Align.CENTER);
+        upperTitlePaint.setTextSize(0.04f);
+        upperTitlePaint.setTextScaleX(0.8f);
 
-                //This is the inner "warning" gauge.
-                valueAllPaint = new Paint();
-                valueAllPaint.setStyle(Paint.Style.STROKE);
-                valueAllPaint.setColor(0xcff8f8f8);
-                valueAllPaint.setStrokeWidth(0.20f);
-                valueAllPaint.setAntiAlias(true);
-                valueAllPaint.setShadowLayer(0.005f, -0.002f, -0.002f, 0x7f000000);
+        lowerTitlePaint = new Paint();
+        lowerTitlePaint.setColor(0xaf0c0c0c);
+        lowerTitlePaint.setAntiAlias(true);
+        lowerTitlePaint.setTypeface(Typeface.DEFAULT_BOLD);
+        lowerTitlePaint.setTextAlign(Paint.Align.CENTER);
+        lowerTitlePaint.setTextSize(0.04f);
+        lowerTitlePaint.setTextScaleX(0.8f);
 
-                //This is the gauge type (IE TPS, Boost, etc..)
-                Typeface unitTF = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Bold.ttf");
-                unitPaint = new Paint();
-                unitPaint.setColor(scaleColor);
-                unitPaint.setAntiAlias(true);
-                unitPaint.setTypeface(Typeface.create(unitTF, Typeface.NORMAL));
-                unitPaint.setTextAlign(Paint.Align.CENTER);
-                unitPaint.setTextSize(0.07f);
-                unitPaint.setTextScaleX(0.9f);
+        //The needle
+        handPaint = new Paint();
+        handPaint.setAntiAlias(true);
+        handPaint.setColor(Color .rgb(254, 90, 30));         
+        handPaint.setShadowLayer(0.01f, -0.005f, -0.005f, 0x7f000000);
+        handPaint.setStyle(Paint.Style.FILL); 
+        handPaint.setLinearText(true);
 
-                upperTitlePaint = new Paint();
-                upperTitlePaint.setColor(0xaf0c0c0c);
-                upperTitlePaint.setAntiAlias(true);
-                upperTitlePaint.setTypeface(Typeface.DEFAULT_BOLD);
-                upperTitlePaint.setTextAlign(Paint.Align.CENTER);
-                upperTitlePaint.setTextSize(0.04f);
-                upperTitlePaint.setTextScaleX(0.8f);
+        //Where the needle would connect to the gauge.
+        handScrewPaint = new Paint();
+        handScrewPaint.setAntiAlias(true);
+        handScrewPaint.setColor(Color .rgb(0, 0, 0));
+        handScrewPaint.setStyle(Paint.Style.FILL);
 
-                lowerTitlePaint = new Paint();
-                lowerTitlePaint.setColor(0xaf0c0c0c);
-                lowerTitlePaint.setAntiAlias(true);
-                lowerTitlePaint.setTypeface(Typeface.DEFAULT_BOLD);
-                lowerTitlePaint.setTextAlign(Paint.Align.CENTER);
-                lowerTitlePaint.setTextSize(0.04f);
-                lowerTitlePaint.setTextScaleX(0.8f);
+        backgroundPaint = new Paint();
+        backgroundPaint.setFilterBitmap(true);
 
-                //The needle
-                handPaint = new Paint();
-                handPaint.setAntiAlias(true);
-                handPaint.setColor(Color .rgb(254, 90, 30));         
-                handPaint.setShadowLayer(0.01f, -0.005f, -0.005f, 0x7f000000);
-                handPaint.setStyle(Paint.Style.FILL); 
-                handPaint.setLinearText(true);
+        unitPath = new Path();
+        unitPath.addArc(unitRect, -180.0f, -180.0f);
 
-                //Where the needle would connect to the gauge.
-                handScrewPaint = new Paint();
-                handScrewPaint.setAntiAlias(true);
-                handScrewPaint.setColor(Color .rgb(0, 0, 0));
-                handScrewPaint.setStyle(Paint.Style.FILL);
+        upperTitlePath = new Path();
+        upperTitlePath.addArc(titleRect, 180.0f, 180.0f);
 
-                backgroundPaint = new Paint();
-                backgroundPaint.setFilterBitmap(true);
+        lowerTitlePath = new Path();
+        lowerTitlePath.addArc(titleRect, -180.0f, -180.0f);
 
-                unitPath = new Path();
-                unitPath.addArc(unitRect, -180.0f, -180.0f);
-
-                upperTitlePath = new Path();
-                upperTitlePath.addArc(titleRect, 180.0f, 180.0f);
-
-                lowerTitlePath = new Path();
-                lowerTitlePath.addArc(titleRect, -180.0f, -180.0f);
-
-                // The hand is drawn with the tip facing up. That means when the image is not rotated, the tip 
-                // faces north. When the the image is rotated -90 degrees, the tip is facing west and so on.
-                handPath = new Path();                                      //   X      Y
-                handPath.moveTo(0.5f, 0.50f);                               // 0.500, 0.700 x:  , y: adjusts tail
-                handPath.lineTo(0.5f - 0.040f, 0.5f - .090f);               // 0.490, 0.630 x: adjusts base width, y: adjusts tail length
-                handPath.lineTo(0.5f - 0.005f, 0.5f - 0.37f);               // 0.498, 0.100 x: adjusts tip width, y: adjusts needle length
-                handPath.lineTo(0.5f + 0.005f, 0.5f - 0.37f);               // 0.502, 0.100 x: adjusts tip width, y: adjusts needle length
-                handPath.lineTo(0.5f + 0.040f, 0.5f - .090f);               // 0.510, 0.630 x: adjusts base width, y: adjusts tail length
-                handPath.lineTo(0.5f, 0.50f);                               // 0.500, 0.700 x:  , y: adjusts tail
-                handPath.addCircle(0.5f, 0.5f, 0.060f, Path.Direction.CW);
+        // The hand is drawn with the tip facing up. That means when the image is not rotated, the tip 
+        // faces north. When the the image is rotated -90 degrees, the tip is facing west and so on.
+        handPath = new Path();                                      //   X      Y
+        handPath.moveTo(0.5f, 0.50f);                               // 0.500, 0.700 x:  , y: adjusts tail
+        handPath.lineTo(0.5f - 0.040f, 0.5f - .090f);               // 0.490, 0.630 x: adjusts base width, y: adjusts tail length
+        handPath.lineTo(0.5f - 0.005f, 0.5f - 0.37f);               // 0.498, 0.100 x: adjusts tip width, y: adjusts needle length
+        handPath.lineTo(0.5f + 0.005f, 0.5f - 0.37f);               // 0.502, 0.100 x: adjusts tip width, y: adjusts needle length
+        handPath.lineTo(0.5f + 0.040f, 0.5f - .090f);               // 0.510, 0.630 x: adjusts base width, y: adjusts tail length
+        handPath.lineTo(0.5f, 0.50f);                               // 0.500, 0.700 x:  , y: adjusts tail
+        handPath.addCircle(0.5f, 0.5f, 0.060f, Path.Direction.CW);
 
     }
 
@@ -514,7 +513,7 @@ public final class GaugeBuilder extends View {
                     canvas.drawLine(0.5f, y1, 0.5f, y3, innerCircle);
                     String valueString;
                     if(absoluteNumbers){
-                        valueString = Integer.toString(Math.abs(value));
+                        valueString = Integer.toString(Math.abs(value)); 
                     }else{
                         valueString = Integer.toString(value);
                     }

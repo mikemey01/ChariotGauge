@@ -313,27 +313,26 @@ containing a value of this type.
         public static final int title_height=0x7f070000;
     }
     public static final class drawable {
-        public static final int background_soft_white=0x7f020000;
-        public static final int bluetooth_connected=0x7f020001;
-        public static final int bluetooth_disconnected=0x7f020002;
-        public static final int bluetooth_logo=0x7f020003;
-        public static final int boost_logo=0x7f020004;
-        public static final int btn_bg_pressed=0x7f020005;
-        public static final int btn_bg_selected=0x7f020006;
-        public static final int custom_logo=0x7f020007;
-        public static final int custom_multi_logo=0x7f020008;
-        public static final int divider=0x7f020009;
-        public static final int four_gauges=0x7f02000a;
-        public static final int logo=0x7f02000b;
-        public static final int oil_logo=0x7f02000c;
-        public static final int plastic=0x7f02000d;
-        public static final int settings_logo=0x7f02000e;
-        public static final int title_bar_gradient=0x7f02000f;
-        public static final int title_button=0x7f020010;
-        public static final int title_gauge_max=0x7f020011;
-        public static final int title_gauge_reset=0x7f020012;
-        public static final int title_home_default=0x7f020013;
-        public static final int wideband_logo=0x7f020014;
+        public static final int bluetooth_connected=0x7f020000;
+        public static final int bluetooth_disconnected=0x7f020001;
+        public static final int bluetooth_logo=0x7f020002;
+        public static final int boost_logo=0x7f020003;
+        public static final int btn_bg_pressed=0x7f020004;
+        public static final int btn_bg_selected=0x7f020005;
+        public static final int custom_logo=0x7f020006;
+        public static final int custom_multi_logo=0x7f020007;
+        public static final int divider=0x7f020008;
+        public static final int four_gauges=0x7f020009;
+        public static final int logo=0x7f02000a;
+        public static final int oil_logo=0x7f02000b;
+        public static final int plastic=0x7f02000c;
+        public static final int settings_logo=0x7f02000d;
+        public static final int title_bar_gradient=0x7f02000e;
+        public static final int title_button=0x7f02000f;
+        public static final int title_gauge_max=0x7f020010;
+        public static final int title_gauge_reset=0x7f020011;
+        public static final int title_home_default=0x7f020012;
+        public static final int wideband_logo=0x7f020013;
     }
     public static final class id {
         public static final int SCROLLER_ID=0x7f080022;
