@@ -63,6 +63,7 @@ public final class GaugeBuilder extends View {
     private Paint rimShadowPaint;
 
     private Paint scalePaint;
+    private Paint innerCircle;
     private RectF scaleRect;
 
     private Paint redPaint;
@@ -327,17 +328,23 @@ public final class GaugeBuilder extends View {
                 facePaint.setStyle(Paint.Style.FILL);
                 facePaint.setShader(paperShader);
 
+                //numbers
                 Typeface scaleTF = Typeface.createFromAsset(context.getAssets(), "fonts/Mechanical.ttf");
                 scalePaint = new Paint();
                 scalePaint.setStyle(Paint.Style.FILL);
                 scalePaint.setColor(scaleColor);
-                //scalePaint.setStrokeWidth(0.006f);
                 scalePaint.setAntiAlias(true);
                 scalePaint.setTextSize(0.078f);
                 scalePaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
                 scalePaint.setTextScaleX(0.6f);
                 scalePaint.setTextAlign(Paint.Align.CENTER); 
                 scalePaint.setLinearText(true);
+                
+                //inner circle
+                innerCircle = new Paint();
+                innerCircle.setStyle(Paint.Style.STROKE);
+                innerCircle.setColor(scaleColor);
+                innerCircle.setAntiAlias(true);
 
                 //For red values.
                 redPaint = new Paint();
@@ -491,7 +498,7 @@ public final class GaugeBuilder extends View {
 
     private void drawScale(Canvas canvas) {
         // Draw the circle
-        canvas.drawOval(scaleRect, scalePaint);
+        canvas.drawOval(scaleRect, innerCircle);
 
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
         for (int i = 0; i < totalNotches; ++i) {
@@ -504,7 +511,7 @@ public final class GaugeBuilder extends View {
             if (i % (incrementPerLargeNotch/incrementPerSmallNotch) == 0) {
                 if (value >= scaleMinValue && value <= scaleMaxValue) {
                     // draw a nick
-                    canvas.drawLine(0.5f, y1, 0.5f, y3, scalePaint);
+                    canvas.drawLine(0.5f, y1, 0.5f, y3, innerCircle);
                     String valueString;
                     if(absoluteNumbers){
                         valueString = Integer.toString(Math.abs(value));
