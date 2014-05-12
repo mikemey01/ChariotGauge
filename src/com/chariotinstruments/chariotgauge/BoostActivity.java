@@ -24,7 +24,7 @@ public class BoostActivity extends Activity implements Runnable {
     ImageButton  btnOne;
     ImageButton  btnTwo;
     ImageButton  btnHome;
-    Typeface     typeFaceDigital;
+    Typeface     typeFaceDigital;  
     MultiGauges  multiGauge;
     MultiGauges  multiGaugeVolts;
     Context      context;
