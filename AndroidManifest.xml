@@ -80,9 +80,7 @@
             android:theme="@style/Theme.D1" />
         <activity
             android:name=".SingleChartActivity"
-            android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.D1" />
+            android:noHistory="true" />
     </application>
 
 </manifest>
