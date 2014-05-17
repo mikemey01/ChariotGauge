@@ -1,5 +1,6 @@
 package com.chariotinstruments.chariotgauge;
 
+import java.util.Random;
 import org.achartengine.GraphicalView;
 
 
@@ -21,15 +22,15 @@ public class SingleChartActivity extends Activity {
         thread = new Thread() {
             public void run()
             {
-                for (int i = 0; i < 15; i++) 
+                for (int i = 0; i < 8; i++) 
                 {
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    Point p = new Point(1, 5); //MockData.getDataFromReceiver(i); // We got new data!
+                    Point p = new Point(i, generateRandomData()); //MockData.getDataFromReceiver(i); // We got new data!
                     line.addNewPoints(p); // Add it to our graph
                     view.repaint();
                 }
@@ -43,6 +44,12 @@ public class SingleChartActivity extends Activity {
         super.onStart();
         view = line.getView(this);
         setContentView(view);
+    }
+    
+    protected int generateRandomData()
+    {
+        Random random = new Random();
+        return random.nextInt(40);
     }
 
 }
