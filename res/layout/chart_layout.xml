@@ -4,5 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    
+    <!-- <LinearLayout
+    android:id="@+id/chart"
+    android:layout_width="fill_parent"
+    android:layout_height="0dip"
+    android:layout_weight="1"
+    android:orientation="horizontal" /> -->
 
 </LinearLayout>

@@ -5,6 +5,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="src" path="charting"/>
 	<classpathentry kind="lib" path="/Users/user/Desktop/Eclipse/Eclipse Dev/chariotgauge/achartengine-1.1.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
