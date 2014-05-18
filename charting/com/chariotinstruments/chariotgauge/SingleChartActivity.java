@@ -22,17 +22,26 @@ public class SingleChartActivity extends Activity {
         thread = new Thread() {
             public void run()
             {
-                for (int i = 0; i < 8; i++) 
+                for (int i = 0; i < 100; i++) 
                 {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     Point p = new Point(i, generateRandomData()); //MockData.getDataFromReceiver(i); // We got new data!
+                    if(i > 30){
+                        line.setXAxisMin(i-30);
+                    }
+                    line.setXAxisMax(i+30);
                     line.addNewPoints(p); // Add it to our graph
-                    view.repaint();
+                    try {
+                        view.repaint();
+                    } catch (NullPointerException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
         };
@@ -43,6 +52,8 @@ public class SingleChartActivity extends Activity {
     protected void onStart() {
         super.onStart();
         view = line.getView(this);
+        line.setYAxisMin(-100);
+        line.setYAxisMax(100);
         setContentView(view);
     }
     
