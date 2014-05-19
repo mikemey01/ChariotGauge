@@ -7,7 +7,6 @@ import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
 import android.content.Context;
 import android.graphics.Color;
 
@@ -62,15 +61,16 @@ public class LineGraphBuilder {
         this.mRenderer.setYAxisMax(yMax);
     }
     
-    public GraphicalView getView(Context context) 
-    {
-        view =  ChartFactory.getLineChartView(context, mDataset, mRenderer);
-        return view;
-    }
     
     public void addNewPoints(Point p)
     {
         dataset.add(p.getX(), p.getY());
+    }
+    
+    public GraphicalView getView(Context context) 
+    {
+        view =  ChartFactory.getLineChartView(context, mDataset, mRenderer);
+        return view;
     }
     
 }
