@@ -42,7 +42,11 @@ public class LineGraphBuilder {
         mRenderer.setLegendTextSize(20.0f); 
         
         // Add single renderer to multiple renderer
-        mRenderer.addSeriesRenderer(renderer);  
+        //mRenderer.addSeriesRenderer(renderer);  
+    }
+    
+    public void addSeries(XYSeriesRenderer xYPlot){
+        this.mRenderer.addSeriesRenderer(xYPlot);
     }
     
     public void setXAxisMin(int xMin){
@@ -60,7 +64,6 @@ public class LineGraphBuilder {
     public void setYAxisMax(int yMax){
         this.mRenderer.setYAxisMax(yMax);
     }
-    
     
     public void addNewPoints(Point p)
     {

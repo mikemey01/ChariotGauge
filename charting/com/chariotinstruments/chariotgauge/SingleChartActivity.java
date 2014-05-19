@@ -2,9 +2,12 @@ package com.chariotinstruments.chariotgauge;
 
 import java.util.Random;
 import org.achartengine.GraphicalView;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.renderer.XYSeriesRenderer;
 
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 
 public class SingleChartActivity extends Activity {
@@ -12,6 +15,7 @@ public class SingleChartActivity extends Activity {
     private static GraphicalView view;
     private LineGraphBuilder line = new LineGraphBuilder();
     private static Thread thread;
+    private XYSeriesRenderer xYPlot = new XYSeriesRenderer(); //This is the XYPlot itself.
 
     /** Called when the activity is first created. */
     @Override
@@ -27,7 +31,6 @@ public class SingleChartActivity extends Activity {
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     Point p = new Point(i, generateRandomData()); //MockData.getDataFromReceiver(i); // We got new data!
@@ -39,7 +42,6 @@ public class SingleChartActivity extends Activity {
                     try {
                         view.repaint();
                     } catch (NullPointerException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
@@ -47,14 +49,23 @@ public class SingleChartActivity extends Activity {
         };
         thread.start();
     }
+    
+    protected XYSeriesRenderer setupXYPlots(){
+        this.xYPlot.setColor(Color.GREEN);
+        this.xYPlot.setPointStyle(PointStyle.CIRCLE);
+        this.xYPlot.setFillPoints(true);
+        
+        return this.xYPlot;
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        view = line.getView(this);
         line.setYAxisMin(-100);
         line.setYAxisMax(100);
-        setContentView(view);
+        line.addSeries(setupXYPlots());
+        view = line.getView(this);
+        setContentView(view); 
     }
     
     protected int generateRandomData()
