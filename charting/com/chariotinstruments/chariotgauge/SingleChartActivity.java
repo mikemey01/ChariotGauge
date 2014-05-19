@@ -4,15 +4,16 @@ import java.util.Random;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.renderer.XYSeriesRenderer;
-
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
+import android.widget.LinearLayout;
 
 public class SingleChartActivity extends Activity {
 
-    private static GraphicalView view;
+    private static GraphicalView mChartView;
     private LineGraphBuilder line = new LineGraphBuilder();
     private static Thread thread;
     private XYSeriesRenderer xYPlot = new XYSeriesRenderer(); //This is the XYPlot itself.
@@ -21,6 +22,8 @@ public class SingleChartActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.chart_layout);
 
         thread = new Thread() {
@@ -40,7 +43,7 @@ public class SingleChartActivity extends Activity {
                     line.setXAxisMax(i+30);
                     line.addNewPoints(p); // Add it to our graph
                     try {
-                        view.repaint();
+                        mChartView.repaint();
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
@@ -50,7 +53,7 @@ public class SingleChartActivity extends Activity {
         thread.start();
     }
     
-    protected XYSeriesRenderer setupXYPlots(){
+    protected XYSeriesRenderer setupXYPlot(){
         this.xYPlot.setColor(Color.GREEN);
         this.xYPlot.setPointStyle(PointStyle.CIRCLE);
         this.xYPlot.setFillPoints(true);
@@ -63,9 +66,11 @@ public class SingleChartActivity extends Activity {
         super.onStart();
         line.setYAxisMin(-100);
         line.setYAxisMax(100);
-        line.addSeries(setupXYPlots());
-        view = line.getView(this);
-        setContentView(view); 
+        line.addSeries(setupXYPlot());
+        mChartView = line.getView(this);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+        layout.addView(mChartView);
+        //setContentView(mChartView); 
     }
     
     protected int generateRandomData()

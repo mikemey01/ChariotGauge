@@ -4,12 +4,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <RelativeLayout style="@style/TitleBar" >
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            style="@style/TitleBarAction"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/home_string"
+            android:onClick="goHome"
+            android:padding="5dip"
+            android:src="@drawable/title_home_default" />
+
+        <ImageView
+            style="@style/TitleBarSeparator"
+            android:layout_toRightOf="@+id/homeButton"
+            android:paddingLeft="2dp" />
+
+        <ImageButton
+            android:id="@+id/btnOne"
+            style="@style/TitleBarAction"
+            android:layout_toLeftOf="@+id/btnTwo"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonOneClick"
+            android:padding="5dip"
+            android:paddingRight="2dp"
+            android:src="@drawable/title_gauge_reset" />
+
+        <ImageButton
+            android:id="@+id/btnTwo"
+            style="@style/TitleBarAction"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonTwoClick"
+            android:padding="5dip"
+            android:src="@drawable/title_gauge_max" />
+    </RelativeLayout>
     
-    <!-- <LinearLayout
+    <LinearLayout
     android:id="@+id/chart"
     android:layout_width="fill_parent"
     android:layout_height="0dip"
     android:layout_weight="1"
-    android:orientation="horizontal" /> -->
+    android:orientation="horizontal" />
 
 </LinearLayout>

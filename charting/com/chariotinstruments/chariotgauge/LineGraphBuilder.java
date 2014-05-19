@@ -37,9 +37,10 @@ public class LineGraphBuilder {
         mRenderer.setAxisTitleTextSize(20.0f);
         mRenderer.setChartTitleTextSize(20.0f);
         mRenderer.setDisplayValues(true);
-        mRenderer.setPointSize(2.0f);
+        mRenderer.setPointSize(1.5f);
         mRenderer.setLabelsTextSize(20.0f);
         mRenderer.setLegendTextSize(20.0f); 
+        mRenderer.setShowGrid(true);
         
         // Add single renderer to multiple renderer
         //mRenderer.addSeriesRenderer(renderer);  
