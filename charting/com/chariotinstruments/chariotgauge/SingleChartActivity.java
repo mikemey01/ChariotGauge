@@ -69,8 +69,7 @@ public class SingleChartActivity extends Activity {
         line.addSeries(setupXYPlot());
         mChartView = line.getView(this);
         LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
-        layout.addView(mChartView);
-        //setContentView(mChartView); 
+        layout.addView(mChartView); 
     }
     
     protected int generateRandomData()
