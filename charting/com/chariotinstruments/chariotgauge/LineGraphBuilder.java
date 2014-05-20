@@ -16,8 +16,6 @@ public class LineGraphBuilder {
     
     private TimeSeries dataset = new TimeSeries("Boost"); 
     private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
-    
-    private XYSeriesRenderer renderer = new XYSeriesRenderer(); // This will be used to customize line 1
     private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); // Holds a collection of XYSeriesRenderer and customizes the graph
     
     public LineGraphBuilder()
@@ -25,12 +23,7 @@ public class LineGraphBuilder {
         // Add single dataset to multiple dataset
         mDataset.addSeries(dataset);
         
-        // Customization time for line 1!
-        renderer.setColor(Color.GREEN);
-        renderer.setPointStyle(PointStyle.CIRCLE);
-        renderer.setFillPoints(true);
-        
-        // Enable Zoom
+        // Setup multiRenderer environment.
         mRenderer.setZoomButtonsVisible(true);
         mRenderer.setXTitle("Time");
         mRenderer.setYTitle("Pressure (PSI)");
@@ -40,10 +33,7 @@ public class LineGraphBuilder {
         mRenderer.setPointSize(1.5f);
         mRenderer.setLabelsTextSize(20.0f);
         mRenderer.setLegendTextSize(20.0f); 
-        mRenderer.setShowGrid(true);
-        
-        // Add single renderer to multiple renderer
-        //mRenderer.addSeriesRenderer(renderer);  
+        mRenderer.setShowGrid(true);  
     }
     
     public void addSeries(XYSeriesRenderer xYPlot){

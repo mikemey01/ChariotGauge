@@ -64,10 +64,14 @@ public class SingleChartActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        
+        //Setup line-graph view
         line.setYAxisMin(-100);
         line.setYAxisMax(100);
         line.addSeries(setupXYPlot());
         mChartView = line.getView(this);
+        
+        //add it to the chart_layout layout
         LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
         layout.addView(mChartView); 
     }
