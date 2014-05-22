@@ -20,8 +20,8 @@ import android.widget.Toast;
 public class SingleChartActivity extends Activity implements Runnable {
 
     private static GraphicalView mChartView;
-    private LineGraphBuilder line = new LineGraphBuilder();
     private static Thread thread;
+    private LineGraphBuilder line = new LineGraphBuilder();
     private XYSeriesRenderer xYPlot = new XYSeriesRenderer(); //This is the XYPlot itself.
     
     ImageButton  btnOne;
@@ -31,7 +31,7 @@ public class SingleChartActivity extends Activity implements Runnable {
     float        currentSValue;
     float        voltSValue;
     boolean      paused;
-    int          i = 0;;
+    int          i = 0;
     
     // Key names received from the BluetoothChatService Handler
     public static final String TOAST       = "toast";
