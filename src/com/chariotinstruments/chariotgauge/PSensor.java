@@ -309,7 +309,7 @@ public class PSensor extends Activity {
             startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             break;
         case R.id.widebandBtn:
-            //PassObject.setObject(mSerialService);
+            PassObject.setObject(mSerialService);
             //startActivity(new Intent(getApplicationContext(), WidebandActivity.class));
             startActivity(new Intent(getApplicationContext(), SingleChartActivity.class));
             break;

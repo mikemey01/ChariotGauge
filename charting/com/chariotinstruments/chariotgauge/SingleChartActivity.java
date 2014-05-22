@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
@@ -15,7 +17,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class SingleChartActivity extends Activity {
+public class SingleChartActivity extends Activity implements Runnable {
 
     private static GraphicalView mChartView;
     private LineGraphBuilder line = new LineGraphBuilder();
@@ -25,9 +27,11 @@ public class SingleChartActivity extends Activity {
     ImageButton  btnOne;
     ImageButton  btnTwo;
     ImageButton  btnHome;
+    String       currentMsg;
     float        currentSValue;
     float        voltSValue;
     boolean      paused;
+    int          i = 0;;
     
     // Key names received from the BluetoothChatService Handler
     public static final String TOAST       = "toast";
@@ -40,11 +44,14 @@ public class SingleChartActivity extends Activity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        
+        //Setup the environment.
         super.onCreate(savedInstanceState);
         getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.chart_layout);
         
+        //assign the top label buttons
         btnOne = (ImageButton) findViewById(R.id.btnOne);
         btnTwo = (ImageButton) findViewById(R.id.btnTwo);
         
@@ -54,32 +61,79 @@ public class SingleChartActivity extends Activity {
         mSerialService = (BluetoothSerialService) obj;
         //Update the BluetoothSerialService instance's handler to this activities.
         mSerialService.setHandler(mHandler);
+        
+        thread = new Thread(SingleChartActivity.this);
+        thread.start();
+    }
+    
+  //Handles the data being sent back from the BluetoothSerialService class.
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if(!paused){
+                byte[] readBuf = (byte[]) msg.obj;
+                
+                // construct a string from the valid bytes in the buffer
+                String readMessage;
+                try {
+                    readMessage = new String(readBuf, 0, msg.arg1);
+                } catch (NullPointerException e) {
+                    readMessage = "0";
+                }
+                
+                //Redraw the needle to the correct value.
+                currentMsg = readMessage;
+                Message workerMsg = workerHandler.obtainMessage(1, currentMsg);
+                workerMsg.sendToTarget();
+            }
+        }
+    };
 
-        thread = new Thread() {
-            public void run()
-            {
-                for (int i = 0; i < 1000; i++) 
-                {
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Point p = new Point(i, generateRandomData()); //MockData.getDataFromReceiver(i); // We got new data!
-                    if(i > 30){
-                        line.setXAxisMin(i-30);
-                    }
-                    line.setXAxisMax(i+30);
-                    line.addNewPoints(p); // Add it to our graph
+    @Override
+    public void run(){
+        Looper.prepare();
+        workerHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                
+                //Parse latest data.
+                parseInput((String)msg.obj);
+
+                //Put latest data on chart.
+                Point p = new Point(i, generateRandomData()); //MockData.getDataFromReceiver(i); // We got new data!
+                line.setXAxisMin(i-30);
+                line.setXAxisMax(i+30);
+                
+                //Add the point to the graph.
+                line.addNewPoints(p); 
+                if(!paused){
                     try {
                         mChartView.repaint();
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
                 }
+                //Increment time value.
+                i++;
             }
         };
-        thread.start();
+        Looper.loop();
+    }
+    
+    
+    private void parseInput(String sValue){
+        String[] tokens=sValue.split(","); //split the input into an array.
+
+        try {
+            currentSValue = Float.valueOf(tokens[CURRENT_TOKEN].toString());//Get current token for this gauge activity, cast as float.
+            voltSValue = Float.valueOf(tokens[VOLT_TOKEN].toString());//Get volt token value, cast as float.
+        } catch (NumberFormatException e) {
+            currentSValue = 0f;
+            voltSValue = 0f;
+        } catch (ArrayIndexOutOfBoundsException e){
+            currentSValue = 0f;
+            voltSValue = 0f;
+        }
     }
     
     protected XYSeriesRenderer setupXYPlot(){
