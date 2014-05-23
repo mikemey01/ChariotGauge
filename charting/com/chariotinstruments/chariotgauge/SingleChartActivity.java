@@ -28,6 +28,8 @@ public class SingleChartActivity extends Activity implements Runnable {
     ImageButton  btnTwo;
     ImageButton  btnHome;
     String       currentMsg;
+    MultiGauges  multiGauge;
+    MultiGauges  multiGaugeVolts;
     float        currentSValue;
     float        voltSValue;
     boolean      paused;
@@ -54,6 +56,12 @@ public class SingleChartActivity extends Activity implements Runnable {
         //assign the top label buttons
         btnOne = (ImageButton) findViewById(R.id.btnOne);
         btnTwo = (ImageButton) findViewById(R.id.btnTwo);
+        
+        //setup the gauge-calc instances
+        multiGauge      = new MultiGauges(this);
+        multiGaugeVolts = new MultiGauges(this);
+        multiGauge.buildChart(CURRENT_TOKEN);
+        multiGaugeVolts.buildChart(VOLT_TOKEN);
         
         //Get the mSerialService object from the UI activity.
         Object obj = PassObject.getObject();
@@ -96,11 +104,21 @@ public class SingleChartActivity extends Activity implements Runnable {
             @Override
             public void handleMessage(Message msg){
                 
+                //local variables
+                double pointX = 0.0f;
+                double pointY = 0.0f;
+                
                 //Parse latest data.
                 parseInput((String)msg.obj);
+                
+                //Calc data 
+                multiGauge.handleSensor(currentSValue);
+                multiGaugeVolts.handleSensor(voltSValue);
+                pointX = (double)i;
+                pointY = (double)multiGauge.getCurrentGaugeValue();
 
                 //Put latest data on chart.
-                Point p = new Point(i, generateRandomData()); //MockData.getDataFromReceiver(i); // We got new data!
+                Point p = new Point(pointX, pointY); //MockData.getDataFromReceiver(i); // We got new data!
                 line.setXAxisMin(i-30);
                 line.setXAxisMax(i+30);
                 

@@ -470,6 +470,47 @@ public class MultiGauges extends View{
             break;
         }
     }
+    
+    public void buildChart(int chartType){
+        prefsGaugeResolutionInit();
+        minValue = -30;
+        maxValue = 25;
+        sensorMinValue = minValue;
+        sensorMaxValue = minValue;
+        switch(chartType){
+        case 0:
+            currentToken = 0;
+            minValue = 0;
+            maxValue = 20;
+            sensorMinValue = minValue;
+            sensorMaxValue = minValue;
+            break;
+        case 1:
+            currentToken=1; //set the value to the boost token.
+            prefsBoostInit(); //get stored prefs for boost.
+            break;
+        case 2:
+            currentToken = 2;
+            prefsWidebandInit();
+            initStoich(fuelType);
+            //High and low range for AFR/Volts
+            wbAFRRange = (double)(wbHighAFR - wbLowAFR);
+            wbVoltRange = (double)(wbHighVolts - wbLowVolts);
+            break;
+        case 3:
+            currentToken = 3;
+            prefsTempInit();
+            getSHHCoefficients();
+            break;
+        case 4:
+            currentToken = 4;
+            prefsOilInit();
+            oilSensorInit();
+            break;
+        default:
+            break;
+        }
+    }
 
     public static double round(double unrounded){
         double ret = 0.0;

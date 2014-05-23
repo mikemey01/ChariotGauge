@@ -2,19 +2,19 @@ package com.chariotinstruments.chariotgauge;
 
 public class Point {
     
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     
-    public Point(int inX, int inY){
+    public Point(double inX, double inY){
         this.x = inX;
         this.y = inY;
     }
     
-    public int getX(){
+    public double getX(){
         return this.x;
     }
     
-    public int getY(){
+    public double getY(){
         return this.y;
     }
 
