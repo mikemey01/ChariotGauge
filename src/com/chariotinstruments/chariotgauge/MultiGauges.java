@@ -473,6 +473,7 @@ public class MultiGauges extends View{
     
     public void buildChart(int chartType){
         prefsGaugeResolutionInit();
+        //TODO: need to setup the min/max values same as buildGauge.
         minValue = -30;
         maxValue = 25;
         sensorMinValue = minValue;

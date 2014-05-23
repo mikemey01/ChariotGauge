@@ -198,7 +198,7 @@ public class SingleChartActivity extends Activity implements Runnable {
         if(!paused){
             paused = true;
 
-            //TODO: set graph to max value
+            //TODO: set graph to max value OR Pause
             btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
         }else{
             paused = false;
