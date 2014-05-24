@@ -67,8 +67,12 @@ public class SingleChartActivity extends Activity implements Runnable {
         Object obj = PassObject.getObject();
         //Assign it to global mSerialService variable in this activity.
         mSerialService = (BluetoothSerialService) obj;
-        //Update the BluetoothSerialService instance's handler to this activities.
-        mSerialService.setHandler(mHandler);
+        
+        //Check if the serial service object is null - assign the handler.
+        if(mSerialService != null){
+            //Update the BluetoothSerialService instance's handler to this activities.
+            mSerialService.setHandler(mHandler);
+        }
         
         thread = new Thread(SingleChartActivity.this);
         thread.start();
@@ -211,6 +215,14 @@ public class SingleChartActivity extends Activity implements Runnable {
         PassObject.setObject(mSerialService);
         onBackPressed();
         finish();
+    }
+    
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(this.isFinishing()){
+            PassObject.setObject(mSerialService);
+        }
     }
     
     protected int generateRandomData()
