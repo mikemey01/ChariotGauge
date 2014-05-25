@@ -2,19 +2,15 @@ package com.chariotinstruments.chariotgauge;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
-import org.achartengine.chart.PointStyle;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 import android.content.Context;
-import android.graphics.Color;
 
 public class LineGraphBuilder {
 
     private GraphicalView view;
-    
-    private TimeSeries dataset = new TimeSeries("Boost"); 
     private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
     private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer(); // Holds a collection of XYSeriesRenderer and customizes the graph
     
@@ -26,7 +22,7 @@ public class LineGraphBuilder {
         // Setup multiRenderer environment.
         mRenderer.setZoomButtonsVisible(true);
         mRenderer.setXTitle("Time");
-        mRenderer.setYTitle("Pressure (PSI)");
+        mRenderer.setYTitle("Y Label");
         mRenderer.setAxisTitleTextSize(20.0f);
         mRenderer.setChartTitleTextSize(20.0f);
         mRenderer.setDisplayValues(true);
@@ -56,6 +52,10 @@ public class LineGraphBuilder {
         this.mRenderer.setYAxisMax(yMax);
     }
     
+    public void setYLabel(String labelIn){
+        this.mRenderer.setYTitle(labelIn);
+    }
+    
     public void addNewPoints(TimeSeries dataSet, Point p)
     {
         dataSet.add(p.getX(), p.getY());
@@ -65,8 +65,7 @@ public class LineGraphBuilder {
         mDataset.addSeries(dataSet);
     }
     
-    public GraphicalView getView(Context context) 
-    {
+    public GraphicalView getView(Context context){
         view =  ChartFactory.getLineChartView(context, mDataset, mRenderer);
         return view;
     }

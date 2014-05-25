@@ -221,7 +221,6 @@ public class BoostActivity extends Activity implements Runnable {
         startActivity(chartIntent);
     }
 
-
     //Button one handling.
     public void buttonOneClick(View v){
         //Reset the max value.
@@ -261,7 +260,6 @@ public class BoostActivity extends Activity implements Runnable {
         thread.start();
         analogGauge.invalidate();
     }
-
 
     public void prefsInit(){
         SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);

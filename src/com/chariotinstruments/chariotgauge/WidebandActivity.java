@@ -96,8 +96,12 @@ public class WidebandActivity extends Activity implements Runnable {
         Object obj = PassObject.getObject();
         //Assign it to global mSerialService variable in this activity.
         mSerialService = (BluetoothSerialService) obj;
-        //Update the BluetoothSerialService instance's handler to this activities'.
-        mSerialService.setHandler(mHandler);
+        
+        //Check if the serial service object is null - assign the handler.
+        if(mSerialService != null){
+            //Update the BluetoothSerialService instance's handler to this activities.
+            mSerialService.setHandler(mHandler);
+        }
 
         Thread thread = new Thread(WidebandActivity.this);
         thread.start();

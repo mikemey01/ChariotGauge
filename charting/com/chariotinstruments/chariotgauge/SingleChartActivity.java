@@ -196,21 +196,27 @@ public class SingleChartActivity extends Activity implements Runnable {
         chartVolts = buildNewChart(chartVolts, Color.RED);
         
         //Setup datasets.
+        //TODO: get prefs for labels
         switch(CURRENT_TOKEN){
         case 1:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
+            line.setYLabel("Pressure (inHG/PSI)");
             break;
         case 2:
             dataSetOne = buildNewTimeSeries(dataSetOne, "WideBand");
+            line.setYLabel("Wideband ");
             break;
         case 3:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Temperature");
+            line.setYLabel("Temperature ");
             break;
         case 4:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Oil");
+            line.setYLabel("Oil Pressure");
             break;
         default:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
+            line.setYLabel("Pressure (inHG/PSI)");
             break;
         }
         
