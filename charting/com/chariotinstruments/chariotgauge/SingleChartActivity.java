@@ -6,6 +6,7 @@ import org.achartengine.chart.PointStyle;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.renderer.XYSeriesRenderer;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,7 @@ public class SingleChartActivity extends Activity implements Runnable {
     ImageButton  btnOne;
     ImageButton  btnTwo;
     ImageButton  btnHome;
+    ImageButton  btnDisplay;
     String       currentMsg;
     MultiGauges  multiGauge;
     MultiGauges  multiGaugeVolts;
@@ -58,8 +60,9 @@ public class SingleChartActivity extends Activity implements Runnable {
         setContentView(R.layout.chart_layout);
         
         //assign the top label buttons
-        btnOne = (ImageButton) findViewById(R.id.btnOne);
-        btnTwo = (ImageButton) findViewById(R.id.btnTwo);
+        btnOne     = (ImageButton) findViewById(R.id.btnOne);
+        btnTwo     = (ImageButton) findViewById(R.id.btnTwo);
+        btnDisplay = (ImageButton) findViewById(R.id.btnDisplay);
         
         //setup the gauge-calc instances
         multiGauge      = new MultiGauges(this);
@@ -214,6 +217,14 @@ public class SingleChartActivity extends Activity implements Runnable {
         super.onBackPressed();
     }
     
+    //chart/gauge display click handling
+    public void buttonDisplayClick(View v){
+        paused = true;
+        workerHandler.getLooper().quit();
+        PassObject.setObject(mSerialService);
+        startActivity(new Intent(getApplicationContext(), BoostActivity.class));
+    }
+    
     //Button one handling.
     public void buttonOneClick(View v){   
         //TODO: reset max value.
@@ -226,7 +237,6 @@ public class SingleChartActivity extends Activity implements Runnable {
     public void buttonTwoClick(View v){
         if(!paused){
             paused = true;
-
             //TODO: set graph to max value OR Pause
             btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
         }else{

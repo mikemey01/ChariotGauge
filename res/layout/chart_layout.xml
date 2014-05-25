@@ -19,6 +19,16 @@
             style="@style/TitleBarSeparator"
             android:layout_toRightOf="@+id/homeButton"
             android:paddingLeft="2dp" />
+        
+        <ImageButton
+            android:id="@+id/btnDisplay"
+            style="@style/TitleBarAction"
+            android:layout_toLeftOf="@+id/btnOne"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonDisplayClick"
+            android:padding="5dip"
+            android:paddingRight="2dp"
+            android:src="@drawable/line_chart" />
 
         <ImageButton
             android:id="@+id/btnOne"

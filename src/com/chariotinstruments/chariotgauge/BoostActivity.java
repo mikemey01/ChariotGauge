@@ -3,6 +3,7 @@ package com.chariotinstruments.chariotgauge;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -101,8 +102,12 @@ public class BoostActivity extends Activity implements Runnable {
         Object obj = PassObject.getObject();
         //Assign it to global mSerialService variable in this activity.
         mSerialService = (BluetoothSerialService) obj;
-        //Update the BluetoothSerialService instance's handler to this activities.
-        mSerialService.setHandler(mHandler);
+        
+        //Check if the serial service object is null - assign the handler.
+        if(mSerialService != null){
+            //Update the BluetoothSerialService instance's handler to this activities.
+            mSerialService.setHandler(mHandler);
+        }
 
         Thread thread = new Thread(BoostActivity.this);
         thread.start();
@@ -204,6 +209,14 @@ public class BoostActivity extends Activity implements Runnable {
         paused = true;
         workerHandler.getLooper().quit();
         super.onBackPressed();
+    }
+    
+    //chart/gauge display click handling
+    public void buttonDisplayClick(View v){
+        paused = true;
+        workerHandler.getLooper().quit();
+        PassObject.setObject(mSerialService);
+        startActivity(new Intent(getApplicationContext(), SingleChartActivity.class));
     }
 
 
