@@ -21,7 +21,7 @@ public class LineGraphBuilder {
     public LineGraphBuilder()
     {
         // Add single dataset to multiple dataset
-        mDataset.addSeries(dataset);
+        //mDataset.addSeries(dataset);
         
         // Setup multiRenderer environment.
         mRenderer.setZoomButtonsVisible(true);
@@ -56,9 +56,13 @@ public class LineGraphBuilder {
         this.mRenderer.setYAxisMax(yMax);
     }
     
-    public void addNewPoints(Point p)
+    public void addNewPoints(TimeSeries dataSet, Point p)
     {
-        dataset.add(p.getX(), p.getY());
+        dataSet.add(p.getX(), p.getY());
+    }
+    
+    public void addDataSet(TimeSeries dataSet){
+        mDataset.addSeries(dataSet);
     }
     
     public GraphicalView getView(Context context) 

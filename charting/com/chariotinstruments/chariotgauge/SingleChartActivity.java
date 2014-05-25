@@ -3,6 +3,7 @@ package com.chariotinstruments.chariotgauge;
 import java.util.Random;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
+import org.achartengine.model.TimeSeries;
 import org.achartengine.renderer.XYSeriesRenderer;
 import android.app.Activity;
 import android.graphics.Color;
@@ -22,7 +23,10 @@ public class SingleChartActivity extends Activity implements Runnable {
     private static GraphicalView mChartView;
     private static Thread thread;
     private LineGraphBuilder line = new LineGraphBuilder();
-    private XYSeriesRenderer xYPlot = new XYSeriesRenderer(); //This is the XYPlot itself.
+    private XYSeriesRenderer chartOne = new XYSeriesRenderer(); //chart one.
+    private XYSeriesRenderer chartVolts = new XYSeriesRenderer();
+    private TimeSeries dataSetOne = new TimeSeries("temp");
+    private TimeSeries dataSetVolts = new TimeSeries("volts");
     
     ImageButton  btnOne;
     ImageButton  btnTwo;
@@ -111,6 +115,7 @@ public class SingleChartActivity extends Activity implements Runnable {
                 //local variables
                 double pointX = 0.0f;
                 double pointY = 0.0f;
+                double pointYVolts = 0.0f;
                 
                 //Parse latest data.
                 parseInput((String)msg.obj);
@@ -120,14 +125,18 @@ public class SingleChartActivity extends Activity implements Runnable {
                 multiGaugeVolts.handleSensor(voltSValue);
                 pointX = (double)i;
                 pointY = (double)multiGauge.getCurrentGaugeValue();
+                pointYVolts = (double)multiGaugeVolts.getCurrentGaugeValue();
 
                 //Put latest data on chart.
-                Point p = new Point(pointX, pointY); //MockData.getDataFromReceiver(i); // We got new data!
+                Point p = new Point(pointX, pointY);
+                Point pVolts = new Point(pointX, pointYVolts);
                 line.setXAxisMin(i-30);
                 line.setXAxisMax(i+30);
                 
-                //Add the point to the graph.
-                line.addNewPoints(p); 
+                //Add the points to the graph.
+                line.addNewPoints(dataSetOne, p); 
+                line.addNewPoints(dataSetVolts, pVolts);
+                
                 if(!paused){
                     try {
                         mChartView.repaint();
@@ -158,22 +167,38 @@ public class SingleChartActivity extends Activity implements Runnable {
         }
     }
     
-    protected XYSeriesRenderer setupXYPlot(){
-        this.xYPlot.setColor(Color.GREEN);
-        this.xYPlot.setPointStyle(PointStyle.CIRCLE);
-        this.xYPlot.setFillPoints(true);
+    protected XYSeriesRenderer buildNewChart(XYSeriesRenderer chartIn, int chartColor){
+        chartIn.setColor(chartColor);
+        chartIn.setPointStyle(PointStyle.CIRCLE);
+        chartIn.setFillPoints(true);
         
-        return this.xYPlot;
+        return chartIn;
+    }
+    
+    protected TimeSeries buildNewTimeSeries(TimeSeries dataSetIn, String name){
+        dataSetIn.setTitle(name);
+        return dataSetIn;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         
+        //Setup series renderers.
+        chartOne = buildNewChart(chartOne, Color.GREEN);
+        chartVolts = buildNewChart(chartVolts, Color.RED);
+        
+        //Setup datasets.
+        dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
+        dataSetVolts = buildNewTimeSeries(dataSetVolts, "Volts");
+        
         //Setup line-graph view
         line.setYAxisMin(-100);
         line.setYAxisMax(100);
-        line.addSeries(setupXYPlot());
+        line.addDataSet(dataSetOne);
+        line.addDataSet(dataSetVolts);
+        line.addSeries(chartOne);
+        line.addSeries(chartVolts);
         mChartView = line.getView(this);
         
         //add it to the chart_layout layout
