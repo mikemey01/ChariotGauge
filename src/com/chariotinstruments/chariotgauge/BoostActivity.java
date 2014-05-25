@@ -25,7 +25,7 @@ public class BoostActivity extends Activity implements Runnable {
     ImageButton  btnOne;
     ImageButton  btnTwo;
     ImageButton  btnHome;
-    Typeface     typeFaceDigital;  
+    Typeface     typeFaceDigital;
     MultiGauges  multiGauge;
     MultiGauges  multiGaugeVolts;
     Context      context;
@@ -216,12 +216,14 @@ public class BoostActivity extends Activity implements Runnable {
         paused = true;
         workerHandler.getLooper().quit();
         PassObject.setObject(mSerialService);
-        startActivity(new Intent(getApplicationContext(), SingleChartActivity.class));
+        Intent chartIntent = new Intent(this, SingleChartActivity.class);
+        chartIntent.putExtra("chartType", CURRENT_TOKEN);
+        startActivity(chartIntent);
     }
 
 
     //Button one handling.
-    public void buttonOneClick(View v){   
+    public void buttonOneClick(View v){
         //Reset the max value.
         multiGauge.setSensorMaxValue(multiGauge.getMinValue());
         multiGaugeVolts.setSensorMaxValue(multiGaugeVolts.getMinValue());

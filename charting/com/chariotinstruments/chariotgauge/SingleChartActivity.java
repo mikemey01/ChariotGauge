@@ -42,9 +42,9 @@ public class SingleChartActivity extends Activity implements Runnable {
     int          i = 0;
     
     // Key names received from the BluetoothChatService Handler
-    public static final String TOAST       = "toast";
-    private static final int CURRENT_TOKEN = 1;
-    private static final int VOLT_TOKEN    = 0;
+    public static final String TOAST    = "toast";
+    private int CURRENT_TOKEN           = 1;
+    private static final int VOLT_TOKEN = 0;
     
     BluetoothSerialService mSerialService; 
     private static Handler workerHandler;
@@ -58,6 +58,10 @@ public class SingleChartActivity extends Activity implements Runnable {
         getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.chart_layout);
+        
+        //get which gauge started this chart.
+        Intent chartIntent = getIntent();
+        CURRENT_TOKEN = chartIntent.getIntExtra("chartType", CURRENT_TOKEN);
         
         //assign the top label buttons
         btnOne     = (ImageButton) findViewById(R.id.btnOne);
@@ -192,7 +196,24 @@ public class SingleChartActivity extends Activity implements Runnable {
         chartVolts = buildNewChart(chartVolts, Color.RED);
         
         //Setup datasets.
-        dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
+        switch(CURRENT_TOKEN){
+        case 1:
+            dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
+            break;
+        case 2:
+            dataSetOne = buildNewTimeSeries(dataSetOne, "WideBand");
+            break;
+        case 3:
+            dataSetOne = buildNewTimeSeries(dataSetOne, "Temperature");
+            break;
+        case 4:
+            dataSetOne = buildNewTimeSeries(dataSetOne, "Oil");
+            break;
+        default:
+            dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
+            break;
+        }
+        
         dataSetVolts = buildNewTimeSeries(dataSetVolts, "Volts");
         
         //Setup line-graph view
@@ -222,7 +243,28 @@ public class SingleChartActivity extends Activity implements Runnable {
         paused = true;
         workerHandler.getLooper().quit();
         PassObject.setObject(mSerialService);
-        startActivity(new Intent(getApplicationContext(), BoostActivity.class));
+        
+        //Setup which gauge this goes back to.
+        Intent gaugeIntent;
+        switch(CURRENT_TOKEN){
+        case 1:
+            gaugeIntent = new Intent(this, BoostActivity.class);
+            break;
+        case 2:
+            gaugeIntent = new Intent(this, WidebandActivity.class);
+            break;
+        case 3:
+            gaugeIntent = new Intent(this, TemperatureActivity.class);
+            break;
+        case 4:
+            gaugeIntent = new Intent(this, OilActivity.class);
+            break;
+        default:
+            gaugeIntent = new Intent(this, BoostActivity.class);
+            break;
+        }
+            
+        startActivity(gaugeIntent);
     }
     
     //Button one handling.

@@ -3,6 +3,7 @@ package com.chariotinstruments.chariotgauge;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -195,6 +196,16 @@ public class WidebandActivity extends Activity implements Runnable {
         paused = true;
         workerHandler.getLooper().quit();
         super.onBackPressed();
+    }
+    
+    //chart/gauge display click handling
+    public void buttonDisplayClick(View v){
+        paused = true;
+        workerHandler.getLooper().quit();
+        PassObject.setObject(mSerialService);
+        Intent chartIntent = new Intent(this, SingleChartActivity.class);
+        chartIntent.putExtra("chartType", CURRENT_TOKEN);
+        startActivity(chartIntent);
     }
 
     //Button one handling.
