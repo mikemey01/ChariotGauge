@@ -29,7 +29,7 @@
             android:onClick="buttonDisplayClick"
             android:padding="5dip"
             android:paddingRight="2dp"
-            android:src="@drawable/line_chart" />
+            android:src="@drawable/chart_icon" />
 
         <ImageButton
             android:id="@+id/btnOne"
