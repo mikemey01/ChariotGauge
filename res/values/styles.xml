@@ -67,6 +67,16 @@
         <item name="android:shadowColor">#000000</item>
         <item name="android:shadowRadius">2</item>
     </style>
+    
+    <style name="SubTitleBar">
+        <item name="android:id">@id/title_container</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/sub_title_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">#000000</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
 
     <style name="TitleBarVertical">
         <item name="android:id">@id/title_container_vertical</item>

@@ -50,6 +50,17 @@
             android:src="@drawable/chart_pause" />
     </RelativeLayout>
     
+     <RelativeLayout style="@style/SubTitleBar" >
+        
+        <TextView
+        android:id="@+id/txtViewSource1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="@string/test_text"
+        android:textSize="12sp" />
+        
+    </RelativeLayout>
+    
     <LinearLayout
     android:id="@+id/chart"
     android:layout_width="fill_parent"
