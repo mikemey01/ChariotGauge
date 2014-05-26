@@ -321,21 +321,22 @@ containing a value of this type.
         public static final int btn_bg_selected=0x7f020005;
         public static final int chart_icon=0x7f020006;
         public static final int chart_pause=0x7f020007;
-        public static final int custom_logo=0x7f020008;
-        public static final int custom_multi_logo=0x7f020009;
-        public static final int divider=0x7f02000a;
-        public static final int four_gauges=0x7f02000b;
-        public static final int gauge_icon=0x7f02000c;
-        public static final int line_chart=0x7f02000d;
-        public static final int logo=0x7f02000e;
-        public static final int oil_logo=0x7f02000f;
-        public static final int settings_logo=0x7f020010;
-        public static final int title_bar_gradient=0x7f020011;
-        public static final int title_button=0x7f020012;
-        public static final int title_gauge_max=0x7f020013;
-        public static final int title_gauge_reset=0x7f020014;
-        public static final int title_home_default=0x7f020015;
-        public static final int wideband_logo=0x7f020016;
+        public static final int chart_play=0x7f020008;
+        public static final int custom_logo=0x7f020009;
+        public static final int custom_multi_logo=0x7f02000a;
+        public static final int divider=0x7f02000b;
+        public static final int four_gauges=0x7f02000c;
+        public static final int gauge_icon=0x7f02000d;
+        public static final int line_chart=0x7f02000e;
+        public static final int logo=0x7f02000f;
+        public static final int oil_logo=0x7f020010;
+        public static final int settings_logo=0x7f020011;
+        public static final int title_bar_gradient=0x7f020012;
+        public static final int title_button=0x7f020013;
+        public static final int title_gauge_max=0x7f020014;
+        public static final int title_gauge_reset=0x7f020015;
+        public static final int title_home_default=0x7f020016;
+        public static final int wideband_logo=0x7f020017;
     }
     public static final class id {
         public static final int SCROLLER_ID=0x7f080024;

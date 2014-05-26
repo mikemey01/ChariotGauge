@@ -38,7 +38,7 @@
             android:onClick="buttonOneClick"
             android:padding="5dip"
             android:paddingRight="2dp"
-            android:src="@drawable/title_gauge_reset" />
+            android:src="@drawable/chart_play" />
 
         <ImageButton
             android:id="@+id/btnTwo"
