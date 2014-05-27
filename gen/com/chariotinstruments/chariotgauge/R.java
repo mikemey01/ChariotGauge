@@ -340,55 +340,64 @@ containing a value of this type.
         public static final int wideband_logo=0x7f020017;
     }
     public static final class id {
-        public static final int SCROLLER_ID=0x7f080025;
-        public static final int analogGauge=0x7f080017;
-        public static final int analogGauge2=0x7f08001b;
-        public static final int analogGauge3=0x7f08001e;
-        public static final int analogGauge4=0x7f08001f;
+        public static final int SCROLLER_ID=0x7f08002e;
+        public static final int analogGauge=0x7f080020;
+        public static final int analogGauge2=0x7f080024;
+        public static final int analogGauge3=0x7f080027;
+        public static final int analogGauge4=0x7f080028;
         public static final int blocks_now=0x7f08000a;
         public static final int blocks_ruler=0x7f080009;
-        public static final int boostBtn=0x7f08002c;
-        public static final int btnConnect=0x7f080022;
+        public static final int boostBtn=0x7f080035;
+        public static final int btnConnect=0x7f08002b;
         public static final int btnDisplay=0x7f08000c;
         public static final int btnOne=0x7f08000d;
-        public static final int btnPairedDevices=0x7f080024;
-        public static final int btnShowGauges=0x7f080023;
+        public static final int btnPairedDevices=0x7f08002d;
+        public static final int btnShowGauges=0x7f08002c;
         public static final int btnTwo=0x7f08000e;
-        public static final int button_scan=0x7f080015;
-        public static final int chart=0x7f080010;
-        public static final int connectBtn=0x7f080028;
-        public static final int customBtn=0x7f08002e;
-        public static final int db1_root=0x7f080027;
+        public static final int button_scan=0x7f08001e;
+        public static final int chart=0x7f080019;
+        public static final int connectBtn=0x7f080031;
+        public static final int customBtn=0x7f080037;
+        public static final int db1_root=0x7f080030;
         public static final int dialog_discard_confirm=0x7f080006;
         public static final int dialog_moderator=0x7f080007;
         public static final int dialog_wave=0x7f080008;
         public static final int footer_container=0x7f080002;
         public static final int homeButton=0x7f08000b;
-        public static final int line=0x7f08002a;
-        public static final int multiBtn1=0x7f08002f;
-        public static final int multiBtn2=0x7f080030;
-        public static final int new_devices=0x7f080014;
-        public static final int oilBtn=0x7f08002d;
-        public static final int paired_devices=0x7f080012;
-        public static final int settingsBtn=0x7f080029;
-        public static final int titleBarSeparator=0x7f08001c;
+        public static final int line=0x7f080033;
+        public static final int multiBtn1=0x7f080038;
+        public static final int multiBtn2=0x7f080039;
+        public static final int new_devices=0x7f08001d;
+        public static final int oilBtn=0x7f080036;
+        public static final int paired_devices=0x7f08001b;
+        public static final int settingsBtn=0x7f080032;
+        public static final int subTitleData1=0x7f080010;
+        public static final int subTitleData2=0x7f080012;
+        public static final int subTitleData3=0x7f080014;
+        public static final int subTitleData4=0x7f080016;
+        public static final int subTitleData5=0x7f080018;
+        public static final int subTitleLabel1=0x7f08000f;
+        public static final int subTitleLabel2=0x7f080011;
+        public static final int subTitleLabel3=0x7f080013;
+        public static final int subTitleLabel4=0x7f080015;
+        public static final int subTitleLabel5=0x7f080017;
+        public static final int titleBarSeparator=0x7f080025;
         public static final int title_container=0x7f080000;
         public static final int title_container_vertical=0x7f080001;
         public static final int title_logo=0x7f080003;
-        public static final int title_new_devices=0x7f080013;
-        public static final int title_paired_devices=0x7f080011;
+        public static final int title_new_devices=0x7f08001c;
+        public static final int title_paired_devices=0x7f08001a;
         public static final int title_text=0x7f080004;
         public static final int title_text_name=0x7f080005;
-        public static final int txtView=0x7f080026;
-        public static final int txtViewDigital=0x7f080018;
-        public static final int txtViewDigital2=0x7f08001d;
-        public static final int txtViewDigital3=0x7f080020;
-        public static final int txtViewDigital4=0x7f080021;
-        public static final int txtViewSource1=0x7f08000f;
-        public static final int txtViewVolts=0x7f08001a;
-        public static final int txtViewVoltsText=0x7f080019;
-        public static final int whats_new_txt=0x7f080016;
-        public static final int widebandBtn=0x7f08002b;
+        public static final int txtView=0x7f08002f;
+        public static final int txtViewDigital=0x7f080021;
+        public static final int txtViewDigital2=0x7f080026;
+        public static final int txtViewDigital3=0x7f080029;
+        public static final int txtViewDigital4=0x7f08002a;
+        public static final int txtViewVolts=0x7f080023;
+        public static final int txtViewVoltsText=0x7f080022;
+        public static final int whats_new_txt=0x7f08001f;
+        public static final int widebandBtn=0x7f080034;
     }
     public static final class layout {
         public static final int chart_layout=0x7f030000;
@@ -403,43 +412,47 @@ containing a value of this type.
         public static final int psensor_layout=0x7f030009;
     }
     public static final class string {
-        public static final int about_string=0x7f090010;
-        public static final int app_name=0x7f090001;
-        public static final int boost_title=0x7f090016;
-        public static final int button_scan=0x7f09000e;
-        public static final int connect_title=0x7f090013;
-        public static final int custom_multi_1=0x7f09001a;
-        public static final int custom_multi_2=0x7f09001b;
-        public static final int hello=0x7f090000;
-        public static final int home_string=0x7f090011;
+        public static final int about_string=0x7f090012;
+        public static final int app_name=0x7f090003;
+        public static final int boost_title=0x7f090018;
+        public static final int button_scan=0x7f090010;
+        public static final int connect_title=0x7f090015;
+        public static final int custom_multi_1=0x7f09001c;
+        public static final int custom_multi_2=0x7f09001d;
+        public static final int hello=0x7f090002;
+        public static final int home_string=0x7f090013;
         /**  Dashboard Strings 
          */
-        public static final int logo_string=0x7f09000f;
-        public static final int max_button=0x7f09001d;
-        public static final int none_found=0x7f09000b;
-        public static final int none_paired=0x7f09000a;
-        public static final int not_connected=0x7f090004;
-        public static final int oil_title=0x7f090017;
-        public static final int reset_button=0x7f09001c;
+        public static final int logo_string=0x7f090011;
+        public static final int max_button=0x7f09001f;
+        public static final int none_found=0x7f09000d;
+        public static final int none_paired=0x7f09000c;
+        public static final int not_connected=0x7f090006;
+        public static final int oil_title=0x7f090019;
+        public static final int reset_button=0x7f09001e;
         /**  DeviceListActivity 
          */
-        public static final int scanning=0x7f090008;
-        public static final int search_string=0x7f090012;
-        public static final int select_device=0x7f090009;
-        public static final int settings_title=0x7f090014;
-        public static final int temperature_title=0x7f090019;
-        public static final int test_text=0x7f090002;
-        public static final int title_connected_to=0x7f090006;
-        public static final int title_connecting=0x7f090005;
-        public static final int title_not_connected=0x7f090007;
-        public static final int title_other_devices=0x7f09000d;
-        public static final int title_paired_devices=0x7f09000c;
-        public static final int tps_title=0x7f090015;
-        public static final int volts=0x7f090003;
+        public static final int scanning=0x7f09000a;
+        public static final int search_string=0x7f090014;
+        public static final int select_device=0x7f09000b;
+        public static final int settings_title=0x7f090016;
+        public static final int sub_title_data=0x7f090001;
+        /**  sub title strings 
+         */
+        public static final int sub_title_label=0x7f090000;
+        public static final int temperature_title=0x7f09001b;
+        public static final int test_text=0x7f090004;
+        public static final int title_connected_to=0x7f090008;
+        public static final int title_connecting=0x7f090007;
+        public static final int title_not_connected=0x7f090009;
+        public static final int title_other_devices=0x7f09000f;
+        public static final int title_paired_devices=0x7f09000e;
+        public static final int tps_title=0x7f090017;
+        public static final int volts=0x7f090005;
         /**  Whats New String 
          */
-        public static final int whats_new=0x7f09001e;
-        public static final int wideband_title=0x7f090018;
+        public static final int whats_new=0x7f090020;
+        public static final int wideband_title=0x7f09001a;
     }
     public static final class style {
         public static final int DashboardButton=0x7f0a0003;

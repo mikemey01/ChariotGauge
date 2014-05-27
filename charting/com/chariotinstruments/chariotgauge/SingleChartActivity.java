@@ -13,10 +13,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
+import android.view.ViewManager;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SingleChartActivity extends Activity implements Runnable {
@@ -40,6 +42,18 @@ public class SingleChartActivity extends Activity implements Runnable {
     float        voltSValue;
     boolean      paused;
     int          i = 0;
+    
+    //Subtitle labels and data holders
+    TextView subTitleLabel1;
+    TextView subTitleLabel2;
+    TextView subTitleLabel3;
+    TextView subTitleLabel4;
+    TextView subTitleLabel5;
+    TextView subTitleData1;
+    TextView subTitleData2;
+    TextView subTitleData3;
+    TextView subTitleData4;
+    TextView subTitleData5;
     
     // Key names received from the BluetoothChatService Handler
     public static final String TOAST    = "toast";
@@ -67,6 +81,27 @@ public class SingleChartActivity extends Activity implements Runnable {
         btnOne     = (ImageButton) findViewById(R.id.btnOne);
         btnTwo     = (ImageButton) findViewById(R.id.btnTwo);
         btnDisplay = (ImageButton) findViewById(R.id.btnDisplay);
+        
+        //Assign the SubTitle labels and data holders
+        subTitleLabel1 = (TextView) findViewById(R.id.subTitleLabel1);
+        subTitleLabel2 = (TextView) findViewById(R.id.subTitleLabel2);
+        subTitleLabel3 = (TextView) findViewById(R.id.subTitleLabel3);
+        subTitleLabel4 = (TextView) findViewById(R.id.subTitleLabel4);
+        subTitleLabel5 = (TextView) findViewById(R.id.subTitleLabel5);
+        subTitleData1 = (TextView) findViewById(R.id.subTitleData1);
+        subTitleData2 = (TextView) findViewById(R.id.subTitleData2);
+        subTitleData3 = (TextView) findViewById(R.id.subTitleData3);
+        subTitleData4 = (TextView) findViewById(R.id.subTitleData4);
+        subTitleData5 = (TextView) findViewById(R.id.subTitleData5);
+        
+        //Remove unnecessary text views for single chart activity
+        ((ViewManager)subTitleLabel3.getParent()).removeView(subTitleLabel3);
+        ((ViewManager)subTitleLabel4.getParent()).removeView(subTitleLabel4);
+        ((ViewManager)subTitleLabel5.getParent()).removeView(subTitleLabel5);
+        ((ViewManager)subTitleData3.getParent()).removeView(subTitleData3);
+        ((ViewManager)subTitleData4.getParent()).removeView(subTitleData4);
+        ((ViewManager)subTitleData5.getParent()).removeView(subTitleData5);
+        
         
         //setup the gauge-calc instances
         multiGauge      = new MultiGauges(this);
@@ -195,28 +230,39 @@ public class SingleChartActivity extends Activity implements Runnable {
         chartOne = buildNewChart(chartOne, Color.GREEN);
         chartVolts = buildNewChart(chartVolts, Color.RED);
         
+        //Setup sub title colors
+        subTitleLabel1.setTextColor(Color.GREEN);
+        subTitleLabel2.setTextColor(Color.RED);
+        subTitleLabel2.setText("Volts:");
+        
+        
         //Setup datasets.
         //TODO: get prefs for labels
         switch(CURRENT_TOKEN){
         case 1:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
             line.setYLabel("Pressure (inHG/PSI)");
+            subTitleLabel1.setText("Boost:");
             break;
         case 2:
             dataSetOne = buildNewTimeSeries(dataSetOne, "WideBand");
             line.setYLabel("Wideband ");
+            subTitleLabel1.setText("Wideband:");
             break;
         case 3:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Temperature");
             line.setYLabel("Temperature ");
+            subTitleLabel1.setText("Temperature:");
             break;
         case 4:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Oil");
             line.setYLabel("Oil Pressure");
+            subTitleLabel1.setText("Oil Pressure:");
             break;
         default:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
             line.setYLabel("Pressure (inHG/PSI)");
+            subTitleLabel1.setText("Boost:");
             break;
         }
         
@@ -306,12 +352,6 @@ public class SingleChartActivity extends Activity implements Runnable {
         if(this.isFinishing()){
             PassObject.setObject(mSerialService);
         }
-    }
-    
-    protected int generateRandomData()
-    {
-        Random random = new Random();
-        return random.nextInt(40);
     }
 
 }

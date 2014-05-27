@@ -50,14 +50,97 @@
             android:src="@drawable/chart_pause" />
     </RelativeLayout>
     
-     <RelativeLayout style="@style/SubTitleBar" >
+    <!-- Sub title bar -->
+    <RelativeLayout style="@style/SubTitleBar" >
         
         <TextView
-        android:id="@+id/txtViewSource1"
-        android:layout_width="fill_parent"
+        android:id="@+id/subTitleLabel1"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:text="@string/test_text"
-        android:textSize="12sp" />
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData1"
+        android:layout_toRightOf="@+id/subTitleLabel1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:padding="2dip"
+        android:text="@string/sub_title_data"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleLabel2"
+        android:layout_toRightOf="@+id/subTitleData1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData2"
+        android:layout_toRightOf="@+id/subTitleLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_data"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleLabel3"
+        android:layout_toRightOf="@+id/subTitleData2"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData3"
+        android:layout_toRightOf="@+id/subTitleLabel3"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_data"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleLabel4"
+        android:layout_toRightOf="@+id/subTitleData3"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData4"
+        android:layout_toRightOf="@+id/subTitleLabel4"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_data"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleLabel5"
+        android:layout_toRightOf="@+id/subTitleData4"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData5"
+        android:layout_toRightOf="@+id/subTitleLabel5"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_data"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
         
     </RelativeLayout>
     
