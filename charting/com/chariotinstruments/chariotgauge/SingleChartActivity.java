@@ -183,8 +183,12 @@ public class SingleChartActivity extends Activity implements Runnable {
                 //Put latest data on chart.
                 Point p = new Point(pointX, pointY);
                 Point pVolts = new Point(pointX, pointYVolts);
-                line.setXAxisMin(i-30);
-                line.setXAxisMax(i+30);
+                
+                //Set the bounds for "real-time"
+                if(!paused){
+                    line.setXAxisMin(i-30);
+                    line.setXAxisMax(i+30);
+                }
                 
                 //Add the points to the graph.
                 line.addNewPoints(dataSetOne, p); 

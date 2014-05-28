@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <!-- Title bar -->
     <RelativeLayout style="@style/TitleBar" >
 
         <ImageButton
@@ -68,7 +69,7 @@
         android:layout_height="fill_parent"
         android:padding="2dip"
         android:text="@string/sub_title_data"
-        android:textSize="@dimen/text_size_small" />
+        android:textSize="@dimen/text_size_medium" />
         
         <TextView
         android:id="@+id/subTitleLabel2"
@@ -86,7 +87,7 @@
         android:layout_height="fill_parent"
         android:text="@string/sub_title_data"
         android:padding="2dip"
-        android:textSize="@dimen/text_size_small" />
+        android:textSize="@dimen/text_size_medium" />
         
         <TextView
         android:id="@+id/subTitleLabel3"
@@ -144,6 +145,7 @@
         
     </RelativeLayout>
     
+    <!-- Chart view -->
     <LinearLayout
     android:id="@+id/chart"
     android:layout_width="fill_parent"

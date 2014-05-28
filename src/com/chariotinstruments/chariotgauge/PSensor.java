@@ -232,11 +232,7 @@ public class PSensor extends Activity {
                     break;
                 case BluetoothSerialService.STATE_NONE:
                     btnConnect.setClickable(true);
-                    try {
-                        btnConnect.setText("Connect");
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
+                    btnConnect.setText("Connect");
                     break;
                 }
                 break;

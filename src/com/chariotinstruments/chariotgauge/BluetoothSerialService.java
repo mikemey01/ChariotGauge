@@ -127,7 +127,7 @@ public class BluetoothSerialService {
         }
 
         // Cancel any thread currently running a connection
-        if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
+        if (mConnectedThread != null) {mConnectedThread.interrupt(); mConnectedThread.cancel(); mConnectedThread = null;}
 
         // Start the thread to connect with the given device
         mConnectThread = new ConnectThread(device);
@@ -178,11 +178,13 @@ public class BluetoothSerialService {
         if (D) Log.d(TAG, "stop");
 
         if (mConnectThread != null) {
+            mConnectThread.interrupt();
             mConnectThread.cancel(); 
             mConnectThread = null;
         }
 
         if (mConnectedThread != null) {
+            mConnectedThread.interrupt();
             mConnectedThread.cancel(); 
             mConnectedThread = null;
         }
@@ -349,54 +351,48 @@ public class BluetoothSerialService {
 
             // Keep listening to the InputStream while connected
             while (true) {
-                //if(mState > 2){
-//                    try {
-                        int bytesAvailable = 0;
-                        try {
-                            bytesAvailable = mmInStream.available();
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            connectionLost();
-                            Log.d("bytesAvialable", "a thing", e);
-                            break;
-                        }                        
-                        if(bytesAvailable > 0){
-                            byte[] packetBytes = new byte[bytesAvailable];
+                if(Thread.interrupted()) return;
+                int bytesAvailable = 0;
+                try {
+                    bytesAvailable = mmInStream.available();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    connectionLost();
+                    Log.d("bytesAvialable", "a thing", e);
+                    break;
+                }                        
+                if(bytesAvailable > 0){
+                    byte[] packetBytes = new byte[bytesAvailable];
+                    try {
+                        mmInStream.read(packetBytes);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        connectionLost();
+                        e.printStackTrace();
+                        break;
+                    }
+                    for(int i=0;i<bytesAvailable;i++){
+                        byte b = packetBytes[i];
+                        if(b == delimiter){
+
+                            byte[] encodedBytes = new byte[readBufferPosition];
+                            System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
                             try {
-                                mmInStream.read(packetBytes);
-                            } catch (IOException e) {
+                                final String data = new String(encodedBytes, "US-ASCII");
+                            } catch (UnsupportedEncodingException e) {
                                 // TODO Auto-generated catch block
                                 connectionLost();
                                 e.printStackTrace();
-                                break;
                             }
-                            for(int i=0;i<bytesAvailable;i++){
-                                byte b = packetBytes[i];
-                                if(b == delimiter){
-    
-                                    byte[] encodedBytes = new byte[readBufferPosition];
-                                    System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
-                                    try {
-                                        final String data = new String(encodedBytes, "US-ASCII");
-                                    } catch (UnsupportedEncodingException e) {
-                                        // TODO Auto-generated catch block
-                                        connectionLost();
-                                        e.printStackTrace();
-                                    }
-                                    readBufferPosition = 0;
-                                    mHandler.obtainMessage(PSensor.MESSAGE_READ, encodedBytes.length, -1, buffer).sendToTarget();
-    
-                                }else{
-                                    buffer[readBufferPosition++] = b;
-                                }
-                            }
+                            readBufferPosition = 0;
+                            mHandler.obtainMessage(PSensor.MESSAGE_READ, encodedBytes.length, -1, buffer).sendToTarget();
+
+                        }else{
+                            buffer[readBufferPosition++] = b;
                         }
-//                    } catch (IOException e) {
-//                        if(D) Log.e(TAG, "disconnected", e);
-//                        connectionLost();
-//                        break;
-//                    }
-                //}
+                    }
+                }
+
             }
         }
 
