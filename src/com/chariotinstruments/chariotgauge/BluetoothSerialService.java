@@ -353,20 +353,18 @@ public class BluetoothSerialService {
             while (true) {
                 if(Thread.interrupted()) return;
                 int bytesAvailable = 0;
+                
                 try {
                     bytesAvailable = mmInStream.available();
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    connectionLost();
-                    Log.d("bytesAvialable", "a thing", e);
-                    break;
-                }                        
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                   
                 if(bytesAvailable > 0){
                     byte[] packetBytes = new byte[bytesAvailable];
                     try {
                         mmInStream.read(packetBytes);
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
                         connectionLost();
                         e.printStackTrace();
                         break;
@@ -374,16 +372,8 @@ public class BluetoothSerialService {
                     for(int i=0;i<bytesAvailable;i++){
                         byte b = packetBytes[i];
                         if(b == delimiter){
-
                             byte[] encodedBytes = new byte[readBufferPosition];
                             System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
-                            try {
-                                final String data = new String(encodedBytes, "US-ASCII");
-                            } catch (UnsupportedEncodingException e) {
-                                // TODO Auto-generated catch block
-                                connectionLost();
-                                e.printStackTrace();
-                            }
                             readBufferPosition = 0;
                             mHandler.obtainMessage(PSensor.MESSAGE_READ, encodedBytes.length, -1, buffer).sendToTarget();
 
