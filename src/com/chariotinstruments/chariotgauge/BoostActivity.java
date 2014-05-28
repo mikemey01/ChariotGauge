@@ -36,6 +36,7 @@ public class BoostActivity extends Activity implements Runnable {
     float        currentSValue;
     float        voltSValue;
     boolean      paused;
+    Thread       thread;
 
 
     //Prefs vars
@@ -109,7 +110,7 @@ public class BoostActivity extends Activity implements Runnable {
             mSerialService.setHandler(mHandler);
         }
 
-        Thread thread = new Thread(BoostActivity.this);
+        thread = new Thread(BoostActivity.this);
         thread.start();
 
         if(!showAnalog){
@@ -207,14 +208,14 @@ public class BoostActivity extends Activity implements Runnable {
     @Override
     public void onBackPressed(){
         paused = true;
-        workerHandler.getLooper().quit();
+        //workerHandler.getLooper().quit();
         super.onBackPressed();
     }
     
     //chart/gauge display click handling
     public void buttonDisplayClick(View v){
         paused = true;
-        workerHandler.getLooper().quit();
+        //workerHandler.getLooper().quit();
         PassObject.setObject(mSerialService);
         Intent chartIntent = new Intent(this, SingleChartActivity.class);
         chartIntent.putExtra("chartType", CURRENT_TOKEN);
@@ -256,7 +257,7 @@ public class BoostActivity extends Activity implements Runnable {
     @Override
     protected void onResume(){
         super.onResume();
-        Thread thread = new Thread(BoostActivity.this);
+        thread = new Thread(BoostActivity.this);
         thread.start();
         analogGauge.invalidate();
     }

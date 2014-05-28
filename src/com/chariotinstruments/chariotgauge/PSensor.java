@@ -86,8 +86,13 @@ public class PSensor extends Activity {
         btnCustom       = (Button)   findViewById(R.id.customBtn);
         btnMulti1       = (Button)   findViewById(R.id.multiBtn1);
         btnMulti2       = (Button)   findViewById(R.id.multiBtn2);
-        typeFaceBtn     = Typeface.createFromAsset(getAssets(), "fonts/CaviarDreams_Bold.ttf");
-        typeFaceTitle   = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");     
+        try {
+            typeFaceBtn     = Typeface.createFromAsset(getAssets(), "fonts/CaviarDreams_Bold.ttf");
+            typeFaceTitle   = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }     
 
         //Set the font of the title text
         titleText.setTypeface(typeFaceTitle);
@@ -199,11 +204,11 @@ public class PSensor extends Activity {
                 mSerialService.stop();
             }
             //mSerialService.start(); //--potential error, leaving for now.
-        }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTING){
-            if(mSerialService != null){
-                mSerialService.stop(); 
-            }
-            //mSerialService.start(); //--potential error, leaving for now.
+//        }else if(getConnectionState() == BluetoothSerialService.STATE_CONNECTING){
+//            if(mSerialService != null){
+//                mSerialService.stop(); 
+//            }
+//            //mSerialService.start(); //--potential error, leaving for now.
         }
     }
 
@@ -227,7 +232,11 @@ public class PSensor extends Activity {
                     break;
                 case BluetoothSerialService.STATE_NONE:
                     btnConnect.setClickable(true);
-                    btnConnect.setText("Connect");
+                    try {
+                        btnConnect.setText("Connect");
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
                     break;
                 }
                 break;

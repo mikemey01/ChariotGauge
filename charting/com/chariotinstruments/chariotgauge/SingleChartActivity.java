@@ -8,6 +8,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -38,6 +39,7 @@ public class SingleChartActivity extends Activity implements Runnable {
     String       currentMsg;
     MultiGauges  multiGauge;
     MultiGauges  multiGaugeVolts;
+    Typeface     typeFaceDigital;
     float        currentSValue;
     float        voltSValue;
     boolean      paused;
@@ -102,12 +104,20 @@ public class SingleChartActivity extends Activity implements Runnable {
         ((ViewManager)subTitleData4.getParent()).removeView(subTitleData4);
         ((ViewManager)subTitleData5.getParent()).removeView(subTitleData5);
         
+        //Setup font
+        typeFaceDigital = Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
+        subTitleData1.setTypeface(typeFaceDigital);
+        subTitleData2.setTypeface(typeFaceDigital);
+        
         
         //setup the gauge-calc instances
         multiGauge      = new MultiGauges(this);
         multiGaugeVolts = new MultiGauges(this);
         multiGauge.buildChart(CURRENT_TOKEN);
         multiGaugeVolts.buildChart(VOLT_TOKEN);
+        
+        subTitleData1.setText(Float.toString(multiGauge.getMinValue()));
+        subTitleData2.setText(Float.toString(multiGaugeVolts.getMinValue()));
         
         //Get the mSerialService object from the UI activity.
         Object obj = PassObject.getObject();
@@ -143,6 +153,7 @@ public class SingleChartActivity extends Activity implements Runnable {
                 currentMsg = readMessage;
                 Message workerMsg = workerHandler.obtainMessage(1, currentMsg);
                 workerMsg.sendToTarget();
+                setDigitalValues();
             }
         }
     };
@@ -191,6 +202,11 @@ public class SingleChartActivity extends Activity implements Runnable {
             }
         };
         Looper.loop();
+    }
+    
+    public void setDigitalValues(){
+        subTitleData1.setText(Float.toString(Math.abs(multiGauge.getCurrentGaugeValue())));
+        subTitleData2.setText(Float.toString(Math.abs(multiGaugeVolts.getCurrentGaugeValue())));
     }
     
     
@@ -286,14 +302,15 @@ public class SingleChartActivity extends Activity implements Runnable {
     @Override
     public void onBackPressed(){
         paused = true;
-        workerHandler.getLooper().quit();
+        //workerHandler.getLooper().quit();
+        thread.interrupt();
         super.onBackPressed();
     }
     
     //chart/gauge display click handling
     public void buttonDisplayClick(View v){
         paused = true;
-        workerHandler.getLooper().quit();
+        //workerHandler.getLooper().quit();
         PassObject.setObject(mSerialService);
         
         //Setup which gauge this goes back to.
@@ -321,10 +338,9 @@ public class SingleChartActivity extends Activity implements Runnable {
     
     //Button one handling.
     public void buttonOneClick(View v){   
-        //TODO: reset max value.
         paused = false;
         btnTwo.setBackgroundResource(Color.TRANSPARENT);
-        Toast.makeText(getApplicationContext(), "Max value reset.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Max value reset.", Toast.LENGTH_SHORT).show();
     }
 
     //Button two handling.
@@ -344,6 +360,10 @@ public class SingleChartActivity extends Activity implements Runnable {
         PassObject.setObject(mSerialService);
         onBackPressed();
         finish();
+    }
+    
+    public void onResume(){
+        super.onResume();
     }
     
     @Override

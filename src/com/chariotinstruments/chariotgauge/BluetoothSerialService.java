@@ -300,7 +300,9 @@ public class BluetoothSerialService {
 
         public void cancel() {
             try {
-                mmSocket.close();
+                synchronized(this){
+                    mmSocket.close();
+                }
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
             }
@@ -415,7 +417,9 @@ public class BluetoothSerialService {
 
         public void cancel() {
             try {
-                mmSocket.close();
+                synchronized(this){
+                    mmSocket.close();
+                }
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
                 setState(STATE_NONE);
