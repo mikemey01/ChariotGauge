@@ -1,10 +1,14 @@
 package com.chariotinstruments.chariotgauge;
 
-import java.util.Random;
+import java.text.DecimalFormat;
+
+import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
+import org.achartengine.model.SeriesSelection;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.renderer.XYSeriesRenderer;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewManager;
 import android.view.Window;
@@ -24,7 +29,7 @@ import android.widget.Toast;
 
 public class SingleChartActivity extends Activity implements Runnable {
 
-    private static GraphicalView mChartView;
+    private GraphicalView mChartView;
     private static Thread thread;
     private LineGraphBuilder line = new LineGraphBuilder();
     private XYSeriesRenderer chartOne = new XYSeriesRenderer(); //chart one.
@@ -44,6 +49,7 @@ public class SingleChartActivity extends Activity implements Runnable {
     float        voltSValue;
     boolean      paused;
     int          i = 0;
+    static DecimalFormat twoDForm;
     
     //Subtitle labels and data holders
     TextView subTitleLabel1;
@@ -104,20 +110,21 @@ public class SingleChartActivity extends Activity implements Runnable {
         ((ViewManager)subTitleData4.getParent()).removeView(subTitleData4);
         ((ViewManager)subTitleData5.getParent()).removeView(subTitleData5);
         
-        //Setup font
-        typeFaceDigital = Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
-        subTitleData1.setTypeface(typeFaceDigital);
-        subTitleData2.setTypeface(typeFaceDigital);
-        
-        
         //setup the gauge-calc instances
         multiGauge      = new MultiGauges(this);
         multiGaugeVolts = new MultiGauges(this);
         multiGauge.buildChart(CURRENT_TOKEN);
         multiGaugeVolts.buildChart(VOLT_TOKEN);
         
+        //Setup font
+        typeFaceDigital = Typeface.createFromAsset(getAssets(), "fonts/LetsGoDigital.ttf");
+        subTitleData1.setTypeface(typeFaceDigital);
+        subTitleData2.setTypeface(typeFaceDigital);
         subTitleData1.setText(Float.toString(multiGauge.getMinValue()));
         subTitleData2.setText(Float.toString(multiGaugeVolts.getMinValue()));
+        
+        //Use two decimals when rounding.
+        twoDForm = new DecimalFormat("#.##");
         
         //Get the mSerialService object from the UI activity.
         Object obj = PassObject.getObject();
@@ -129,6 +136,7 @@ public class SingleChartActivity extends Activity implements Runnable {
             //Update the BluetoothSerialService instance's handler to this activities.
             mSerialService.setHandler(mHandler);
         }
+            
         
         thread = new Thread(SingleChartActivity.this);
         thread.start();
@@ -173,7 +181,7 @@ public class SingleChartActivity extends Activity implements Runnable {
                 //Parse latest data.
                 parseInput((String)msg.obj);
                 
-                //Calc data 
+                //Calc data  
                 multiGauge.handleSensor(currentSValue);
                 multiGaugeVolts.handleSensor(voltSValue);
                 pointX = (double)i;
@@ -300,6 +308,49 @@ public class SingleChartActivity extends Activity implements Runnable {
         //add it to the chart_layout layout
         LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
         layout.addView(mChartView); 
+        
+        //Setup chart listeners for clicks
+        setupChartListeners();
+    }
+    
+    private void setupChartListeners(){
+        //mChartView = ChartFactory.getLineChartView(this, line.getMultiDataSet(), line.getMultiRenderer());
+        line.getMultiRenderer().setClickEnabled(true);
+        line.getMultiRenderer().setSelectableBuffer(100);
+        mChartView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(SingleChartActivity.this, "test", Toast.LENGTH_LONG).show();
+                //if(paused){
+                    SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
+                    double[] xy = mChartView.toRealPoint(0);
+                    if (seriesSelection == null) { 
+                        Toast.makeText(SingleChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(seriesSelection.getSeriesIndex()==0){
+                            subTitleData1.setText(Double.toString(round(seriesSelection.getValue())));
+                        }
+                        if(seriesSelection.getSeriesIndex()==1){
+                            subTitleData2.setText(Double.toString(round(seriesSelection.getValue())));
+                        }
+//                        Toast.makeText(
+//                                SingleChartActivity.this,
+//                                "Chart element in series index "
+//                                        + seriesSelection.getSeriesIndex()
+//                                        + " data point index "
+//                                        + seriesSelection.getPointIndex()
+//                                        + " was clicked"
+//                                        + " closest point value X="
+//                                        + seriesSelection.getXValue() + ", Y="
+//                                        + seriesSelection.getValue()
+//                                        + " clicked point value X="
+//                                        + (float) xy[0] + ", Y="
+//                                        + (float) xy[1], Toast.LENGTH_SHORT)
+//                                .show();
+                    }
+                //}
+            }
+        });
     }
     
     //Kills the looper before going back home
@@ -376,6 +427,16 @@ public class SingleChartActivity extends Activity implements Runnable {
         if(this.isFinishing()){
             PassObject.setObject(mSerialService);
         }
+    }
+    
+    public static double round(double unrounded){
+        double ret = 0.0;
+        try { 
+            ret = Double.valueOf(twoDForm.format(unrounded));
+        } catch (NumberFormatException e) {
+            Log.d("round",e.getMessage());
+        }
+        return ret;
     }
 
 }

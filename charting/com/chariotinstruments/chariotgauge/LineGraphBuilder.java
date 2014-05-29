@@ -70,4 +70,12 @@ public class LineGraphBuilder {
         return view;
     }
     
+    public XYMultipleSeriesDataset getMultiDataSet(){
+        return this.mDataset;
+    }
+    
+    public XYMultipleSeriesRenderer getMultiRenderer(){
+        return this.mRenderer;
+    }
+    
 }
