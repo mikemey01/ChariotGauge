@@ -320,35 +320,18 @@ public class SingleChartActivity extends Activity implements Runnable {
         mChartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(SingleChartActivity.this, "test", Toast.LENGTH_LONG).show();
-                //if(paused){
-                    SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                    double[] xy = mChartView.toRealPoint(0);
-                    if (seriesSelection == null) { 
-                        Toast.makeText(SingleChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
-                    }else{
-                        if(seriesSelection.getSeriesIndex()==0){
-                            subTitleData1.setText(Double.toString(round(seriesSelection.getValue())));
-                        }
-                        if(seriesSelection.getSeriesIndex()==1){
-                            subTitleData2.setText(Double.toString(round(seriesSelection.getValue())));
-                        }
-//                        Toast.makeText(
-//                                SingleChartActivity.this,
-//                                "Chart element in series index "
-//                                        + seriesSelection.getSeriesIndex()
-//                                        + " data point index "
-//                                        + seriesSelection.getPointIndex()
-//                                        + " was clicked"
-//                                        + " closest point value X="
-//                                        + seriesSelection.getXValue() + ", Y="
-//                                        + seriesSelection.getValue()
-//                                        + " clicked point value X="
-//                                        + (float) xy[0] + ", Y="
-//                                        + (float) xy[1], Toast.LENGTH_SHORT)
-//                                .show();
+                SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
+                double[] xy = mChartView.toRealPoint(0);
+                if (seriesSelection == null) { 
+                    Toast.makeText(SingleChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(seriesSelection.getSeriesIndex()==0){
+                        subTitleData1.setText(Double.toString(round(seriesSelection.getValue())));
                     }
-                //}
+                    if(seriesSelection.getSeriesIndex()==1){
+                        subTitleData2.setText(Double.toString(round(seriesSelection.getValue())));
+                    }
+                }
             }
         });
     }
