@@ -18,7 +18,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewManager;
 import android.view.Window;
@@ -54,7 +53,6 @@ public class DualChartActivity extends Activity implements Runnable {
     MultiGauges  multiGaugeVolts;
     Typeface     typeFaceDigital;
     float        currentSValue;
-    float        voltSValue;
     boolean      paused;
     int          i = 0;
     int          currentTokenOne = 1;
@@ -66,6 +64,7 @@ public class DualChartActivity extends Activity implements Runnable {
     float   wbSValue;
     float   tempSValue;
     float   oilSValue;
+    float   voltSValue;
     boolean isAbsolute;
     
     //Subtitle labels and data holders
@@ -81,9 +80,8 @@ public class DualChartActivity extends Activity implements Runnable {
     TextView subTitleData5;
     
     // Key names received from the BluetoothChatService Handler
-    public static final String TOAST    = "toast";
-    private int CURRENT_TOKEN           = 1;
-    private static final int VOLT_TOKEN = 0;
+    public static final String TOAST        = "toast";
+    private static final int VOLT_TOKEN     = 0;
     private static final int BOOST_TOKEN    = 1;
     private static final int WIDEBAND_TOKEN = 2;
     private static final int TEMP_TOKEN     = 3;
@@ -102,12 +100,12 @@ public class DualChartActivity extends Activity implements Runnable {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.chart_layout);
         
-        //Inititalize which gauges should be displayed
+        //Initialize which gauges should be displayed
         prefsInit();
         
         //get which gauge started this chart.
-        Intent chartIntent = getIntent();
-        CURRENT_TOKEN = chartIntent.getIntExtra("chartTypeOne", CURRENT_TOKEN);
+        //Intent chartIntent = getIntent();
+        //CURRENT_TOKEN = chartIntent.getIntExtra("chartTypeOne", CURRENT_TOKEN);
         
         //assign the top label buttons
         btnOne     = (ImageButton) findViewById(R.id.btnOne);
@@ -228,7 +226,6 @@ public class DualChartActivity extends Activity implements Runnable {
                 }
                 
                 //Add the points to the graph.
-                //TODO:add another dataset/series
                 line.addNewPoints(dataSetOne, p1); 
                 line.addNewPoints(dataSetTwo, p2);
                 line.addNewPoints(dataSetVolts, pVolts);
@@ -300,6 +297,7 @@ public class DualChartActivity extends Activity implements Runnable {
 
         try {
             //Get current tokens for this gauge activity, cast as float.
+            voltSValue  = Float.valueOf(tokens[VOLT_TOKEN].toString());
             boostSValue = Float.valueOf(tokens[BOOST_TOKEN].toString());
             wbSValue    = Float.valueOf(tokens[WIDEBAND_TOKEN].toString());
             tempSValue  = Float.valueOf(tokens[TEMP_TOKEN].toString());
@@ -425,26 +423,26 @@ public class DualChartActivity extends Activity implements Runnable {
         setupChartListeners();
     }
     
+    //Chart listeners for when paused and a point is clicked - update the sub title data fields
     private void setupChartListeners(){
-        //mChartView = ChartFactory.getLineChartView(this, line.getMultiDataSet(), line.getMultiRenderer());
         line.getMultiRenderer().setClickEnabled(true);
         line.getMultiRenderer().setSelectableBuffer(100);
         mChartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                double[] xy = mChartView.toRealPoint(0);
+                //double[] xy = mChartView.toRealPoint(0);
                 if (seriesSelection == null) { 
                     Toast.makeText(DualChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
                 }else{
                     if(seriesSelection.getSeriesIndex()==0){
-                        subTitleData1.setText(Double.toString(seriesSelection.getValue()));
+                        subTitleData1.setText(Double.toString(round(seriesSelection.getValue())));
                     }
                     if(seriesSelection.getSeriesIndex()==1){
-                        subTitleData2.setText(Double.toString(seriesSelection.getValue()));
+                        subTitleData2.setText(Double.toString(round(seriesSelection.getValue())));
                     }
                     if(seriesSelection.getSeriesIndex()==2){
-                        subTitleData3.setText(Double.toString(seriesSelection.getValue()));
+                        subTitleData3.setText(Double.toString(round(seriesSelection.getValue())));
                     }
                 }
             }
@@ -455,7 +453,7 @@ public class DualChartActivity extends Activity implements Runnable {
     @Override
     public void onBackPressed(){
         paused = true;
-        //workerHandler.getLooper().quit();
+        workerHandler.getLooper().quit();
         thread.interrupt();
         super.onBackPressed();
     }
@@ -463,7 +461,7 @@ public class DualChartActivity extends Activity implements Runnable {
     //chart/gauge display click handling
     public void buttonDisplayClick(View v){
         paused = true;
-        //workerHandler.getLooper().quit();
+        workerHandler.getLooper().quit();
         PassObject.setObject(mSerialService);
         
         //Go back to two gauge activity
@@ -509,15 +507,15 @@ public class DualChartActivity extends Activity implements Runnable {
         }
     }
     
-//    public static double round(double unrounded){
-//        double ret = 0.0;
-//        try { 
-//            ret = Double.valueOf(twoDForm.format(unrounded));
-//        } catch (NumberFormatException e) {
-//            Log.d("round",e.getMessage());
-//        }
-//        return ret;
-//    }
+    public static double round(double unrounded){
+        double ret = 0.0;
+        try { 
+            ret = Double.valueOf(twoDForm.format(unrounded));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
     
     public void prefsInit(){
         SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);

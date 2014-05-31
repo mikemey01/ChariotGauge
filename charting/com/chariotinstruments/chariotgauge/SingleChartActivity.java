@@ -321,7 +321,7 @@ public class SingleChartActivity extends Activity implements Runnable {
             @Override
             public void onClick(View v) {
                 SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                double[] xy = mChartView.toRealPoint(0);
+                //double[] xy = mChartView.toRealPoint(0);
                 if (seriesSelection == null) { 
                     Toast.makeText(SingleChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
                 }else{
@@ -340,7 +340,7 @@ public class SingleChartActivity extends Activity implements Runnable {
     @Override
     public void onBackPressed(){
         paused = true;
-        //workerHandler.getLooper().quit();
+        workerHandler.getLooper().quit();
         thread.interrupt();
         super.onBackPressed();
     }
@@ -348,7 +348,7 @@ public class SingleChartActivity extends Activity implements Runnable {
     //chart/gauge display click handling
     public void buttonDisplayClick(View v){
         paused = true;
-        //workerHandler.getLooper().quit();
+        workerHandler.getLooper().quit();
         PassObject.setObject(mSerialService);
         
         //Setup which gauge this goes back to.
@@ -385,7 +385,6 @@ public class SingleChartActivity extends Activity implements Runnable {
     public void buttonTwoClick(View v){
         if(!paused){
             paused = true;
-            //TODO: set graph to max value OR Pause
             btnTwo.setBackgroundResource(R.drawable.btn_bg_pressed);
         }else{
             paused = false;

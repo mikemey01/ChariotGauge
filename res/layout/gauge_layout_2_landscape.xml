@@ -25,6 +25,16 @@
             android:padding="5dip"
             android:paddingTop="2dp"
             android:src="@drawable/title_gauge_reset" />
+        
+        <ImageButton
+            android:id="@+id/btnDisplay"
+            style="@style/TitleBarActionVertical"
+            android:layout_below="@+id/btnOne"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonDisplayClick"
+            android:padding="5dip"
+            android:paddingRight="2dp"
+            android:src="@drawable/chart_icon" />
 
         <ImageView
             android:id="@+id/titleBarSeparator"

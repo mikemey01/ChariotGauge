@@ -105,7 +105,7 @@
         android:layout_height="fill_parent"
         android:text="@string/sub_title_data"
         android:padding="2dip"
-        android:textSize="@dimen/text_size_small" />
+        android:textSize="@dimen/text_size_medium" />
         
         <TextView
         android:id="@+id/subTitleLabel4"
@@ -123,7 +123,7 @@
         android:layout_height="fill_parent"
         android:text="@string/sub_title_data"
         android:padding="2dip"
-        android:textSize="@dimen/text_size_small" />
+        android:textSize="@dimen/text_size_medium" />
         
         <TextView
         android:id="@+id/subTitleLabel5"
@@ -141,7 +141,7 @@
         android:layout_height="fill_parent"
         android:text="@string/sub_title_data"
         android:padding="2dip"
-        android:textSize="@dimen/text_size_small" />
+        android:textSize="@dimen/text_size_medium" />
         
     </RelativeLayout>
     

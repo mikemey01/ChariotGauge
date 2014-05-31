@@ -271,9 +271,7 @@ public class TwoGaugeActivity extends Activity implements Runnable{
         paused = true;
         //workerHandler.getLooper().quit();
         PassObject.setObject(mSerialService);
-        Intent chartIntent = new Intent(this, SingleChartActivity.class);
-        chartIntent.putExtra("chartTypeOne", currentTokenOne);
-        chartIntent.putExtra("chartTypeTwo", currentTokenTwo);
+        Intent chartIntent = new Intent(this, DualChartActivity.class);
         startActivity(chartIntent);
     }
 
