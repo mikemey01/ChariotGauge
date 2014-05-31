@@ -316,12 +316,16 @@ public class QuadChartActivity extends Activity implements Runnable{
         chartVolts = buildNewChart(chartVolts, Color.RED);
         
         //Setup sub title colors
+        subTitleLabel1.setText("Boost");
+        subTitleLabel2.setText("Wideband");
+        subTitleLabel3.setText("Temp");
+        subTitleLabel4.setText("Oil");
+        subTitleLabel5.setText("Volts:");
         subTitleLabel1.setTextColor(Color.GREEN);
         subTitleLabel2.setTextColor(Color.WHITE);
         subTitleLabel3.setTextColor(Color.CYAN);
         subTitleLabel4.setTextColor(Color.YELLOW);
         subTitleLabel5.setTextColor(Color.RED);
-        subTitleLabel5.setText("Volts:");
         
         
         //Setup datasets.
@@ -445,6 +449,7 @@ public class QuadChartActivity extends Activity implements Runnable{
         }
     }
     
+    //Used for rounding the clicked data points from the activity.
     public static double round(double unrounded){
         double ret = 0.0;
         try { 

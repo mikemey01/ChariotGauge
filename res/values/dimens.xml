@@ -6,6 +6,6 @@
     <dimen name="text_size_medium">18sp</dimen>
     <dimen name="text_size_large">22sp</dimen>
     <dimen name="text_size_name">25dp</dimen>
-    <dimen name="sub_title_height">20sp</dimen>
+    <dimen name="sub_title_height">25sp</dimen>
 
 </resources>
