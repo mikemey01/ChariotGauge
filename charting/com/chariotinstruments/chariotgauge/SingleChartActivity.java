@@ -297,8 +297,8 @@ public class SingleChartActivity extends Activity implements Runnable {
         dataSetVolts = buildNewTimeSeries(dataSetVolts, "Volts");
         
         //Setup line-graph view
-        line.setYAxisMin(-100);
-        line.setYAxisMax(100);
+        //line.setYAxisMin(-100); --removed explicit setting of y-axis
+        //line.setYAxisMax(100);
         line.addDataSet(dataSetOne);
         line.addDataSet(dataSetVolts);
         line.addSeries(chartOne);

@@ -84,6 +84,9 @@
         <activity
             android:name=".DualChartActivity"
             android:noHistory="true" />
+        <activity
+            android:name=".QuadChartActivity"
+            android:noHistory="true" />
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.chariotinstruments.chariotgauge;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -281,6 +282,14 @@ public class FourGaugeActivity extends Activity implements Runnable{
         super.onBackPressed();
     }
 
+    //chart/gauge display click handling
+    public void buttonDisplayClick(View v){
+        paused = true;
+        //workerHandler.getLooper().quit();
+        PassObject.setObject(mSerialService);
+        Intent chartIntent = new Intent(this, QuadChartActivity.class);
+        startActivity(chartIntent);
+    }
 
     //Button one handling.
     public void buttonOneClick(View v){   
