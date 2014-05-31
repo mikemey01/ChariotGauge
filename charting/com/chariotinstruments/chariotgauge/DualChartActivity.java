@@ -334,12 +334,12 @@ public class DualChartActivity extends Activity implements Runnable {
         
         //Setup series renderers.
         chartOne = buildNewChart(chartOne, Color.GREEN);
-        chartTwo = buildNewChart(chartTwo, Color.BLUE);
+        chartTwo = buildNewChart(chartTwo, Color.WHITE);
         chartVolts = buildNewChart(chartVolts, Color.RED);
         
         //Setup sub title colors
         subTitleLabel1.setTextColor(Color.GREEN);
-        subTitleLabel2.setTextColor(Color.BLUE);
+        subTitleLabel2.setTextColor(Color.WHITE);
         subTitleLabel3.setTextColor(Color.RED);
         subTitleLabel3.setText("Volts:");
         
@@ -405,8 +405,8 @@ public class DualChartActivity extends Activity implements Runnable {
         dataSetVolts = buildNewTimeSeries(dataSetVolts, "Volts");
         
         //Setup line-graph view
-        line.setYAxisMin(-100);
-        line.setYAxisMax(100);
+        line.setYAxisMin(-50);
+        line.setYAxisMax(50);
         line.addDataSet(dataSetOne);
         line.addDataSet(dataSetTwo);
         line.addDataSet(dataSetVolts);
