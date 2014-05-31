@@ -27,6 +27,7 @@ public class MultiGauges extends View{
     //Preference vars
     String   pressureUnits; //Boost units.
     boolean  isKPA = false;
+    boolean  isBAR = false;
     String   unitType; //AFR or Lambda.
     String   fuelType; //Fuel type in use.
     float    wbLowVolts; //Low volts from the target table.
@@ -57,6 +58,7 @@ public class MultiGauges extends View{
     public static final double ATMOSPHERIC = 101.325;
     public static final double KPA_TO_INHG = 0.295299830714;
     public static final double PSI_TO_INHG = 2.03625437;
+    public static final double KPA_TO_BAR  = .01;
 
     //Wideband gauge parameters
     double  wbAFRRange;
@@ -133,12 +135,28 @@ public class MultiGauges extends View{
 
     public void handleBoostSensor(float sValue){
         double vOut;
-        double kpa=0;
-        double psi=0;
+        double kpa=0.0d;
+        double psi=0.0d;
+        double bar=0.0d;
 
         vOut = (sValue*5.00)/1024;
         kpa = ((vOut/5.00)+.04)/.004;
         psi = (kpa - ATMOSPHERIC) * KPA_TO_PSI;
+        bar = kpa * KPA_TO_BAR;
+        if(isBAR){
+            if(bar < minValue){ //set the lower bounds on the data.
+                currentGaugeValue = (float)minValue;
+            }else if (bar > maxValue){ //Set the upper bounds on the data
+                currentGaugeValue = (float)maxValue;
+            }else{ //if it is in-between the lower and upper bounds as it should be, display it.
+                bar = round(bar);
+                currentGaugeValue = (float)bar;
+
+                if(bar > sensorMaxValue && bar <= maxValue){
+                    sensorMaxValue = bar;
+                }
+            }
+        }
         if(isKPA){ //Gauge displayed in KPA
 
             if(kpa < minValue){ //set the lower bounds on the data.
@@ -287,6 +305,23 @@ public class MultiGauges extends View{
         case 1: //Boost
             currentToken=1; //set the value to the boost token.
             prefsBoostInit(); //get stored prefs for boost.
+            if(isBAR){
+                //Set up the gauge values and the values that are handled from the sensor for Barometric pressure
+                minValue = -1;
+                maxValue = 3;
+                sensorMinValue = minValue;
+                sensorMaxValue = minValue;
+
+                //Set up the Boost GaugeBuilder for KPA
+                analogGauge.setTotalNotches(4);
+                analogGauge.setIncrementPerLargeNotch(1);
+                analogGauge.setIncrementPerSmallNotch(1);
+                analogGauge.setScaleCenterValue(0);
+                analogGauge.setScaleMinValue(minValue);
+                analogGauge.setScaleMaxValue(maxValue);
+                analogGauge.setUnitTitle("Boost/Vac (BAR)");
+                analogGauge.setValue((float)minValue);
+            }
             if(isKPA){
                 //Set up the gauge values and the values that are handled from the sensor for KPA
                 minValue = 0;
@@ -301,7 +336,7 @@ public class MultiGauges extends View{
                 analogGauge.setScaleCenterValue(150);
                 analogGauge.setScaleMinValue(minValue);
                 analogGauge.setScaleMaxValue(maxValue);
-                analogGauge.setUnitTitle("Boost/Vac (KPA/inHG)");
+                analogGauge.setUnitTitle("Boost/Vac (KPA)");
                 analogGauge.setValue((float)minValue);
             }else{
                 //Set up the gauge values and the values that are handled from the sensor for PSI
@@ -543,6 +578,11 @@ public class MultiGauges extends View{
         pressureUnits = sp.getString("pressureUnits", "PSI");
         if(pressureUnits.equals("KPA")){
             isKPA = true;
+            isBAR = false;
+        }
+        if(pressureUnits.equals("BAR")){
+            isBAR = true;
+            isKPA = false;
         }
 
     }

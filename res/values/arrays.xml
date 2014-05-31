@@ -4,10 +4,12 @@
     <string-array name="pressureUnit">
         <item name="PSI">PSI</item>
         <item name="KPA">KPA</item>
+        <item name="BAR">BAR</item>
     </string-array>
     <string-array name="pressureUnitValues">
         <item name="PSI">PSI</item>
         <item name="KPA">KPA</item>
+        <item name="BAR">BAR</item>
     </string-array>
     <string-array name="tempUnit">
         <item name="celsius">Celsius</item>

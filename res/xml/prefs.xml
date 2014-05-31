@@ -44,7 +44,7 @@
             android:entryValues="@array/pressureUnitValues"
             android:key="pressureUnits"
             android:summary="Select which units to display"
-            android:title="Toggle PSI or KPA" />
+            android:title="Toggle PSI, KPA, or BAR" />
     </PreferenceScreen>
     <PreferenceScreen
         android:key="wideband_preferencescreen"
