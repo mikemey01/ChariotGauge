@@ -270,31 +270,31 @@ public class SingleChartActivity extends Activity implements Runnable {
         switch(CURRENT_TOKEN){
         case 1:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
-            line.setYLabel("Pressure (inHG/PSI)");
+            //line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel1.setText("Boost:");
             chartType = "Boost: ";
             break;
         case 2:
             dataSetOne = buildNewTimeSeries(dataSetOne, "WideBand");
-            line.setYLabel("Wideband ");
+            //line.setYLabel("Wideband ");
             subTitleLabel1.setText("Wideband:");
             chartType = "Wideband: ";
             break;
         case 3:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Temperature");
-            line.setYLabel("Temperature ");
+            //line.setYLabel("Temperature ");
             subTitleLabel1.setText("Temperature:");
             chartType = "Temperature: ";
             break;
         case 4:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Oil");
-            line.setYLabel("Oil Pressure");
+            //line.setYLabel("Oil Pressure");
             subTitleLabel1.setText("Oil Pressure:");
             chartType = "Oil: ";
             break;
         default:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
-            line.setYLabel("Pressure (inHG/PSI)");
+            //line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel1.setText("Boost:");
             chartType = "Boost: ";
             break;

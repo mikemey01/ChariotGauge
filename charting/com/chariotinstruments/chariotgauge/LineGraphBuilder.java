@@ -23,13 +23,13 @@ public class LineGraphBuilder {
         mRenderer.setZoomButtonsVisible(true);
         mRenderer.setXTitle("Time");
         mRenderer.setYTitle("Sensor Measurement");
-        mRenderer.setAxisTitleTextSize(20.0f);
+        mRenderer.setAxisTitleTextSize(15.0f);
         mRenderer.setChartTitleTextSize(20.0f);
         mRenderer.setDisplayValues(true);
         mRenderer.setPointSize(1.5f);
-        mRenderer.setLabelsTextSize(20.0f);
+        mRenderer.setLabelsTextSize(30.0f);
         mRenderer.setLegendTextSize(20.0f); 
-        mRenderer.setShowGrid(true);  
+        mRenderer.setShowGrid(true);
     }
     
     public void addSeries(XYSeriesRenderer xYPlot){

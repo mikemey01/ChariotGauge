@@ -44,10 +44,11 @@
     <string name="whats_new">        The Chariot Gauge controller is now for sale! \n\n
         Please visit: https://www.chariotgauge.com/ \n\n
         
-        NEW
-            -Fixed random error when disconnecting. \n
+        NEW \n
             -Added charting/datalogging. \n
             -Added BAR units to pressure gauges. \n
+            -Fixed random error when disconnecting. \n
+            -Fixed text fill on tablets. \n\n
         
         May-06-2014: \n
         	-Fixed data parse error. \n
