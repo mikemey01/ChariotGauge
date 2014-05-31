@@ -34,8 +34,10 @@ public class DualChartActivity extends Activity implements Runnable {
     private static Thread thread;
     private LineGraphBuilder line = new LineGraphBuilder();
     private XYSeriesRenderer chartOne = new XYSeriesRenderer(); //chart one.
+    private XYSeriesRenderer chartTwo = new XYSeriesRenderer();
     private XYSeriesRenderer chartVolts = new XYSeriesRenderer();
     private TimeSeries dataSetOne = new TimeSeries("temp");
+    private TimeSeries dataSetTwo = new TimeSeries("temp");
     private TimeSeries dataSetVolts = new TimeSeries("volts");
     
     //Prefs vars
@@ -228,6 +230,7 @@ public class DualChartActivity extends Activity implements Runnable {
                 //Add the points to the graph.
                 //TODO:add another dataset/series
                 line.addNewPoints(dataSetOne, p1); 
+                line.addNewPoints(dataSetTwo, p2);
                 line.addNewPoints(dataSetVolts, pVolts);
                 
                 if(!paused){
@@ -286,8 +289,9 @@ public class DualChartActivity extends Activity implements Runnable {
     }
     
     public void setDigitalValues(){
-        subTitleData1.setText(Float.toString(Math.abs(multiGauge.getCurrentGaugeValue())));
-        subTitleData2.setText(Float.toString(Math.abs(multiGaugeVolts.getCurrentGaugeValue())));
+        subTitleData1.setText(Float.toString(Math.abs(multiGauge1.getCurrentGaugeValue())));
+        subTitleData2.setText(Float.toString(Math.abs(multiGauge2.getCurrentGaugeValue())));
+        subTitleData3.setText(Float.toString(Math.abs(multiGaugeVolts.getCurrentGaugeValue())));
     }
     
     
@@ -332,41 +336,71 @@ public class DualChartActivity extends Activity implements Runnable {
         
         //Setup series renderers.
         chartOne = buildNewChart(chartOne, Color.GREEN);
+        chartTwo = buildNewChart(chartTwo, Color.BLUE);
         chartVolts = buildNewChart(chartVolts, Color.RED);
         
         //Setup sub title colors
         subTitleLabel1.setTextColor(Color.GREEN);
-        subTitleLabel2.setTextColor(Color.RED);
-        subTitleLabel2.setText("Volts:");
+        subTitleLabel2.setTextColor(Color.BLUE);
+        subTitleLabel3.setTextColor(Color.RED);
+        subTitleLabel3.setText("Volts:");
         
         
         //Setup datasets.
         //TODO: get prefs for labels
-        switch(CURRENT_TOKEN){
+        switch(currentTokenOne){
         case 1:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
-            line.setYLabel("Pressure (inHG/PSI)");
+            //line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel1.setText("Boost:");
             break;
         case 2:
             dataSetOne = buildNewTimeSeries(dataSetOne, "WideBand");
-            line.setYLabel("Wideband ");
+            //line.setYLabel("Wideband ");
             subTitleLabel1.setText("Wideband:");
             break;
         case 3:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Temperature");
-            line.setYLabel("Temperature ");
+            //line.setYLabel("Temperature ");
             subTitleLabel1.setText("Temperature:");
             break;
         case 4:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Oil");
-            line.setYLabel("Oil Pressure");
+            //line.setYLabel("Oil Pressure");
             subTitleLabel1.setText("Oil Pressure:");
             break;
         default:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
-            line.setYLabel("Pressure (inHG/PSI)");
+            //line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel1.setText("Boost:");
+            break;
+        }
+        
+        switch(currentTokenTwo){
+        case 1:
+            dataSetTwo = buildNewTimeSeries(dataSetTwo, "Boost");
+            //line.setYLabel("Pressure (inHG/PSI)");
+            subTitleLabel2.setText("Boost:");
+            break;
+        case 2:
+            dataSetTwo = buildNewTimeSeries(dataSetTwo, "WideBand");
+            //line.setYLabel("Wideband ");
+            subTitleLabel2.setText("Wideband:");
+            break;
+        case 3:
+            dataSetTwo = buildNewTimeSeries(dataSetTwo, "Temperature");
+            //line.setYLabel("Temperature ");
+            subTitleLabel2.setText("Temperature:");
+            break;
+        case 4:
+            dataSetTwo = buildNewTimeSeries(dataSetTwo, "Oil");
+            //line.setYLabel("Oil Pressure");
+            subTitleLabel2.setText("Oil Pressure:");
+            break;
+        default:
+            dataSetTwo = buildNewTimeSeries(dataSetTwo, "Boost");
+            //line.setYLabel("Pressure (inHG/PSI)");
+            subTitleLabel2.setText("Boost:");
             break;
         }
         
@@ -376,8 +410,10 @@ public class DualChartActivity extends Activity implements Runnable {
         line.setYAxisMin(-100);
         line.setYAxisMax(100);
         line.addDataSet(dataSetOne);
+        line.addDataSet(dataSetTwo);
         line.addDataSet(dataSetVolts);
         line.addSeries(chartOne);
+        line.addSeries(chartTwo);
         line.addSeries(chartVolts);
         mChartView = line.getView(this);
         
@@ -402,10 +438,13 @@ public class DualChartActivity extends Activity implements Runnable {
                     Toast.makeText(DualChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
                 }else{
                     if(seriesSelection.getSeriesIndex()==0){
-                        subTitleData1.setText(Double.toString(round(seriesSelection.getValue())));
+                        subTitleData1.setText(Double.toString(seriesSelection.getValue()));
                     }
                     if(seriesSelection.getSeriesIndex()==1){
-                        subTitleData2.setText(Double.toString(round(seriesSelection.getValue())));
+                        subTitleData2.setText(Double.toString(seriesSelection.getValue()));
+                    }
+                    if(seriesSelection.getSeriesIndex()==2){
+                        subTitleData3.setText(Double.toString(seriesSelection.getValue()));
                     }
                 }
             }
@@ -427,26 +466,9 @@ public class DualChartActivity extends Activity implements Runnable {
         //workerHandler.getLooper().quit();
         PassObject.setObject(mSerialService);
         
-        //Setup which gauge this goes back to.
+        //Go back to two gauge activity
         Intent gaugeIntent;
-        switch(CURRENT_TOKEN){
-        case 1:
-            gaugeIntent = new Intent(this, BoostActivity.class);
-            break;
-        case 2:
-            gaugeIntent = new Intent(this, WidebandActivity.class);
-            break;
-        case 3:
-            gaugeIntent = new Intent(this, TemperatureActivity.class);
-            break;
-        case 4:
-            gaugeIntent = new Intent(this, OilActivity.class);
-            break;
-        default:
-            gaugeIntent = new Intent(this, BoostActivity.class);
-            break;
-        }
-            
+        gaugeIntent = new Intent(this, TwoGaugeActivity.class);  
         startActivity(gaugeIntent);
     }
     
@@ -487,15 +509,15 @@ public class DualChartActivity extends Activity implements Runnable {
         }
     }
     
-    public static double round(double unrounded){
-        double ret = 0.0;
-        try { 
-            ret = Double.valueOf(twoDForm.format(unrounded));
-        } catch (NumberFormatException e) {
-            Log.d("round",e.getMessage());
-        }
-        return ret;
-    }
+//    public static double round(double unrounded){
+//        double ret = 0.0;
+//        try { 
+//            ret = Double.valueOf(twoDForm.format(unrounded));
+//        } catch (NumberFormatException e) {
+//            Log.d("round",e.getMessage());
+//        }
+//        return ret;
+//    }
     
     public void prefsInit(){
         SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);
