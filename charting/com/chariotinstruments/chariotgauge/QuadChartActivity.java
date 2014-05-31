@@ -362,29 +362,34 @@ public class QuadChartActivity extends Activity implements Runnable{
     //Chart listeners for when paused and a point is clicked - update the sub title data fields
     private void setupChartListeners(){
         line.getMultiRenderer().setClickEnabled(true);
-        line.getMultiRenderer().setSelectableBuffer(100);
+        line.getMultiRenderer().setSelectableBuffer(15);
         mChartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                //double[] xy = mChartView.toRealPoint(0);
                 if (seriesSelection == null) { 
-                    Toast.makeText(QuadChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
+
                 }else{
+                    String val = Double.toString(round(seriesSelection.getValue()));
                     if(seriesSelection.getSeriesIndex()==0){
                         subTitleData1.setText(Double.toString(round(seriesSelection.getValue())));
+                        Toast.makeText(QuadChartActivity.this, "Boost: "+val, Toast.LENGTH_SHORT).show();
                     }
                     if(seriesSelection.getSeriesIndex()==1){
                         subTitleData2.setText(Double.toString(round(seriesSelection.getValue())));
+                        Toast.makeText(QuadChartActivity.this, "Wideband: "+val, Toast.LENGTH_SHORT).show();
                     }
                     if(seriesSelection.getSeriesIndex()==2){
                         subTitleData3.setText(Double.toString(round(seriesSelection.getValue())));
+                        Toast.makeText(QuadChartActivity.this, "Temp: "+val, Toast.LENGTH_SHORT).show();
                     }
                     if(seriesSelection.getSeriesIndex()==3){
                         subTitleData4.setText(Double.toString(round(seriesSelection.getValue())));
+                        Toast.makeText(QuadChartActivity.this, "Oil: "+val, Toast.LENGTH_SHORT).show();
                     }
                     if(seriesSelection.getSeriesIndex()==4){
                         subTitleData5.setText(Double.toString(round(seriesSelection.getValue())));
+                        Toast.makeText(QuadChartActivity.this, "Volts: "+val, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

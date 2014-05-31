@@ -54,6 +54,8 @@ public class DualChartActivity extends Activity implements Runnable {
     Typeface     typeFaceDigital;
     float        currentSValue;
     boolean      paused;
+    String       chartTypeOne;
+    String       chartTypeTwo;
     int          i = 0;
     int          currentTokenOne = 1;
     int          currentTokenTwo = 2;
@@ -351,26 +353,31 @@ public class DualChartActivity extends Activity implements Runnable {
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
             //line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel1.setText("Boost:");
+            chartTypeOne = "Boost: ";
             break;
         case 2:
             dataSetOne = buildNewTimeSeries(dataSetOne, "WideBand");
             //line.setYLabel("Wideband ");
             subTitleLabel1.setText("Wideband:");
+            chartTypeOne = "Wideband: ";
             break;
         case 3:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Temperature");
             //line.setYLabel("Temperature ");
             subTitleLabel1.setText("Temperature:");
+            chartTypeOne = "Temp: ";
             break;
         case 4:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Oil");
             //line.setYLabel("Oil Pressure");
             subTitleLabel1.setText("Oil Pressure:");
+            chartTypeOne = "Oil: ";
             break;
         default:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
             //line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel1.setText("Boost:");
+            chartTypeOne = "Boost: ";
             break;
         }
         
@@ -379,26 +386,31 @@ public class DualChartActivity extends Activity implements Runnable {
             dataSetTwo = buildNewTimeSeries(dataSetTwo, "Boost");
             //line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel2.setText("Boost:");
+            chartTypeTwo = "Boost: ";
             break;
         case 2:
             dataSetTwo = buildNewTimeSeries(dataSetTwo, "WideBand");
             //line.setYLabel("Wideband ");
             subTitleLabel2.setText("Wideband:");
+            chartTypeTwo = "Wideband: ";
             break;
         case 3:
             dataSetTwo = buildNewTimeSeries(dataSetTwo, "Temperature");
             //line.setYLabel("Temperature ");
             subTitleLabel2.setText("Temperature:");
+            chartTypeTwo = "Temp: ";
             break;
         case 4:
             dataSetTwo = buildNewTimeSeries(dataSetTwo, "Oil");
             //line.setYLabel("Oil Pressure");
             subTitleLabel2.setText("Oil Pressure:");
+            chartTypeTwo = "Oil: ";
             break;
         default:
             dataSetTwo = buildNewTimeSeries(dataSetTwo, "Boost");
             //line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel2.setText("Boost:");
+            chartTypeTwo = "Boost: ";
             break;
         }
         
@@ -426,23 +438,23 @@ public class DualChartActivity extends Activity implements Runnable {
     //Chart listeners for when paused and a point is clicked - update the sub title data fields
     private void setupChartListeners(){
         line.getMultiRenderer().setClickEnabled(true);
-        line.getMultiRenderer().setSelectableBuffer(100);
+        line.getMultiRenderer().setSelectableBuffer(15);
         mChartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                //double[] xy = mChartView.toRealPoint(0);
                 if (seriesSelection == null) { 
-                    Toast.makeText(DualChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
+                    
                 }else{
+                    String val = Double.toString(round(seriesSelection.getValue()));
                     if(seriesSelection.getSeriesIndex()==0){
-                        subTitleData1.setText(Double.toString(round(seriesSelection.getValue())));
+                        Toast.makeText(DualChartActivity.this, chartTypeOne+val, Toast.LENGTH_SHORT).show();
                     }
                     if(seriesSelection.getSeriesIndex()==1){
-                        subTitleData2.setText(Double.toString(round(seriesSelection.getValue())));
+                        Toast.makeText(DualChartActivity.this, chartTypeTwo+val, Toast.LENGTH_SHORT).show();
                     }
                     if(seriesSelection.getSeriesIndex()==2){
-                        subTitleData3.setText(Double.toString(round(seriesSelection.getValue())));
+                        Toast.makeText(DualChartActivity.this, "Volts: "+val, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

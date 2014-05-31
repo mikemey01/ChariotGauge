@@ -22,7 +22,7 @@ public class LineGraphBuilder {
         // Setup multiRenderer environment.
         mRenderer.setZoomButtonsVisible(true);
         mRenderer.setXTitle("Time");
-        mRenderer.setYTitle("Y Label");
+        mRenderer.setYTitle("Sensor Measurement");
         mRenderer.setAxisTitleTextSize(20.0f);
         mRenderer.setChartTitleTextSize(20.0f);
         mRenderer.setDisplayValues(true);

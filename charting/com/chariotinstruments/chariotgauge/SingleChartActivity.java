@@ -48,6 +48,7 @@ public class SingleChartActivity extends Activity implements Runnable {
     float        currentSValue;
     float        voltSValue;
     boolean      paused;
+    String       chartType;
     int          i = 0;
     static DecimalFormat twoDForm;
     
@@ -271,26 +272,31 @@ public class SingleChartActivity extends Activity implements Runnable {
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
             line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel1.setText("Boost:");
+            chartType = "Boost: ";
             break;
         case 2:
             dataSetOne = buildNewTimeSeries(dataSetOne, "WideBand");
             line.setYLabel("Wideband ");
             subTitleLabel1.setText("Wideband:");
+            chartType = "Wideband: ";
             break;
         case 3:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Temperature");
             line.setYLabel("Temperature ");
             subTitleLabel1.setText("Temperature:");
+            chartType = "Temperature: ";
             break;
         case 4:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Oil");
             line.setYLabel("Oil Pressure");
             subTitleLabel1.setText("Oil Pressure:");
+            chartType = "Oil: ";
             break;
         default:
             dataSetOne = buildNewTimeSeries(dataSetOne, "Boost");
             line.setYLabel("Pressure (inHG/PSI)");
             subTitleLabel1.setText("Boost:");
+            chartType = "Boost: ";
             break;
         }
         
@@ -316,20 +322,22 @@ public class SingleChartActivity extends Activity implements Runnable {
     private void setupChartListeners(){
         //mChartView = ChartFactory.getLineChartView(this, line.getMultiDataSet(), line.getMultiRenderer());
         line.getMultiRenderer().setClickEnabled(true);
-        line.getMultiRenderer().setSelectableBuffer(100);
+        line.getMultiRenderer().setSelectableBuffer(15);
         mChartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                //double[] xy = mChartView.toRealPoint(0);
                 if (seriesSelection == null) { 
-                    Toast.makeText(SingleChartActivity.this, "Data point not touched.", Toast.LENGTH_SHORT).show();
+                
                 }else{
+                    String val = Double.toString(round(seriesSelection.getValue()));
                     if(seriesSelection.getSeriesIndex()==0){
-                        subTitleData1.setText(Double.toString(round(seriesSelection.getValue())));
+                        subTitleData1.setText(val);
+                        Toast.makeText(SingleChartActivity.this, chartType+val, Toast.LENGTH_SHORT).show();
                     }
                     if(seriesSelection.getSeriesIndex()==1){
-                        subTitleData2.setText(Double.toString(round(seriesSelection.getValue())));
+                        subTitleData2.setText(val);
+                        Toast.makeText(SingleChartActivity.this, "Volts: "+val, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -412,7 +420,7 @@ public class SingleChartActivity extends Activity implements Runnable {
     }
     
     public static double round(double unrounded){
-        double ret = 0.0;
+        double ret = 0.0d;
         try { 
             ret = Double.valueOf(twoDForm.format(unrounded));
         } catch (NumberFormatException e) {
