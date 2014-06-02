@@ -145,7 +145,7 @@ public class MultiGauges extends View{
         vOut = (sValue*5.00)/1024;
         kpa = ((vOut/5.00)+.04)/.004;
         psi = (kpa - ATMOSPHERIC) * KPA_TO_PSI;
-        bar = kpa * KPA_TO_BAR;
+        bar = (kpa - ATMOSPHERIC) * KPA_TO_BAR;
         if(isBAR){
             if(bar < minValue){ //set the lower bounds on the data.
                 currentGaugeValue = (float)minValue;
