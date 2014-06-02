@@ -28,6 +28,7 @@ public class MultiGauges extends View{
     String   pressureUnits; //Boost units.
     boolean  isKPA = false;
     boolean  isBAR = false;
+    boolean  isOilBAR = false;
     String   unitType; //AFR or Lambda.
     String   fuelType; //Fuel type in use.
     float    wbLowVolts; //Low volts from the target table.
@@ -58,6 +59,7 @@ public class MultiGauges extends View{
     public static final double ATMOSPHERIC = 101.325;
     public static final double KPA_TO_INHG = 0.295299830714;
     public static final double PSI_TO_INHG = 2.03625437;
+    public static final double PSI_TO_BAR  = .0689475729; 
     public static final double KPA_TO_BAR  = .01;
 
     //Wideband gauge parameters
@@ -133,6 +135,7 @@ public class MultiGauges extends View{
         }
     }
 
+    //TODO:should be handled the same way oil pressure is with different units.
     public void handleBoostSensor(float sValue){
         double vOut;
         double kpa=0.0d;
@@ -156,8 +159,7 @@ public class MultiGauges extends View{
                     sensorMaxValue = bar;
                 }
             }
-        }
-        if(isKPA){ //Gauge displayed in KPA
+        }else if(isKPA){ //Gauge displayed in KPA
 
             if(kpa < minValue){ //set the lower bounds on the data.
                 currentGaugeValue = (float)minValue;
@@ -266,7 +268,11 @@ public class MultiGauges extends View{
         }
         vPercentage = vOut / oilRangeVolts; //find the percentage of the range we're at
         oil = vPercentage * oilRangePSI; //apply same percentage to range of oil.
-
+        
+        if(isOilBAR){
+            oil = oil*PSI_TO_BAR;
+        }
+        
         if(oil < minValue){ //set the lower bounds on the data.
             currentGaugeValue = (float)minValue;
         }else if (oil > maxValue){ //set the upper bounds on the data.
@@ -313,16 +319,16 @@ public class MultiGauges extends View{
                 sensorMaxValue = minValue;
 
                 //Set up the Boost GaugeBuilder for KPA
-                analogGauge.setTotalNotches(4);
+                analogGauge.setTotalNotches(8);
                 analogGauge.setIncrementPerLargeNotch(1);
                 analogGauge.setIncrementPerSmallNotch(1);
-                analogGauge.setScaleCenterValue(0);
+                analogGauge.setScaleCenterValue(1);
                 analogGauge.setScaleMinValue(minValue);
                 analogGauge.setScaleMaxValue(maxValue);
                 analogGauge.setUnitTitle("Boost/Vac (BAR)");
                 analogGauge.setValue((float)minValue);
-            }
-            if(isKPA){
+                analogGauge.setAbsoluteNumbers(true);
+            }else if(isKPA){
                 //Set up the gauge values and the values that are handled from the sensor for KPA
                 minValue = 0;
                 maxValue = 250;
@@ -370,7 +376,6 @@ public class MultiGauges extends View{
                 maxValue = 2;
                 sensorMinValue = minValue;
                 sensorMaxValue = minValue;
-                //Set up the Boost GaugeBuilder
                 analogGauge.setTotalNotches(7);
                 analogGauge.setIncrementPerLargeNotch(1);
                 analogGauge.setIncrementPerSmallNotch(1);
@@ -487,19 +492,35 @@ public class MultiGauges extends View{
             oilSensorInit();
 
             //Set up the gauge values and the values that are handled from the sensor.
-            minValue = 0;
-            maxValue = 100;
-            sensorMinValue = 0;
-            sensorMaxValue = minValue;
+            if(isOilBAR){
+                minValue = 0;
+                maxValue = 10;
+                sensorMinValue = 0;
+                sensorMaxValue = minValue;
 
-            analogGauge.setTotalNotches(80);
-            analogGauge.setIncrementPerLargeNotch(10);
-            analogGauge.setIncrementPerSmallNotch(2);
-            analogGauge.setScaleCenterValue(50);
-            analogGauge.setScaleMinValue(minValue);
-            analogGauge.setScaleMaxValue(maxValue);
-            analogGauge.setUnitTitle("Oil Pressure(PSI)");
-            analogGauge.setValue(minValue);
+                analogGauge.setTotalNotches(12);
+                analogGauge.setIncrementPerLargeNotch(1);
+                analogGauge.setIncrementPerSmallNotch(1);
+                analogGauge.setScaleCenterValue(5);
+                analogGauge.setScaleMinValue(minValue);
+                analogGauge.setScaleMaxValue(maxValue);
+                analogGauge.setUnitTitle("Oil Pressure(BAR)");
+                analogGauge.setValue(minValue);
+            }else{
+                minValue = 0;
+                maxValue = 100;
+                sensorMinValue = 0;
+                sensorMaxValue = minValue;
+
+                analogGauge.setTotalNotches(80);
+                analogGauge.setIncrementPerLargeNotch(10);
+                analogGauge.setIncrementPerSmallNotch(2);
+                analogGauge.setScaleCenterValue(50);
+                analogGauge.setScaleMinValue(minValue);
+                analogGauge.setScaleMaxValue(maxValue);
+                analogGauge.setUnitTitle("Oil Pressure(PSI)");
+                analogGauge.setValue(minValue);
+            }
             break;
         default:
             break;
@@ -561,7 +582,6 @@ public class MultiGauges extends View{
     /* Initialize Preferences */
 
     public void prefsGaugeResolutionInit(){
-        /* -- removing gauge resolution settings.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         gaugeResolution = sp.getString("gaugeResolutions", "Tenths");
         if(gaugeResolution.toLowerCase().equals("hundredths")){
@@ -569,8 +589,6 @@ public class MultiGauges extends View{
         }else{ //Default to tenths if things go south.
             twoDForm = new DecimalFormat("#.#");
         }
-        */
-        twoDForm = new DecimalFormat("#.#");
     }
 
     public void prefsBoostInit(){
@@ -637,6 +655,11 @@ public class MultiGauges extends View{
             oilHighPSI = 80;
             oilHighOhms = 180;
             oilBiasResistor = 100;
+        }
+        
+        String pressureUnitsOil = sp.getString("pressureUnitsOil", "PSI");
+        if(pressureUnitsOil.equals("BAR")){
+            isOilBAR = true;
         }
     }
 

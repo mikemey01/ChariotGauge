@@ -11,6 +11,14 @@
         <item name="KPA">KPA</item>
         <item name="BAR">BAR</item>
     </string-array>
+    <string-array name="pressureUnitOil">
+        <item name="PSI">PSI</item>
+        <item name="BAR">BAR</item>
+    </string-array>
+    <string-array name="pressureUnitValuesOil">
+        <item name="PSI">PSI</item>
+        <item name="BAR">BAR</item>
+    </string-array>
     <string-array name="tempUnit">
         <item name="celsius">Celsius</item>
         <item name="fahrenheit">Fahrenheit</item>

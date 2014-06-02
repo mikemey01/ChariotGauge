@@ -48,6 +48,7 @@
             -Added charting/datalogging. \n
             -Added BAR units to pressure gauges. \n
             -Fixed random error when disconnecting. \n
+            -Fixed gauge resolution. \n
             -Fixed text fill on tablets. \n\n
         
         May-06-2014: \n

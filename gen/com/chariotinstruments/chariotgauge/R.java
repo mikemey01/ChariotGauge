@@ -9,20 +9,22 @@ package com.chariotinstruments.chariotgauge;
 
 public final class R {
     public static final class array {
-        public static final int gaugeResolution=0x7f050004;
-        public static final int gaugeResolutionValues=0x7f050005;
-        public static final int multiGaugeOne=0x7f05000a;
-        public static final int multiGaugeOneValues=0x7f05000b;
-        public static final int multiGaugeTwo=0x7f05000c;
-        public static final int multiGaugeTwoValues=0x7f05000d;
+        public static final int gaugeResolution=0x7f050006;
+        public static final int gaugeResolutionValues=0x7f050007;
+        public static final int multiGaugeOne=0x7f05000c;
+        public static final int multiGaugeOneValues=0x7f05000d;
+        public static final int multiGaugeTwo=0x7f05000e;
+        public static final int multiGaugeTwoValues=0x7f05000f;
         public static final int pressureUnit=0x7f050000;
+        public static final int pressureUnitOil=0x7f050002;
         public static final int pressureUnitValues=0x7f050001;
-        public static final int tempUnit=0x7f050002;
-        public static final int tempUnitValues=0x7f050003;
-        public static final int widebandFuelType=0x7f050008;
-        public static final int widebandFuelTypeValues=0x7f050009;
-        public static final int widebandUnit=0x7f050006;
-        public static final int widebandUnitValues=0x7f050007;
+        public static final int pressureUnitValuesOil=0x7f050003;
+        public static final int tempUnit=0x7f050004;
+        public static final int tempUnitValues=0x7f050005;
+        public static final int widebandFuelType=0x7f05000a;
+        public static final int widebandFuelTypeValues=0x7f05000b;
+        public static final int widebandUnit=0x7f050008;
+        public static final int widebandUnitValues=0x7f050009;
     }
     public static final class attr {
         /** <p>Must be an integer value, such as "<code>100</code>".

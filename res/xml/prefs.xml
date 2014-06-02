@@ -158,6 +158,14 @@
             android:persistent="true"
             android:summary="Oil Pressure Sensor bias resistor. DO NOT change if you have not modified the physical board"
             android:title="Bias Resistor" />
+        
+        <ListPreference
+            android:defaultValue="PSI"
+            android:entries="@array/pressureUnitOil"
+            android:entryValues="@array/pressureUnitValuesOil"
+            android:key="pressureUnitsOil"
+            android:summary="Select which units to display"
+            android:title="Toggle PSI, or BAR" />
     </PreferenceScreen>
     <PreferenceScreen
         android:key="temperature_preferencescreen"
