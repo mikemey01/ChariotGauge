@@ -340,7 +340,7 @@ public final class GaugeBuilder extends View {
         scalePaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
         scalePaint.setTextScaleX(0.6f);
         scalePaint.setTextAlign(Paint.Align.CENTER); 
-        scalePaint.setLinearText(true);
+        //scalePaint.setLinearText(true);
         
         //inner circle
         innerCircle = new Paint();
@@ -357,7 +357,7 @@ public final class GaugeBuilder extends View {
         redPaint.setTypeface(Typeface.create(scaleTF, Typeface.NORMAL));
         redPaint.setTextScaleX(0.6f);
         redPaint.setTextAlign(Paint.Align.CENTER); 
-        redPaint.setLinearText(true);
+        //redPaint.setLinearText(true);
 
         rangeAllPaint = new Paint();
         rangeAllPaint.setStyle(Paint.Style.STROKE);
@@ -382,7 +382,7 @@ public final class GaugeBuilder extends View {
         unitPaint.setTypeface(Typeface.create(unitTF, Typeface.NORMAL));
         unitPaint.setTextAlign(Paint.Align.CENTER);
         unitPaint.setTextSize(0.07f);
-        unitPaint.setTextScaleX(0.9f);
+        unitPaint.setTextScaleX(1.0f);
 
         upperTitlePaint = new Paint();
         upperTitlePaint.setColor(0xaf0c0c0c);
@@ -406,7 +406,7 @@ public final class GaugeBuilder extends View {
         handPaint.setColor(Color .rgb(254, 90, 30));         
         handPaint.setShadowLayer(0.01f, -0.005f, -0.005f, 0x7f000000);
         handPaint.setStyle(Paint.Style.FILL); 
-        handPaint.setLinearText(true);
+        //handPaint.setLinearText(true);
 
         //Where the needle would connect to the gauge.
         handScrewPaint = new Paint();
@@ -519,9 +519,13 @@ public final class GaugeBuilder extends View {
                     }
                     // Draw the text 0.15 away from y3 which is the long nick.
                     if(value == scaleCenterValue){
-                        canvas.drawText(valueString, 0.5f, y3 - 0.015f, redPaint);//scalePaint);
+                        //canvas.drawText(valueString, 0.5f, y3 - 0.015f, redPaint);//scalePaint);
+                        //This handles the 5.01 bug of not drawing text correctly on the scale.
+                        drawTextOnCanvasWithMagnifier(canvas, valueString, 0.5f, y3 - 0.015f, redPaint);
                     }else{
-                        canvas.drawText(valueString, 0.5f, y3 - 0.015f, scalePaint);
+                        //canvas.drawText(valueString, 0.5f, y3 - 0.015f, scalePaint);
+                        //This handles the 5.01 bug of not drawing text correctly on the scale.
+                        drawTextOnCanvasWithMagnifier(canvas, valueString, 0.5f, y3 - 0.015f, scalePaint);
                     }
                 }
             }
@@ -535,17 +539,52 @@ public final class GaugeBuilder extends View {
         }
         canvas.restore();
     }
-
-    private void drawTitle(Canvas canvas) {
-        // Use a vertical offset when printing the upper title. The upper and lower title
-        // use the same rectangular but the spacing  between the title and the ranges
-        // is not equal for the upper and lower title and therefore, the upper title is 
-        // moved downwards.
-        //canvas.drawTextOnPath(upperTitle, upperTitlePath, 0.0f, 0.02f, upperTitlePaint);                                
-        //canvas.drawTextOnPath(lowerTitle, lowerTitlePath, 0.0f, 0.0f,  lowerTitlePaint);                                
-        canvas.drawTextOnPath(unitTitle,  unitPath,       0.0f, 0.0f,  unitPaint);
-
+    
+    private static void drawTextOnCanvasWithMagnifier(Canvas canvas, String text, float x, float y, Paint paint) {
+        if (android.os.Build.VERSION.SDK_INT <= 15) {
+            //draw normally
+            canvas.drawText(text, x, y, paint);
+        }else {
+            //workaround
+            float originalTextSize = paint.getTextSize();
+            final float magnifier = 1000f;
+            canvas.save();
+            canvas.scale(1f / magnifier, 1f / magnifier);
+            paint.setTextSize(originalTextSize * magnifier);
+            canvas.drawText(text, x * magnifier, y * magnifier, paint);
+            canvas.restore();
+            paint.setTextSize(originalTextSize);
+        }
     }
+
+    private void drawTitle(Canvas canvas) {                               
+        /*new way - handles Lollipop crap*/
+        float originalTextSize = unitPaint.getTextSize();
+
+        // set a magnification factor
+        final float magnifier = 100f;
+
+        // Scale the canvas
+        canvas.save();
+        canvas.scale(1f / magnifier, 1f / magnifier);
+        
+        unitRect = new RectF();
+        unitRect.set((faceRect.left  + unitPosition) * magnifier, (faceRect.top    + unitPosition) * magnifier,
+                (faceRect.right - unitPosition) * magnifier, (faceRect.bottom - unitPosition) * magnifier);
+        
+        unitPath = new Path();
+        unitPath.addArc(unitRect, -180.0f, -180.0f);
+        
+        unitPaint.setTextSize(originalTextSize * magnifier);
+        
+        canvas.drawTextOnPath(unitTitle, unitPath, 0.0f, 0.0f, unitPaint); //original way.
+        
+        // bring everything back to normal
+        canvas.restore();
+        unitPaint.setTextSize(originalTextSize);
+        canvas.drawPath(unitPath, unitPaint);
+    }
+    
 
     private void drawHand(Canvas canvas) {
         if (dialInitialized) {

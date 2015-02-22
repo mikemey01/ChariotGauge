@@ -48,9 +48,12 @@ public class PSensor extends Activity {
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST       = "toast";
+    
+    //DEBUG
+    private boolean debug;
 
     //Global Variables.
-    TextView titleText;
+    TextView  titleText;
     Typeface  typeFaceBtn;
     Typeface  typeFaceTitle;
     Button    btnConnect;
@@ -92,7 +95,10 @@ public class PSensor extends Activity {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }     
+        }
+        
+        //Initialize debug
+        debug = true;
 
         //Set the font of the title text
         titleText.setTypeface(typeFaceTitle);
@@ -109,7 +115,9 @@ public class PSensor extends Activity {
         //Check if there is a BluetoothSerialService object being passed back. If true then don't run through initial setup.
         Object obj = PassObject.getObject();
         //Assign it to global mSerialService variable in this activity.
-        mSerialService = (BluetoothSerialService)obj;
+        if(!debug){
+            mSerialService = (BluetoothSerialService)obj;
+        }
 
         if(mSerialService != null){
             //Update the BluetoothSerialService instance's handler to this activities.
@@ -123,7 +131,9 @@ public class PSensor extends Activity {
         }else{
             //Looks like an initial launch - Call the method that sets up bluetooth on the device.
             btnConnect.setText("Connect");
-            setupBT();
+            if(!debug){
+                setupBT();
+            }
         }
     }
     
@@ -141,7 +151,9 @@ public class PSensor extends Activity {
 
     public void onResume(){
         super.onResume();
-        mSerialService.setHandler(mHandler);
+        if(!debug){
+            mSerialService.setHandler(mHandler);
+        }
     }
 
 
