@@ -44,6 +44,9 @@
     <string name="whats_new">        The Chariot Gauge controller is now for sale! \n\n
         Please visit: https://www.chariotgauge.com/ \n\n
         
+        Feb-21-2015: \n
+        	-Fixed gauge display for lollipop. \n\n
+        
         June-1-2014: \n
             -Added charting/datalogging. \n
             -Added BAR units to pressure gauges. \n

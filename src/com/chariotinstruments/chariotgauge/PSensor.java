@@ -98,7 +98,7 @@ public class PSensor extends Activity {
         }
         
         //Initialize debug
-        debug = true;
+        debug = false;
 
         //Set the font of the title text
         titleText.setTypeface(typeFaceTitle);
