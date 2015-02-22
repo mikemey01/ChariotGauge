@@ -126,6 +126,7 @@ public class PSensor extends Activity {
             setupBT();
         }
     }
+    
 
 
     public void onDestroy() {
