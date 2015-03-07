@@ -19,6 +19,7 @@ public final class R {
         public static final int pressureUnitOil=0x7f050002;
         public static final int pressureUnitValues=0x7f050001;
         public static final int pressureUnitValuesOil=0x7f050003;
+        public static final int rpmNumberCylinders=0x7f050010;
         public static final int tempUnit=0x7f050004;
         public static final int tempUnitValues=0x7f050005;
         public static final int widebandFuelType=0x7f05000a;

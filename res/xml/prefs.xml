@@ -35,9 +35,27 @@
             android:summary="Select the digital gauge resolution"
             android:title="Gauge Resolution" />
     </PreferenceScreen>
+    <PreferenceScreen 
+        android:key="rpm_preferencescreen"
+        android:title="RPM Settings" >
+        <ListPreference
+            android:defaultValue="4"
+            android:entries="@array/rpmNumberCylinders"
+            android:entryValues="@array/rpmNumberCylinders"
+            android:key="rpmNumberCylinders"
+            android:summary="Select your engine's number of cylinders"
+            android:title="Number of cylinders"/>
+        <EditTextPreference
+            android:defaultValue="9000"
+            android:inputType="numberDecimal"
+            android:key="rpmMaxValue"
+            android:persistent="true"
+            android:summary="Set the max RPM value for the gauge view"
+            android:title="RPM Max Value" />
+    </PreferenceScreen>
     <PreferenceScreen
         android:key="boost_preferencescreen"
-        android:title="Boost settings" >
+        android:title="Boost Settings" >
         <ListPreference
             android:defaultValue="PSI"
             android:entries="@array/pressureUnit"
@@ -48,7 +66,7 @@
     </PreferenceScreen>
     <PreferenceScreen
         android:key="wideband_preferencescreen"
-        android:title="Wideband settings" >
+        android:title="Wideband Settings" >
         <ListPreference
             android:defaultValue="AFR"
             android:entries="@array/widebandUnit"
@@ -108,7 +126,7 @@
     </PreferenceScreen>
     <PreferenceScreen
         android:key="oil_preferencescreen"
-        android:title="Oil settings" >
+        android:title="Oil Settings" >
         <PreferenceScreen
             android:key="oil_calibration_table"
             android:title="Oil Sensor Calibration" >
@@ -169,7 +187,7 @@
     </PreferenceScreen>
     <PreferenceScreen
         android:key="temperature_preferencescreen"
-        android:title="Temperature settings" >
+        android:title="Temperature Settings" >
         <ListPreference
             android:defaultValue="Celsius"
             android:entries="@array/tempUnit"

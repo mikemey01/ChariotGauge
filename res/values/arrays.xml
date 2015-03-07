@@ -83,5 +83,13 @@
         <item name="temp">Temperature</item>
         <item name="oil">Oil Pressure</item>
     </string-array>
+    <string-array name="rpmNumberCylinders">
+        <item name="4">4</item>
+        <item name="5">5</item>
+        <item name="6">6</item>
+        <item name="8">8</item>
+        <item name="10">10</item>
+        <item name="12">12</item>
+    </string-array>
 
 </resources>
