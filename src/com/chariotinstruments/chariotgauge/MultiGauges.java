@@ -526,6 +526,25 @@ public class MultiGauges extends View{
                 analogGauge.setValue(minValue);
             }
             break;
+        case 5: //RPM
+            currentToken = 5;
+            prefsRPMInit();
+            rpmSensorInit();
+            
+            minValue = 0;
+            maxValue = 9000;
+            sensorMinValue = 0;
+            sensorMaxValue = minValue;
+
+            analogGauge.setTotalNotches(10);
+            analogGauge.setIncrementPerLargeNotch(1000);
+            analogGauge.setIncrementPerSmallNotch(200);
+            analogGauge.setScaleCenterValue(5000);
+            analogGauge.setScaleMinValue(minValue);
+            analogGauge.setScaleMaxValue(maxValue);
+            analogGauge.setUnitTitle("RPM");
+            analogGauge.setValue(minValue);
+            
         default:
             break;
         }
