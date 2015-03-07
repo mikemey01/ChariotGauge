@@ -77,6 +77,10 @@ public class MultiGauges extends View{
     double a;
     double b;
     double c;
+    
+    //RPM gauge parameters
+    double rpmNumberCylinders;
+    double rpmMaxValue;
 
     public MultiGauges(Context context){
         super(context);
@@ -701,6 +705,23 @@ public class MultiGauges extends View{
             tempBiasResistor = 2000d;
         }
     }
+    
+    /*RPM prefs*/
+    private void prefsRPMInit(){
+        SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(context);
+        
+        String sRPMNumberCylinders = sp.getString("rpmNumberCylinders", "4");
+        String sRPMMaxValue        = sp.getString("rpmMaxValue", "9000");
+        
+        try{
+            rpmNumberCylinders = Float.parseFloat(sRPMNumberCylinders);
+            rpmMaxValue = Float.parseFloat(sRPMMaxValue);
+        } catch(NumberFormatException e){
+            rpmNumberCylinders = 4.0d;
+            rpmMaxValue = 9000.0d;
+        }
+    }
+    
     /*	Wideband Helper Functions */
     private void initStoich(String fuelType){ //Sets up stoich variable for lambda calc.
         if(fuelType.equals("Gasoline")){
@@ -781,5 +802,11 @@ public class MultiGauges extends View{
         ret = .029326*ADC; //scale input adc to voltage using 10k/2k voltage divider.
 
         return ret;
+    }
+    
+    /*RPM Helper functions */
+    
+    private void rpmSensorInit(){
+        
     }
 }
