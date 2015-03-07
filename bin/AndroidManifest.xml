@@ -87,6 +87,11 @@
         <activity
             android:name=".QuadChartActivity"
             android:noHistory="true" />
+        <activity
+            android:name=".RPMActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.D1"/>
     </application>
 
 </manifest>

@@ -544,7 +544,7 @@ public class MultiGauges extends View{
             analogGauge.setScaleMaxValue(maxValue);
             analogGauge.setUnitTitle("RPM");
             analogGauge.setValue(minValue);
-            
+            break;
         default:
             break;
         }

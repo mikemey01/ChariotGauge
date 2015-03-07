@@ -37,6 +37,7 @@
     <string name="temperature_title">Temperature</string>
     <string name="custom_multi_1">Dual Gauge</string>
     <string name="custom_multi_2">Quad Gauge</string>
+    <string name="rpm_title">RPM Gauge</string>
     <string name="reset_button">Reset Max</string>
     <string name="max_button">Display Max</string>
 

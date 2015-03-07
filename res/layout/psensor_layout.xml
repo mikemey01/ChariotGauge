@@ -68,6 +68,13 @@
                 android:drawableTop="@drawable/boost_logo"
                 android:onClick="onClickActivity"
                 android:text="@string/boost_title" />
+            
+            <Button
+                android:id="@+id/rpmBtn"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/boost_logo"
+                android:onClick="onClickActivity"
+                android:text="@string/rpm_title" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,6 +117,7 @@
                 android:drawableTop="@drawable/four_gauges"
                 android:onClick="onClickActivity"
                 android:text="@string/custom_multi_2" />
+            
         </LinearLayout>
     </LinearLayout>
 

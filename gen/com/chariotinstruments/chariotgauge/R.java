@@ -360,7 +360,7 @@ containing a value of this type.
         public static final int button_scan=0x7f08001e;
         public static final int chart=0x7f080019;
         public static final int connectBtn=0x7f080031;
-        public static final int customBtn=0x7f080037;
+        public static final int customBtn=0x7f080038;
         public static final int db1_root=0x7f080030;
         public static final int dialog_discard_confirm=0x7f080006;
         public static final int dialog_moderator=0x7f080007;
@@ -368,11 +368,12 @@ containing a value of this type.
         public static final int footer_container=0x7f080002;
         public static final int homeButton=0x7f08000b;
         public static final int line=0x7f080033;
-        public static final int multiBtn1=0x7f080038;
-        public static final int multiBtn2=0x7f080039;
+        public static final int multiBtn1=0x7f080039;
+        public static final int multiBtn2=0x7f08003a;
         public static final int new_devices=0x7f08001d;
-        public static final int oilBtn=0x7f080036;
+        public static final int oilBtn=0x7f080037;
         public static final int paired_devices=0x7f08001b;
+        public static final int rpmBtn=0x7f080036;
         public static final int settingsBtn=0x7f080032;
         public static final int subTitleData1=0x7f080010;
         public static final int subTitleData2=0x7f080012;
@@ -427,12 +428,13 @@ containing a value of this type.
         /**  Dashboard Strings 
          */
         public static final int logo_string=0x7f090011;
-        public static final int max_button=0x7f09001f;
+        public static final int max_button=0x7f090020;
         public static final int none_found=0x7f09000d;
         public static final int none_paired=0x7f09000c;
         public static final int not_connected=0x7f090006;
         public static final int oil_title=0x7f090019;
-        public static final int reset_button=0x7f09001e;
+        public static final int reset_button=0x7f09001f;
+        public static final int rpm_title=0x7f09001e;
         /**  DeviceListActivity 
          */
         public static final int scanning=0x7f09000a;
@@ -454,7 +456,7 @@ containing a value of this type.
         public static final int volts=0x7f090005;
         /**  Whats New String 
          */
-        public static final int whats_new=0x7f090020;
+        public static final int whats_new=0x7f090021;
         public static final int wideband_title=0x7f09001a;
     }
     public static final class style {
