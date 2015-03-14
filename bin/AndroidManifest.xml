@@ -92,6 +92,16 @@
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.D1"/>
+        <activity
+            android:name=".SpeedActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.D1"/>
+        <activity
+            android:name=".VoltageActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.D1"/>
     </application>
 
 </manifest>

@@ -65,6 +65,8 @@ public class PSensor extends Activity {
     Button    btnMulti1;
     Button    btnMulti2;
     Button    btnRPM;
+    Button    btnSpeed;
+    Button    btnVolts;
 
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private BluetoothSerialService mSerialService = null;
@@ -91,6 +93,9 @@ public class PSensor extends Activity {
         btnMulti1       = (Button)   findViewById(R.id.multiBtn1);
         btnMulti2       = (Button)   findViewById(R.id.multiBtn2);
         btnRPM          = (Button)   findViewById(R.id.rpmBtn);
+        btnSpeed        = (Button)   findViewById(R.id.speedBtn);
+        btnVolts        = (Button)   findViewById(R.id.voltBtn);
+        
         try {
             typeFaceBtn     = Typeface.createFromAsset(getAssets(), "fonts/CaviarDreams_Bold.ttf");
             typeFaceTitle   = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Bold.ttf");
@@ -113,6 +118,8 @@ public class PSensor extends Activity {
         btnMulti1.setTypeface(typeFaceBtn);
         btnMulti2.setTypeface(typeFaceBtn);
         btnRPM.setTypeface(typeFaceBtn);
+        btnSpeed.setTypeface(typeFaceBtn);
+        btnVolts.setTypeface(typeFaceBtn);
 
 
         //Check if there is a BluetoothSerialService object being passed back. If true then don't run through initial setup.
@@ -349,6 +356,14 @@ public class PSensor extends Activity {
         case R.id.oilBtn:
             PassObject.setObject(mSerialService);
             startActivity(new Intent(getApplicationContext(), OilActivity.class));
+            break;
+        case R.id.speedBtn:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), SpeedActivity.class));
+            break;
+        case R.id.voltBtn:
+            PassObject.setObject(mSerialService);
+            startActivity(new Intent(getApplicationContext(), VoltageActivity.class));
             break;
         case R.id.multiBtn1:
             PassObject.setObject(mSerialService);

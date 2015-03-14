@@ -375,7 +375,7 @@ containing a value of this type.
         public static final int paired_devices=0x7f08001b;
         public static final int rpmBtn=0x7f080036;
         public static final int settingsBtn=0x7f080032;
-        public static final int speedButton=0x7f080039;
+        public static final int speedBtn=0x7f080039;
         public static final int subTitleData1=0x7f080010;
         public static final int subTitleData2=0x7f080012;
         public static final int subTitleData3=0x7f080014;
