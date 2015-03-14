@@ -96,6 +96,13 @@
                 android:drawableTop="@drawable/custom_logo"
                 android:onClick="onClickActivity"
                 android:text="@string/temperature_title" />
+            
+            <Button
+                android:id="@+id/speedButton"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/custom_logo"
+                android:onClick="onClickActivity"
+                android:text="@string/speed_title" />
         </LinearLayout>
 
         <LinearLayout
@@ -117,6 +124,13 @@
                 android:drawableTop="@drawable/four_gauges"
                 android:onClick="onClickActivity"
                 android:text="@string/custom_multi_2" />
+            
+            <Button
+                android:id="@+id/voltBtn"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/custom_logo"
+                android:onClick="onClickActivity"
+                android:text="@string/volt_title" />
             
         </LinearLayout>
     </LinearLayout>

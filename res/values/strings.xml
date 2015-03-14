@@ -40,6 +40,8 @@
     <string name="rpm_title">RPM Gauge</string>
     <string name="reset_button">Reset Max</string>
     <string name="max_button">Display Max</string>
+    <string name="speed_title">Speedometer</string>
+    <string name="volt_title">Voltage</string>
 
     <!-- Whats New String -->
     <string name="whats_new">        The Chariot Gauge controller is now for sale! \n\n

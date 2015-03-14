@@ -368,13 +368,14 @@ containing a value of this type.
         public static final int footer_container=0x7f080002;
         public static final int homeButton=0x7f08000b;
         public static final int line=0x7f080033;
-        public static final int multiBtn1=0x7f080039;
-        public static final int multiBtn2=0x7f08003a;
+        public static final int multiBtn1=0x7f08003a;
+        public static final int multiBtn2=0x7f08003b;
         public static final int new_devices=0x7f08001d;
         public static final int oilBtn=0x7f080037;
         public static final int paired_devices=0x7f08001b;
         public static final int rpmBtn=0x7f080036;
         public static final int settingsBtn=0x7f080032;
+        public static final int speedButton=0x7f080039;
         public static final int subTitleData1=0x7f080010;
         public static final int subTitleData2=0x7f080012;
         public static final int subTitleData3=0x7f080014;
@@ -400,6 +401,7 @@ containing a value of this type.
         public static final int txtViewDigital4=0x7f08002a;
         public static final int txtViewVolts=0x7f080023;
         public static final int txtViewVoltsText=0x7f080022;
+        public static final int voltBtn=0x7f08003c;
         public static final int whats_new_txt=0x7f08001f;
         public static final int widebandBtn=0x7f080034;
     }
@@ -441,6 +443,7 @@ containing a value of this type.
         public static final int search_string=0x7f090014;
         public static final int select_device=0x7f09000b;
         public static final int settings_title=0x7f090016;
+        public static final int speed_title=0x7f090021;
         public static final int sub_title_data=0x7f090001;
         /**  sub title strings 
          */
@@ -453,10 +456,11 @@ containing a value of this type.
         public static final int title_other_devices=0x7f09000f;
         public static final int title_paired_devices=0x7f09000e;
         public static final int tps_title=0x7f090017;
+        public static final int volt_title=0x7f090022;
         public static final int volts=0x7f090005;
         /**  Whats New String 
          */
-        public static final int whats_new=0x7f090021;
+        public static final int whats_new=0x7f090023;
         public static final int wideband_title=0x7f09001a;
     }
     public static final class style {
