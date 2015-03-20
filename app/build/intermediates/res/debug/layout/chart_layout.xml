@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <!-- Title bar -->
+    <RelativeLayout style="@style/TitleBar" >
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            style="@style/TitleBarAction"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/home_string"
+            android:onClick="goHome"
+            android:padding="5dip"
+            android:src="@drawable/title_home_default" />
+
+        <ImageView
+            style="@style/TitleBarSeparator"
+            android:layout_toRightOf="@+id/homeButton"
+            android:paddingLeft="2dp" />
+        
+        <ImageButton
+            android:id="@+id/btnDisplay"
+            style="@style/TitleBarAction"
+            android:layout_toLeftOf="@+id/btnOne"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonDisplayClick"
+            android:padding="5dip"
+            android:paddingRight="2dp"
+            android:src="@drawable/gauge_icon" />
+
+        <ImageButton
+            android:id="@+id/btnOne"
+            style="@style/TitleBarAction"
+            android:layout_toLeftOf="@+id/btnTwo"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonOneClick"
+            android:padding="5dip"
+            android:paddingRight="2dp"
+            android:src="@drawable/chart_play" />
+
+        <ImageButton
+            android:id="@+id/btnTwo"
+            style="@style/TitleBarAction"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonTwoClick"
+            android:padding="5dip"
+            android:src="@drawable/chart_pause" />
+    </RelativeLayout>
+    
+    <!-- Sub title bar -->
+    <RelativeLayout style="@style/SubTitleBar" >
+        
+        <TextView
+        android:id="@+id/subTitleLabel1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData1"
+        android:layout_toRightOf="@+id/subTitleLabel1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:padding="2dip"
+        android:text="@string/sub_title_data"
+        android:textSize="@dimen/text_size_medium" />
+        
+        <TextView
+        android:id="@+id/subTitleLabel2"
+        android:layout_toRightOf="@+id/subTitleData1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData2"
+        android:layout_toRightOf="@+id/subTitleLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_data"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_medium" />
+        
+        <TextView
+        android:id="@+id/subTitleLabel3"
+        android:layout_toRightOf="@+id/subTitleData2"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData3"
+        android:layout_toRightOf="@+id/subTitleLabel3"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_data"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_medium" />
+        
+        <TextView
+        android:id="@+id/subTitleLabel4"
+        android:layout_toRightOf="@+id/subTitleData3"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData4"
+        android:layout_toRightOf="@+id/subTitleLabel4"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_data"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_medium" />
+        
+        <TextView
+        android:id="@+id/subTitleLabel5"
+        android:layout_toRightOf="@+id/subTitleData4"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_label"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_small" />
+        
+        <TextView
+        android:id="@+id/subTitleData5"
+        android:layout_toRightOf="@+id/subTitleLabel5"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/sub_title_data"
+        android:padding="2dip"
+        android:textSize="@dimen/text_size_medium" />
+        
+    </RelativeLayout>
+    
+    <!-- Chart view -->
+    <LinearLayout
+    android:id="@+id/chart"
+    android:layout_width="fill_parent"
+    android:layout_height="0dip"
+    android:layout_weight="1"
+    android:orientation="horizontal" />
+
+</LinearLayout>
+<!-- From: file:/C:/AndroidApps/ChariotGauge1/app/src/main/res/layout/chart_layout.xml -->

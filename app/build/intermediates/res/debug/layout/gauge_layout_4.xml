@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dp"
+    android:orientation="vertical" >
+
+    <RelativeLayout style="@style/TitleBar" >
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            style="@style/TitleBarAction"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/home_string"
+            android:onClick="goHome"
+            android:padding="5dip"
+            android:src="@drawable/title_home_default" />
+
+        <ImageView
+            style="@style/TitleBarSeparator"
+            android:layout_toRightOf="@+id/homeButton"
+            android:paddingLeft="2dp" />
+        
+        <ImageButton
+            android:id="@+id/btnDisplay"
+            style="@style/TitleBarAction"
+            android:layout_toLeftOf="@+id/btnOne"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonDisplayClick"
+            android:padding="5dip"
+            android:paddingRight="2dp"
+            android:src="@drawable/chart_icon" />
+
+        <ImageButton
+            android:id="@+id/btnOne"
+            style="@style/TitleBarAction"
+            android:layout_toLeftOf="@+id/btnTwo"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonOneClick"
+            android:padding="5dip"
+            android:paddingRight="2dp"
+            android:src="@drawable/title_gauge_reset" />
+
+        <ImageButton
+            android:id="@+id/btnTwo"
+            style="@style/TitleBarAction"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonTwoClick"
+            android:padding="5dip"
+            android:src="@drawable/title_gauge_max" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="1.0dip"
+        android:paddingLeft="1.0dip"
+        android:paddingRight="1.0dip"
+        android:paddingTop="1.0dip" >
+
+        <com.chariotinstruments.chariotgauge.GaugeBuilder
+            android:id="@+id/analogGauge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="1" />
+
+        <com.chariotinstruments.chariotgauge.GaugeBuilder
+            android:id="@+id/analogGauge2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="1.0dip"
+        android:paddingLeft="1.0dip"
+        android:paddingRight="1.0dip"
+        android:paddingTop="1.0dip" >
+
+        <TextView
+            android:id="@+id/txtViewDigital"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/test_text"
+            android:textSize="45sp" />
+
+        <TextView
+            android:id="@+id/txtViewDigital2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/test_text"
+            android:textSize="45sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="6.0dip"
+        android:paddingLeft="1.0dip"
+        android:paddingRight="1.0dip"
+        android:paddingTop="1.0dip" >
+
+        <com.chariotinstruments.chariotgauge.GaugeBuilder
+            android:id="@+id/analogGauge3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="1" />
+
+        <com.chariotinstruments.chariotgauge.GaugeBuilder
+            android:id="@+id/analogGauge4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="1.0dip"
+        android:paddingLeft="1.0dip"
+        android:paddingRight="1.0dip"
+        android:paddingTop="1.0dip" >
+
+        <TextView
+            android:id="@+id/txtViewDigital3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/test_text"
+            android:textSize="45sp" />
+
+        <TextView
+            android:id="@+id/txtViewDigital4"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/test_text"
+            android:textSize="45sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/txtViewVoltsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/txtViewVolts"
+            android:gravity="left"
+            android:text="@string/volts"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/txtViewVolts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal"
+            android:text="@string/test_text"
+            android:textSize="35sp" />
+    </RelativeLayout>
+
+</LinearLayout><!-- From: file:/C:/AndroidApps/ChariotGauge1/app/src/main/res/layout/gauge_layout_4.xml -->

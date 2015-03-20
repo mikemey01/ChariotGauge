@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:atswidget="http://schemas.android.com/apk/res/com.chariotinstruments.chariotgauge"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <RelativeLayout style="@style/TitleBarVertical" >
+
+        <ImageButton
+            android:id="@+id/btnTwo"
+            style="@style/TitleBarActionVertical"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/max_button"
+            android:onClick="buttonTwoClick"
+            android:padding="5dip"
+            android:src="@drawable/title_gauge_max" />
+
+        <ImageButton
+            android:id="@+id/btnOne"
+            style="@style/TitleBarActionVertical"
+            android:layout_below="@+id/btnTwo"
+            android:contentDescription="@string/reset_button"
+            android:onClick="buttonOneClick"
+            android:padding="5dip"
+            android:paddingTop="2dp"
+            android:src="@drawable/title_gauge_reset" />
+        
+        <ImageButton
+            android:id="@+id/btnDisplay"
+            style="@style/TitleBarActionVertical"
+            android:layout_below="@+id/btnOne"
+            android:contentDescription="@string/home_string"
+            android:onClick="buttonDisplayClick"
+            android:padding="5dip"
+            android:paddingRight="2dp"
+            android:src="@drawable/chart_icon" />
+
+        <ImageView
+            android:id="@+id/titleBarSeparator"
+            style="@style/TitleBarSeparatorVertical"
+            android:layout_above="@+id/homeButton"
+            android:contentDescription="@string/reset_button"
+            android:paddingBottom="2dp" />
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            style="@style/TitleBarActionVertical"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@string/home_string"
+            android:onClick="goHome"
+            android:padding="5dip"
+            android:src="@drawable/title_home_default" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <com.chariotinstruments.chariotgauge.GaugeBuilder
+                android:id="@+id/analogGauge"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1" />
+
+            <com.chariotinstruments.chariotgauge.GaugeBuilder
+                android:id="@+id/analogGauge2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/txtViewDigital"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="fill"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/test_text"
+                android:textSize="45sp" />
+
+            <TextView
+                android:id="@+id/txtViewDigital2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="fill"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/test_text"
+                android:textSize="45sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/C:/AndroidApps/ChariotGauge1/app/src/main/res/layout/gauge_layout_2_landscape.xml -->
