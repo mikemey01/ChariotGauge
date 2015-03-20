@@ -1,6 +1,7 @@
 # Directories #
 ###############
 app/build/
+taskArtifacts/
 
 # Compiled source #
 ###################
