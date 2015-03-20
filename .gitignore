@@ -4,6 +4,12 @@ app/build/
 build/
 taskArtifacts/
 
+# Misc user specific files #
+############################
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+
+
 # Compiled source #
 ###################
 *.com
