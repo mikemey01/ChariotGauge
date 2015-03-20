@@ -2,6 +2,7 @@
 ###############
 app/build/
 build/
+taskArtifacts/
 
 # Compiled source #
 ###################
